@@ -2,6 +2,8 @@ package com.shake_match.alchomist.cocktail;
 
 import com.shake_match.alchomist.global.BaseEntity;
 import com.shake_match.alchomist.ingredient.Ingredient;
+import com.shake_match.alchomist.review.Review;
+import com.shake_match.alchomist.theme.Theme;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -23,10 +25,16 @@ public class Cocktail extends BaseEntity {
     private String name;
 
     @OneToMany
-    List<Ingredient> ingredient = new ArrayList<>();
+    List<Volume> volumes = new ArrayList<>();
+
+    @OneToMany
+    List<Theme> themes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "cocktails")
+    List<Review> reviews = new ArrayList<>();
 
     @Column
-    String recipe;
+    String recipe; //TODO: 프론트와 recipe의 상세 확인해보기
 
     @Column
     String imageUrl;
@@ -39,5 +47,4 @@ public class Cocktail extends BaseEntity {
 
     @Column
     float totalRating;
-
 }

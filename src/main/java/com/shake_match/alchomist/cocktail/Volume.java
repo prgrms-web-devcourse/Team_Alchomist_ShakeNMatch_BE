@@ -1,19 +1,22 @@
-package com.shake_match.alchomist.refrigerator;
+package com.shake_match.alchomist.cocktail;
 
-import com.shake_match.alchomist.global.BaseEntity;
+import com.shake_match.alchomist.ingredient.Ingredient;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
-@Entity(name = "refrigerators")
-public class Refrigerator extends BaseEntity {
-
+@Entity(name = "volume")
+public class Volume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @Column
-    String liquor;
+    private int amount;
+
+    @OneToOne
+    private Ingredient ingredient;
 }
