@@ -25,12 +25,14 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
+    # 도커허브 로그인
     - name: Login to DockerHub
       uses: docker/login-action@v1
       with:
-        username: ${{secrets.DOCKERHUB_USERNAME}} # Github Settings - Secrets
-        password: ${{secrets.DOCKERHUB_TOKEN}} # Github Settings - Secrets
+        username: ${{secrets.DOCKERHUB_USERNAME}}
+        password: ${{secrets.DOCKERHUB_TOKEN}}
 
+    # 메이븐 빌드 이미지 만들어 도커허브로 업로드
     - name: build and release to DockerHub
       env:
         NAME: zer0da9 # DockerHub 계정 명
@@ -39,3 +41,4 @@ jobs:
         docker build -t $REPO .
         docker tag $REPO:latest $NAME/$REPO:latest
         docker push $NAME/$REPO:latest
+
