@@ -3,6 +3,9 @@ package com.shake_match.alchomist.review;
 import com.shake_match.alchomist.global.BaseEntity;
 import com.shake_match.alchomist.users.Users;
 import com.shake_match.alchomist.cocktail.Cocktail;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "reviews")
+@Builder
+@NoArgsConstructor
 public class Review extends BaseEntity {
 
     @Id
@@ -31,4 +36,52 @@ public class Review extends BaseEntity {
 
     @ManyToOne
     Cocktail cocktails;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
+
+    public Cocktail getCocktails() {
+        return cocktails;
+    }
+
+    public void setCocktails(Cocktail cocktails) {
+        this.cocktails = cocktails;
+    }
 }
