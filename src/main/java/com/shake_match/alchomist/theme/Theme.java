@@ -15,12 +15,15 @@ import javax.persistence.OneToMany;
 public class Theme extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column
-    String theme; // ""
+    @Column(name = "main_category")
+    String mainCategory;
 
-    @OneToMany //TODO - many To many로 바뀔 수 있음
-    public List<Cocktail> cocktails = new ArrayList<>();
+    @Column(name = "sub_category")
+    String subCategory;
+
+//    @OneToMany //TODO - many To many로 바뀔 수 있음, 검색 시 테마가 칵테일을 알아야할까
+//    public List<Cocktail> cocktails = new ArrayList<>();
 }
