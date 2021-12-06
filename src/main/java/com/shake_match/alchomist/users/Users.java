@@ -50,5 +50,8 @@ public class Users extends BaseEntity {
     @OneToMany
     List<Cocktail> cocktails = new ArrayList<>();
 
+    public Long getId(){
+        return this.id;
+    }
 
 }
