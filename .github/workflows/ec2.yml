@@ -1,26 +1,24 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+# https://github.com/appleboy/ssh-action
 
-name: ec2
+name: Github Action(Shell) to EC2
 
 on:
   push:
     branches: [ main ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, release/*, develop]
 
 jobs:
   build:
-      name: Build
-      runs-on: ubuntu-latest
-      steps:
-      - name: executing remote ssh commands using password
+    name: Github Action to EC2
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote ssh commands
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
-          key: ${{ secrets.REMOTE_SSH_KEY }}
-          port: ${{ secrets.REMOTE_PORT }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.PORT }}
           script: |
-            whoami
-            ls
+            ./deploy.sh
