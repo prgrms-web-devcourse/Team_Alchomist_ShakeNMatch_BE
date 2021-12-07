@@ -21,12 +21,6 @@ public class Ingredient extends BaseEntity {
     @Column(nullable = false)
     String name;
 
-    @Column(nullable = false)
-    String imageUrl;
-
-    @Column(nullable = false)
-    String buyingUrl;
-
     @OneToMany
     List<Cocktail> cocktails = new ArrayList<>();
 }

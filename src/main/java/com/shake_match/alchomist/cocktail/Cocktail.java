@@ -47,4 +47,32 @@ public class Cocktail extends BaseEntity {
 
     @Column
     float totalRating;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getRecipe() {
+        return recipe;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getYoutubeLink() {
+        return youtubeLink;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public float getTotalRating() {
+        return totalRating;
+    }
 }
