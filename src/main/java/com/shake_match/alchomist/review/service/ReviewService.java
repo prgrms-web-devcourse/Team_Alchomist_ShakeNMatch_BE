@@ -14,6 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ReviewService {
 
@@ -47,18 +50,27 @@ public class ReviewService {
         reviewRepository.delete(review);
     }
 
-//    @Transactional // 리뷰, 칵테일 id를 이용한 조회
-//    public Page<ReviewResponse> findAll(Pageable pageable) {
-//        return reviewRepository.findAll(pageable)
-//                .map(ReviewResponse::new);
-//    }
-//
-//    @Transactional // 리뷰, 사용자 id를 이용한 조회
-//    public ReviewResponse findById(Long reviewId) throws NotFoundException {
-//        return reviewRepository.findById(reviewId)
-//                .map(ReviewResponse::new)
-//                .orElseThrow(() -> new NotFoundException("해당 리뷰는 존재하지 않습니다."));
-//    }
+    @Transactional // 리뷰 전체 조회
+    public Page<ReviewResponse> findAll(Pageable pageable) {
+        return reviewRepository.findAll(pageable)
+                .map(ReviewResponse::new);
+    }
+
+    @Transactional // 리뷰, 사용자 id를 이용한 조회
+    public List<ReviewResponse> findAllByUserId(Pageable pageable, Long userId) throws NotFoundException {
+        return reviewRepository.findAll(pageable)
+                .map(ReviewResponse::new)
+                .stream().filter(x -> x.getUserId().equals(userId))
+                .collect(Collectors.toList());
+    }
+
+    @Transactional // 리뷰, 칵테일 id를 이용한 조회
+    public List<ReviewResponse> findAllByCocktailId(Pageable pageable, Long cocktailId) throws NotFoundException {
+        return reviewRepository.findAll(pageable)
+                .map(ReviewResponse::new)
+                .stream().filter(x -> x.getCocktailId().equals(cocktailId))
+                .collect(Collectors.toList());
+    }
 
     @Transactional // 실제로 저장되어있는 사용자인지 확인하고 조회하는 메소드
     public Users getUser(Long userId) throws NotFoundException {

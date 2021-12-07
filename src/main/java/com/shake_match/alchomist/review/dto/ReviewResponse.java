@@ -6,6 +6,7 @@ public class ReviewResponse {
 
     private Long reviewId;
     private Long userId;
+    private Long cocktailId;
     private String imageUrl;
     private String description;
     private int rating;
@@ -13,6 +14,7 @@ public class ReviewResponse {
     public ReviewResponse(Review review) {
         this.reviewId = review.getId();
         this.userId = review.getUsers().getId();
+        this.cocktailId = review.getCocktails().getId();
         this.imageUrl = review.getUrl();
         this.description = review.getDescription();
         this.rating = review.getRating();
@@ -24,6 +26,10 @@ public class ReviewResponse {
 
     public Long getUserId() {
         return userId;
+    }
+
+    public Long getCocktailId() {
+        return cocktailId;
     }
 
     public String getImageUrl() {
