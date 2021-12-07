@@ -3,6 +3,7 @@ package com.shake_match.alchomist.review;
 import com.shake_match.alchomist.global.BaseEntity;
 import com.shake_match.alchomist.users.Users;
 import com.shake_match.alchomist.cocktail.Cocktail;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import javax.persistence.ManyToOne;
 
 @Entity(name = "reviews")
 @Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Review extends BaseEntity {
 
