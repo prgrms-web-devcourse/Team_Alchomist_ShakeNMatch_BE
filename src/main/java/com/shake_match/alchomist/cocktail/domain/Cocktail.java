@@ -1,9 +1,12 @@
-package com.shake_match.alchomist.cocktail;
+package com.shake_match.alchomist.cocktail.domain;
 
 import com.shake_match.alchomist.global.BaseEntity;
-import com.shake_match.alchomist.ingredient.Ingredient;
 import com.shake_match.alchomist.review.Review;
 import com.shake_match.alchomist.theme.Theme;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -15,6 +18,8 @@ import javax.persistence.OneToMany;
 
 
 @Entity(name = "cocktails")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Cocktail extends BaseEntity {
 
     @Id
@@ -24,7 +29,7 @@ public class Cocktail extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
     List<Volume> volumes = new ArrayList<>();
 
     @OneToMany
@@ -48,7 +53,21 @@ public class Cocktail extends BaseEntity {
     @Column
     float totalRating;
 
+<<<<<<< HEAD:src/main/java/com/shake_match/alchomist/cocktail/Cocktail.java
     public Long getId() {
         return id;
+=======
+    public Cocktail(String name, String recipe, String imageUrl, String youtubeLink) {
+        this.name = name;
+        this.recipe = recipe;
+        this.imageUrl = imageUrl;
+        this.youtubeLink = youtubeLink;
+        this.likes = 0;
+        this.totalRating = 0;
+    }
+
+    public void addThemes(Theme theme){
+        themes.add(theme);
+>>>>>>> c25ddf71e045f44d67a6e146dcfaa94a8a270670:src/main/java/com/shake_match/alchomist/cocktail/domain/Cocktail.java
     }
 }

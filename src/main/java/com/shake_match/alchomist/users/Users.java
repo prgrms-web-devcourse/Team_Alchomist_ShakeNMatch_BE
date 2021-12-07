@@ -1,6 +1,6 @@
 package com.shake_match.alchomist.users;
 
-import com.shake_match.alchomist.cocktail.Cocktail;
+import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.global.BaseEntity;
 import com.shake_match.alchomist.ingredient.Ingredient;
 import com.shake_match.alchomist.review.Review;
