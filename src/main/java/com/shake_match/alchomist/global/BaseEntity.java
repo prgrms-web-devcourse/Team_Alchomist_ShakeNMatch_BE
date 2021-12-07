@@ -10,7 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
-public class BaseEntity {
+public abstract class BaseEntity {
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP")
@@ -19,4 +19,13 @@ public class BaseEntity {
     @LastModifiedDate
     @Column(name = "last_modified_at", nullable = false, columnDefinition = "TIMESTAMP")
     private LocalDateTime lastModifiedAt;
+
+    public BaseEntity() {
+        this.createdAt = LocalDateTime.now();
+        this.lastModifiedAt = LocalDateTime.now();
+    }
+
+    public void setModify(){
+        this.lastModifiedAt = LocalDateTime.now();
+    }
 }
