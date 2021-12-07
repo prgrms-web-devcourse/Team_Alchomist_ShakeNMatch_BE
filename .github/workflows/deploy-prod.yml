@@ -41,8 +41,7 @@ jobs:
         docker build -t $REPO .
         docker tag $REPO:latest $NAME/$REPO:latest
         docker push $NAME/$REPO:latest
-
-
+        
     - name: Github Action to EC2
       uses: appleboy/ssh-action@master
       with:
