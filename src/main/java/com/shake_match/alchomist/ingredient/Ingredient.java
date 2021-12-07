@@ -1,6 +1,6 @@
 package com.shake_match.alchomist.ingredient;
 
-import com.shake_match.alchomist.cocktail.Cocktail;
+import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.global.BaseEntity;
 import java.util.List;
 import java.util.ArrayList;
