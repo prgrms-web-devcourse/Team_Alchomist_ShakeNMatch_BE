@@ -7,8 +7,11 @@ import com.shake_match.alchomist.review.dto.ReviewResponse;
 import com.shake_match.alchomist.review.service.ReviewService;
 import com.shake_match.alchomist.users.Users;
 import javassist.NotFoundException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class ReviewController {
@@ -26,9 +29,16 @@ public class ReviewController {
     }
 
     // 칵테일 id를 통한 조회
-
+    @GetMapping("/review/{userId}")
+    public ApiResponse<List<ReviewResponse>> findAllByUserId(Pageable pageable, @PathVariable("userId") Long userId) throws NotFoundException {
+        return ApiResponse.ok(reviewService.findAllByUserId(pageable, userId));
+    }
 
     // 사용자 id를 통한 조회
+    @GetMapping("/review/{cocktailId}")
+    public ApiResponse<List<ReviewResponse>> findAllByCocktailId(Pageable pageable, @PathVariable("cocktailId") Long cocktailId) throws NotFoundException {
+        return ApiResponse.ok(reviewService.findAllByCocktailId(pageable, cocktailId));
+    }
 
 
     @DeleteMapping("/review/{id}") // 리뷰 삭제
