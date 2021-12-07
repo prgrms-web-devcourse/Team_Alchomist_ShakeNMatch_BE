@@ -5,7 +5,6 @@ import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.cocktail.dto.CocktailDetailResponse;
 import com.shake_match.alchomist.cocktail.dto.SearchResponse;
 import com.shake_match.alchomist.cocktail.repository.CocktailRepository;
-import com.sun.jdi.request.DuplicateRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,5 +55,4 @@ public class CocktailServiceImpl implements CocktailService {
         }
         return convertor.toCocktailDetail(cocktail.get());
     }
-
 }

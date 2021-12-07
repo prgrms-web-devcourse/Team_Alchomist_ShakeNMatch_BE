@@ -2,6 +2,7 @@ package com.shake_match.alchomist.cocktail.convertor;
 
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.cocktail.dto.CocktailDetailResponse;
+
 import com.shake_match.alchomist.cocktail.dto.SearchResponse;
 import org.springframework.stereotype.Component;
 

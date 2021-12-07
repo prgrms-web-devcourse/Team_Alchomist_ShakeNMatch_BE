@@ -1,6 +1,7 @@
 package com.shake_match.alchomist.cocktail.service;
 
 import com.shake_match.alchomist.cocktail.dto.CocktailDetailResponse;
+
 import com.shake_match.alchomist.cocktail.dto.SearchResponse;
 
 import java.util.List;
