@@ -11,9 +11,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 16
@@ -41,4 +39,3 @@ jobs:
         docker build -t $REPO .
         docker tag $REPO:latest $NAME/$REPO:latest
         docker push $NAME/$REPO:latest
-
