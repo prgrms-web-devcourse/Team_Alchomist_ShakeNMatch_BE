@@ -42,3 +42,15 @@ jobs:
         docker tag $REPO:latest $NAME/$REPO:latest
         docker push $NAME/$REPO:latest
 
+     - name: Github Action to EC2
+      runs-on: ubuntu-latest
+      steps:
+        - name: executing remote ssh commands
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.HOST }}
+            username: ${{ secrets.USER }}
+            key: ${{ secrets.SSH_KEY }}
+            port: ${{ secrets.PORT }}
+            script: |
+              ./deploy.sh
