@@ -47,4 +47,8 @@ public class Cocktail extends BaseEntity {
 
     @Column
     float totalRating;
+
+    public Long getId() {
+        return id;
+    }
 }
