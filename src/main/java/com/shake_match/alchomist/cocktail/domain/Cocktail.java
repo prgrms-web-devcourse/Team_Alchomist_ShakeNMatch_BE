@@ -53,10 +53,10 @@ public class Cocktail extends BaseEntity {
     @Column
     float totalRating;
 
-<<<<<<< HEAD:src/main/java/com/shake_match/alchomist/cocktail/Cocktail.java
     public Long getId() {
         return id;
-=======
+    }
+
     public Cocktail(String name, String recipe, String imageUrl, String youtubeLink) {
         this.name = name;
         this.recipe = recipe;
@@ -68,6 +68,5 @@ public class Cocktail extends BaseEntity {
 
     public void addThemes(Theme theme){
         themes.add(theme);
->>>>>>> c25ddf71e045f44d67a6e146dcfaa94a8a270670:src/main/java/com/shake_match/alchomist/cocktail/domain/Cocktail.java
     }
 }

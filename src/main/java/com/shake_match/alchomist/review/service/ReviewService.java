@@ -1,6 +1,6 @@
 package com.shake_match.alchomist.review.service;
 
-import com.shake_match.alchomist.cocktail.Cocktail;
+import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.review.Review;
 import com.shake_match.alchomist.review.converter.ReviewConverter;
 import com.shake_match.alchomist.review.dto.ReviewRequest;

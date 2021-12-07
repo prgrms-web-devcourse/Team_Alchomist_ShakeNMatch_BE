@@ -1,6 +1,6 @@
 package com.shake_match.alchomist.review.controller;
 
-import com.shake_match.alchomist.cocktail.Cocktail;
+import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.global.ApiResponse;
 import com.shake_match.alchomist.review.dto.ReviewRequest;
 import com.shake_match.alchomist.review.dto.ReviewResponse;
@@ -39,7 +39,6 @@ public class ReviewController {
     public ApiResponse<List<ReviewResponse>> findAllByCocktailId(Pageable pageable, @PathVariable("cocktailId") Long cocktailId) throws NotFoundException {
         return ApiResponse.ok(reviewService.findAllByCocktailId(pageable, cocktailId));
     }
-
 
     @DeleteMapping("/review/{id}") // 리뷰 삭제
     public ApiResponse<Void> delete(@PathVariable("id") Long reviewId, Users user) throws Exception {
