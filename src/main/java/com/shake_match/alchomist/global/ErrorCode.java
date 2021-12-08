@@ -19,6 +19,7 @@ public enum ErrorCode {
     NOT_EXIST_BADGE("존재하지 않는 배지입니다"),
     UNSUPPORTED_MEDIA_TYPE("지원하지 않는 미디어 타입입니다."),
     NOT_EXIST_LIKE("존재하지 않는 좋아요 입니다."),
+    NOT_EXIST_REVIEW("존재하지 않는 리뷰입니다."),
     FORBIDDEN("권한이 없습니다.");
 
     private final String message;
