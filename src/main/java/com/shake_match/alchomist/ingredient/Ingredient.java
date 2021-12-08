@@ -2,15 +2,17 @@ package com.shake_match.alchomist.ingredient;
 
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.global.BaseEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 import java.util.ArrayList;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "ingredients")
 public class Ingredient extends BaseEntity {
 
@@ -21,6 +23,22 @@ public class Ingredient extends BaseEntity {
     @Column(nullable = false)
     String name;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     List<Cocktail> cocktails = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Cocktail> getCocktails() {
+        return cocktails;
+    }
+
+    public void setCocktails(List<Cocktail> cocktails) {
+        this.cocktails = cocktails;
+    }
 }
