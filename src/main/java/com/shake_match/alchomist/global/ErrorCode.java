@@ -17,6 +17,7 @@ public enum ErrorCode {
     INVALID_IMAGE_TYPE("이미지의 종류 형식이 맞지 않습니다."),
     NOT_EXIST_COCKTAIL("존재하지 않는 칵테일입니다"),
     NOT_EXIST_IMAGE("존재하지 않는 이미지입니다"),
+    NOT_EXIST_INGREDIENT("존재하지 않는 재료입니다"),
     NOT_EXIST_BADGE("존재하지 않는 배지입니다"),
     UNSUPPORTED_MEDIA_TYPE("지원하지 않는 미디어 타입입니다."),
     NOT_EXIST_LIKE("존재하지 않는 좋아요 입니다."),

@@ -2,29 +2,31 @@ package com.shake_match.alchomist.ingredient;
 
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.global.BaseEntity;
+import com.shake_match.alchomist.ingredient.dto.request.IngredientUpdateRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.ArrayList;
 import javax.persistence.*;
 
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "ingredients")
 public class Ingredient extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column(nullable = false)
-    String name;
+    private String name;
 
     @OneToMany(fetch = FetchType.EAGER)
-    List<Cocktail> cocktails = new ArrayList<>();
+    private List<Cocktail> cocktails = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -38,7 +40,8 @@ public class Ingredient extends BaseEntity {
         return cocktails;
     }
 
-    public void setCocktails(List<Cocktail> cocktails) {
-        this.cocktails = cocktails;
+    public void update(IngredientUpdateRequest request) {
+        this.name = request.getIngredientName();
+        this.cocktails = request.getCocktails();
     }
 }

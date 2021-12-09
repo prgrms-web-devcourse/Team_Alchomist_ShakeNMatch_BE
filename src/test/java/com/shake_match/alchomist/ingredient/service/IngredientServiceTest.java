@@ -3,8 +3,8 @@ package com.shake_match.alchomist.ingredient.service;
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.cocktail.repository.CocktailRepository;
 import com.shake_match.alchomist.ingredient.Ingredient;
-import com.shake_match.alchomist.ingredient.dto.IngredientRequest;
-import com.shake_match.alchomist.ingredient.dto.IngredientResponse;
+import com.shake_match.alchomist.ingredient.dto.request.IngredientDetailRequest;
+import com.shake_match.alchomist.ingredient.dto.response.IngredientDetailResponse;
 import com.shake_match.alchomist.ingredient.repository.IngredientRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
@@ -64,7 +64,7 @@ class IngredientServiceTest {
         cocktails.add(cocktailTest1);
         cocktails.add(cocktailTest2);
 
-        IngredientRequest request = IngredientRequest.builder()
+        IngredientDetailRequest request = IngredientDetailRequest.builder()
                 .ingredientId(INGREDIENT_ID)
                 .ingredientName("레몬주스")
                 .cocktails(cocktails)
@@ -90,7 +90,7 @@ class IngredientServiceTest {
     @DisplayName("재료 id 조회 테스트")
     public void findOneByIdTest() {
         PageRequest pageRequest = PageRequest.of(0, 10);
-        List<IngredientResponse> responses = ingredientService.findAllById(pageRequest, INGREDIENT_ID);
+        List<IngredientDetailResponse> responses = ingredientService.findAllById(pageRequest, INGREDIENT_ID);
         assertThat(responses.get(0).getIngredientId()).isEqualTo(INGREDIENT_ID);
     }
 
@@ -98,7 +98,7 @@ class IngredientServiceTest {
     @DisplayName("재료 name 조회 테스트")
     public void findOneByNameTest() {
         PageRequest pageRequest = PageRequest.of(0, 10);
-        List<IngredientResponse> responses = ingredientService.findAllByName(pageRequest, INGREDIENT_NAME);
+        List<IngredientDetailResponse> responses = ingredientService.findAllByName(pageRequest, INGREDIENT_NAME);
         assertThat(responses.get(0).getIngredientName()).isEqualTo(INGREDIENT_NAME);
     }
 }
