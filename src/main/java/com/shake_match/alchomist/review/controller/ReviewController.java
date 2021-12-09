@@ -24,8 +24,8 @@ public class ReviewController {
 
     @PostMapping("/review") // 리뷰 생성
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse<ReviewResponse> insert(@RequestBody ReviewRequest request, Users user, Cocktail cocktail) throws NotFoundException {
-        return ApiResponse.ok(reviewService.insert(request, user, cocktail));
+    public ApiResponse<ReviewResponse> insert(@RequestBody ReviewRequest request) throws NotFoundException {
+        return ApiResponse.ok(reviewService.insert(request));
     }
 
     // 칵테일 id를 통한 조회

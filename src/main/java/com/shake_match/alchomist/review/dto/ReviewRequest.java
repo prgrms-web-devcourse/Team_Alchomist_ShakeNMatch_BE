@@ -1,19 +1,22 @@
 package com.shake_match.alchomist.review.dto;
 
+import com.shake_match.alchomist.cocktail.domain.Cocktail;
+import com.shake_match.alchomist.users.Users;
+
 public class ReviewRequest {
 
-    private Long userId;
-    private Long cocktailId;
+    private Users users;
+    private Cocktail cocktail;
     private String imageUrl;
     private String description;
     private int rating;
 
-    public Long getUserId() {
-        return userId;
+    public Users getUsers() {
+        return users;
     }
 
-    public Long getCocktailId() {
-        return cocktailId;
+    public Cocktail getCocktail() {
+        return cocktail;
     }
 
     public String getImageUrl() {

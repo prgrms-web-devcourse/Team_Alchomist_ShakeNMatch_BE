@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReviewConverter {
 
-    public Review converterReview(ReviewRequest reviewRequest, Users users, Cocktail cocktail){ // Dto -> Entity
+    public Review converterReview(ReviewRequest request){ // Dto -> Entity
         return Review.builder()
-                .rating(reviewRequest.getRating())
-                .description(reviewRequest.getDescription())
-                .url(reviewRequest.getImageUrl())
-                .users(users)
-                .cocktails(cocktail)
+                .rating(request.getRating())
+                .description(request.getDescription())
+                .url(request.getImageUrl())
+                .users(request.getUsers())
+                .cocktails(request.getCocktail())
                 .build();
     }
 }

@@ -20,27 +20,11 @@ public class ReviewResponse {
         this.rating = review.getRating();
     }
 
-    public Long getReviewId() {
-        return reviewId;
-    }
-
     public Long getUserId() {
         return userId;
     }
 
     public Long getCocktailId() {
         return cocktailId;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public int getRating() {
-        return rating;
     }
 }

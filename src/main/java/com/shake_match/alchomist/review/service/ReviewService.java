@@ -1,6 +1,7 @@
 package com.shake_match.alchomist.review.service;
 
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
+import com.shake_match.alchomist.cocktail.repository.CocktailRepository;
 import com.shake_match.alchomist.global.ErrorCode;
 import com.shake_match.alchomist.global.NotFoundException;
 import com.shake_match.alchomist.review.Review;
@@ -24,19 +25,21 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final ReviewConverter reviewConverter;
     private final UsersRepository usersRepository;
+    private final CocktailRepository cocktailRepository;
 
-    public ReviewService(ReviewRepository reviewRepository, ReviewConverter reviewConverter, UsersRepository usersRepository) {
+    public ReviewService(ReviewRepository reviewRepository, ReviewConverter reviewConverter, UsersRepository usersRepository, CocktailRepository cocktailRepository) {
         this.reviewRepository = reviewRepository;
         this.reviewConverter = reviewConverter;
         this.usersRepository = usersRepository;
+        this.cocktailRepository = cocktailRepository;
     }
 
 
     @Transactional // 리뷰 작성
-    public ReviewResponse insert(ReviewRequest request, Users users, Cocktail cocktail) throws NotFoundException {
-        Users user = getUser(users.getId());
-        Review review = reviewConverter.converterReview(request, user, cocktail);
-        review.setUsers(users);
+    public ReviewResponse insert(ReviewRequest request) throws NotFoundException {
+        getUser(request.getUsers().getId());
+        getCocktail(request.getCocktail().getId());
+        Review review = reviewConverter.converterReview(request);
         Review insertedReview = reviewRepository.save(review);
         return new ReviewResponse(insertedReview);
     }
@@ -77,5 +80,11 @@ public class ReviewService {
     public Users getUser(Long userId) throws NotFoundException {
         return usersRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
+    }
+
+    @Transactional // 실제로 저장되어있는 칵테일인지 확인하고 조회하는 메소드
+    public Cocktail getCocktail(Long cocktailId) throws NotFoundException {
+        return cocktailRepository.findById(cocktailId)
+                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_COCKTAIL));
     }
 }
