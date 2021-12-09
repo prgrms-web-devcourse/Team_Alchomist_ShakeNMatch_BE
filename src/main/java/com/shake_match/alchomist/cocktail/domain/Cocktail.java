@@ -91,7 +91,7 @@ public class Cocktail extends BaseEntity {
         themes.add(theme);
     }
 
-    public void addLikes(Boolean bool){
+    public void addLikes(boolean bool){
         if(bool){
             likes++;
         }
