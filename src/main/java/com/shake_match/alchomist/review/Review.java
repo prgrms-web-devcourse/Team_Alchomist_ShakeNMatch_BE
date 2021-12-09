@@ -42,47 +42,23 @@ public class Review extends BaseEntity {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public int getRating() {
         return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getUrl() {
         return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public Users getUsers() {
         return users;
     }
 
-    public void setUsers(Users users) {
-        this.users = users;
-    }
-
     public Cocktail getCocktails() {
         return cocktails;
-    }
-
-    public void setCocktails(Cocktail cocktails) {
-        this.cocktails = cocktails;
     }
 }

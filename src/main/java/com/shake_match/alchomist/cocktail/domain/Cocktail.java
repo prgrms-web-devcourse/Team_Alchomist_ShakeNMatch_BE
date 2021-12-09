@@ -53,10 +53,6 @@ public class Cocktail extends BaseEntity {
     @Column
     float totalRating;
 
-    public Long getId() {
-        return id;
-    }
-
     public Cocktail(String name, String recipe, String imageUrl, String youtubeLink) {
         this.name = name;
         this.recipe = recipe;
