@@ -2,31 +2,46 @@ package com.shake_match.alchomist.ingredient;
 
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.global.BaseEntity;
+import com.shake_match.alchomist.ingredient.dto.request.IngredientUpdateRequest;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
 import java.util.List;
 import java.util.ArrayList;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "ingredients")
 public class Ingredient extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column(nullable = false)
-    String name;
+    private String name;
 
-    @Column(nullable = false)
-    String imageUrl;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Cocktail> cocktails = new ArrayList<>();
 
-    @Column(nullable = false)
-    String buyingUrl;
+    public Long getId() {
+        return id;
+    }
 
-    @OneToMany
-    List<Cocktail> cocktails = new ArrayList<>();
+    public String getName() {
+        return name;
+    }
+
+    public List<Cocktail> getCocktails() {
+        return cocktails;
+    }
+
+    public void update(IngredientUpdateRequest request) {
+        this.name = request.getIngredientName();
+        this.cocktails = request.getCocktails();
+    }
 }

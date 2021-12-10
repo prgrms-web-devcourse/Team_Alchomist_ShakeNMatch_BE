@@ -1,6 +1,7 @@
 package com.shake_match.alchomist.cocktail.controller;
 
 import com.shake_match.alchomist.cocktail.dto.CocktailDetailResponse;
+import com.shake_match.alchomist.cocktail.dto.CreateCocktailRequest;
 import com.shake_match.alchomist.cocktail.dto.SearchResponse;
 import com.shake_match.alchomist.cocktail.service.CocktailService;
 import lombok.RequiredArgsConstructor;
@@ -28,5 +29,15 @@ public class CocktailController {
     @GetMapping("/{id}")
     public CocktailDetailResponse searchCocktail(@PathVariable Long id) throws Exception {
         return service.searchDetail(id);
+    }
+
+    @PostMapping
+    public String createCocktail(@RequestBody CreateCocktailRequest createCocktailRequest) throws Exception{
+        return service.createCocktail(createCocktailRequest);
+    }
+
+    @DeleteMapping("/{name}")
+    public String deleteCocktail(@PathVariable String name) throws Exception{
+        return service.deleteCocktail(name);
     }
 }

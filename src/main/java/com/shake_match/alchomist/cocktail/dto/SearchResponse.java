@@ -1,5 +1,9 @@
 package com.shake_match.alchomist.cocktail.dto;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SearchResponse {
 
     Long id;
