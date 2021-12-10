@@ -3,9 +3,7 @@ package com.shake_match.alchomist.cocktail.domain;
 import com.shake_match.alchomist.global.BaseEntity;
 import com.shake_match.alchomist.review.Review;
 import com.shake_match.alchomist.theme.Theme;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +17,8 @@ import javax.persistence.OneToMany;
 
 @Entity(name = "cocktails")
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Cocktail extends BaseEntity {
 
@@ -53,6 +53,34 @@ public class Cocktail extends BaseEntity {
     @Column
     float totalRating;
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getRecipe() {
+        return recipe;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getYoutubeLink() {
+        return youtubeLink;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public float getTotalRating() {
+        return totalRating;
+    }
+
     public Cocktail(String name, String recipe, String imageUrl, String youtubeLink) {
         this.name = name;
         this.recipe = recipe;
@@ -62,7 +90,7 @@ public class Cocktail extends BaseEntity {
         this.totalRating = 0;
     }
 
-    public void addThemes(Theme theme){
+    public void addThemes(Theme theme) {
         themes.add(theme);
     }
 
