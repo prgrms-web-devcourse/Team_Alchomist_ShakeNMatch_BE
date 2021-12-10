@@ -16,10 +16,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@Getter
 @Entity(name = "users")
 public class Users extends BaseEntity {
 
@@ -42,6 +48,7 @@ public class Users extends BaseEntity {
     @Column(nullable = false)
     boolean gender;
 
+    @Size(min = 20)
     @Column(nullable = false)
     int age;
 
@@ -57,5 +64,15 @@ public class Users extends BaseEntity {
     @OneToMany
     List<Cocktail> cocktails = new ArrayList<>();
 
+    public void addCocktails(Cocktail cocktail) {
+        if(!this.getCocktails().contains(cocktail)){
+            cocktails.add(cocktail);
+            cocktail.addLikes(true);
+        }
+        else {
+            cocktails.remove(cocktail);
+            cocktail.addLikes(false);
+        }
+    }
 
 }
