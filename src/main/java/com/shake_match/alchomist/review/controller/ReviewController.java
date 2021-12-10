@@ -1,12 +1,12 @@
 package com.shake_match.alchomist.review.controller;
 
-import com.shake_match.alchomist.cocktail.domain.Cocktail;
+
 import com.shake_match.alchomist.global.ApiResponse;
+import com.shake_match.alchomist.global.NotFoundException;
 import com.shake_match.alchomist.review.dto.ReviewRequest;
 import com.shake_match.alchomist.review.dto.ReviewResponse;
 import com.shake_match.alchomist.review.service.ReviewService;
 import com.shake_match.alchomist.users.Users;
-import javassist.NotFoundException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

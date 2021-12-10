@@ -85,6 +85,6 @@ public class ReviewService {
     @Transactional // 실제로 저장되어있는 칵테일인지 확인하고 조회하는 메소드
     public Cocktail getCocktail(Long cocktailId) throws NotFoundException {
         return cocktailRepository.findById(cocktailId)
-                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_COCKTAIL));
+                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_REVIEW)); // 수정해야함
     }
 }
