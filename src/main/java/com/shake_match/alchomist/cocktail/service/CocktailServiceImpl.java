@@ -3,8 +3,10 @@ package com.shake_match.alchomist.cocktail.service;
 import com.shake_match.alchomist.cocktail.convertor.CocktailConvertor;
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.cocktail.dto.CocktailDetailResponse;
+import com.shake_match.alchomist.cocktail.dto.CreateCocktailRequest;
 import com.shake_match.alchomist.cocktail.dto.SearchResponse;
 import com.shake_match.alchomist.cocktail.repository.CocktailRepository;
+import com.sun.jdi.request.DuplicateRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,5 +56,24 @@ public class CocktailServiceImpl implements CocktailService {
             throw new EntityNotFoundException();
         }
         return convertor.toCocktailDetail(cocktail.get());
+    }
+
+    @Override
+    public String createCocktail(CreateCocktailRequest createCocktailRequest) throws Exception {
+        if(repository.findByName(createCocktailRequest.getName()).isPresent()){
+            throw new DuplicateRequestException();
+        }
+        repository.save(convertor.toCocktail(createCocktailRequest));
+        return "success";
+    }
+
+    @Override
+    public String deleteCocktail(String name) throws Exception {
+        Optional<Cocktail> cocktail = repository.findByName(name);
+        if(cocktail.isEmpty()){
+            throw new EntityNotFoundException();
+        }
+        repository.deleteById(cocktail.get().getId());
+        return "success";
     }
 }
