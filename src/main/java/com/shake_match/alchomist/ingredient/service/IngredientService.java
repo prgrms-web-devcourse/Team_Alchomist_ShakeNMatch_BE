@@ -45,19 +45,17 @@ public class IngredientService {
     }
 
     @Transactional // ingredientId로 조회
-    public List<IngredientDetailResponse> findAllById(Pageable pageable, Long ingredientId) {
-        return ingredientRepository.findAll(pageable)
-                .map(IngredientDetailResponse::new)
-                .stream().filter(x -> x.getIngredientId().equals(ingredientId))
-                .collect(Collectors.toList());
+    public IngredientDetailResponse findById(Long ingredientId) {
+        Ingredient ingredient = ingredientRepository.findById(ingredientId)
+                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_INGREDIENT));
+        return new IngredientDetailResponse(ingredient);
     }
 
     @Transactional // ingredientName으로 조회
-    public List<IngredientDetailResponse> findAllByName(Pageable pageable, String name) {
-        return ingredientRepository.findAll(pageable)
-                .map(IngredientDetailResponse::new)
-                .stream().filter(x -> x.getIngredientName().equals(name))
-                .collect(Collectors.toList());
+    public IngredientDetailResponse findByName(String name) {
+        Ingredient ingredient = ingredientRepository.findByName(name)
+                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_INGREDIENT));
+        return new IngredientDetailResponse(ingredient);
     }
 
     @Transactional // ingredient 삭제

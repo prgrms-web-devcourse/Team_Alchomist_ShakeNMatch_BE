@@ -89,16 +89,14 @@ class IngredientServiceTest {
     @Test
     @DisplayName("재료 id 조회 테스트")
     public void findOneByIdTest() {
-        PageRequest pageRequest = PageRequest.of(0, 10);
-        List<IngredientDetailResponse> responses = ingredientService.findAllById(pageRequest, INGREDIENT_ID);
-        assertThat(responses.get(0).getIngredientId()).isEqualTo(INGREDIENT_ID);
+        IngredientDetailResponse responses = ingredientService.findById(INGREDIENT_ID);
+        assertThat(responses.getIngredientId()).isEqualTo(INGREDIENT_ID);
     }
 
     @Test
     @DisplayName("재료 name 조회 테스트")
     public void findOneByNameTest() {
-        PageRequest pageRequest = PageRequest.of(0, 10);
-        List<IngredientDetailResponse> responses = ingredientService.findAllByName(pageRequest, INGREDIENT_NAME);
-        assertThat(responses.get(0).getIngredientName()).isEqualTo(INGREDIENT_NAME);
+        IngredientDetailResponse responses = ingredientService.findByName(INGREDIENT_NAME);
+        assertThat(responses.getIngredientName()).isEqualTo(INGREDIENT_NAME);
     }
 }
