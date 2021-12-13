@@ -53,4 +53,8 @@ public class Ingredient extends BaseEntity {
         this.name = request.getIngredientName();
         this.cocktails = request.getCocktails();
     }
+
+    public void addCocktail(Cocktail cocktail){
+        this.cocktails.add(cocktail);
+    }
 }
