@@ -51,12 +51,4 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.PORT }}
         script: |
-          ./deploy.sh \
-            ${{ secrets.DOCKER_USERNAME }} \
-            ${{ secrets.DOCKER_REPOSITORY }} \
-            ${{ secrets.DOCKER_TAG_DEV }} \
-            ${{ secrets.DB_URL_DEV }} \
-            ${{ secrets.DB_USERNAME }} \
-            ${{ secrets.DB_PASSWORD }} \
-            ${{ secrets.AWS_S3_ACCESS_KEY }} \
-            ${{ secrets.AWS_S3_SECRET_KEY }}
+          ./deploy.sh
