@@ -2,17 +2,12 @@ package com.shake_match.alchomist.cocktail.domain;
 
 import com.shake_match.alchomist.global.BaseEntity;
 import com.shake_match.alchomist.review.Review;
-import com.shake_match.alchomist.theme.Theme;
+import com.shake_match.alchomist.theme.domain.Theme;
 import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 
 @Entity(name = "cocktails")
@@ -29,7 +24,7 @@ public class Cocktail extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(orphanRemoval = true)
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     List<Volume> volumes = new ArrayList<>();
 
     @OneToMany
@@ -81,11 +76,13 @@ public class Cocktail extends BaseEntity {
         return totalRating;
     }
 
-    public Cocktail(String name, String recipe, String imageUrl, String youtubeLink) {
+    public Cocktail(String name, String recipe, String imageUrl, String youtubeLink, List<Theme> themes, List<Volume> volumes) {
         this.name = name;
         this.recipe = recipe;
         this.imageUrl = imageUrl;
         this.youtubeLink = youtubeLink;
+        this.themes = themes;
+        this.volumes = volumes;
         this.likes = 0;
         this.totalRating = 0;
     }

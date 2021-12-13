@@ -4,6 +4,7 @@ import com.shake_match.alchomist.cocktail.dto.CocktailDetailResponse;
 import com.shake_match.alchomist.cocktail.dto.CreateCocktailRequest;
 import com.shake_match.alchomist.cocktail.dto.SearchResponse;
 import com.shake_match.alchomist.cocktail.service.CocktailService;
+import com.shake_match.alchomist.global.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,28 +17,33 @@ public class CocktailController {
 
     private final CocktailService service;
 
-    @GetMapping("/theme")
-    public List<SearchResponse> searchByTheme(@RequestParam String mainCategory, @RequestParam String subCategory) throws Exception{
-        return service.searchByTheme(mainCategory, subCategory);
+    @GetMapping("/theme") //테마에 따라서 칵테일 검색
+    public ApiResponse<List<SearchResponse>> searchByTheme(@RequestParam String mainCategory, @RequestParam String subCategory) throws Exception{
+        return ApiResponse.ok(service.searchByTheme(mainCategory, subCategory));
     }
 
-    @GetMapping("/{name}")
-    public CocktailDetailResponse searchCocktail(@PathVariable String name) throws Exception{
-        return service.searchByName(name);
+    @GetMapping("/name") //칵테일 이름으로 상세 정보 검색
+    public ApiResponse<CocktailDetailResponse> searchCocktail(@RequestParam String name) throws Exception{
+        return ApiResponse.ok(service.searchByName(name));
     }
 
-    @GetMapping("/{id}")
-    public CocktailDetailResponse searchCocktail(@PathVariable Long id) throws Exception {
-        return service.searchDetail(id);
+    @GetMapping("/id") //칵테일 아이디로 상세 정보 검색
+    public ApiResponse<CocktailDetailResponse> searchCocktail(@RequestParam Long id) throws Exception {
+        return ApiResponse.ok(service.searchDetail(id));
     }
 
-    @PostMapping
-    public String createCocktail(@RequestBody CreateCocktailRequest createCocktailRequest) throws Exception{
-        return service.createCocktail(createCocktailRequest);
+    @GetMapping //칵테일 전체 검색
+    public ApiResponse<List<SearchResponse>> searchAll() throws Exception {
+        return ApiResponse.ok(service.searchAll());
     }
 
-    @DeleteMapping("/{name}")
-    public String deleteCocktail(@PathVariable String name) throws Exception{
-        return service.deleteCocktail(name);
+    @PostMapping //칵테일 정보 저장
+    public ApiResponse<String> createCocktail(@RequestBody CreateCocktailRequest createCocktailRequest) throws Exception{
+        return ApiResponse.ok(service.createCocktail(createCocktailRequest));
+    }
+
+    @DeleteMapping("/{name}") //칵테일 이름으로 삭제
+    public ApiResponse<String> deleteCocktail(@PathVariable String name) throws Exception{
+        return ApiResponse.ok(service.deleteCocktail(name));
     }
 }

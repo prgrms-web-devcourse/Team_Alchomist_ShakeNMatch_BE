@@ -1,22 +1,23 @@
 package com.shake_match.alchomist.cocktail.dto;
 
-import com.shake_match.alchomist.cocktail.domain.Volume;
-import com.shake_match.alchomist.review.Review;
-import com.shake_match.alchomist.theme.Theme;
+import com.shake_match.alchomist.review.dto.ReviewDto;
+import com.shake_match.alchomist.theme.dto.ThemeDto;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class CocktailDetailResponse {
 
     Long id;
 
-    private String name;
+    String name;
 
-    List<Volume> volumes;
+    List<VolumeDto> volumes;
 
-    List<Theme> themes;
+    List<ThemeDto> themes;
 
-    List<Review> reviews;
+    List<ReviewDto> reviews;
 
     String recipe;
 
@@ -28,7 +29,7 @@ public class CocktailDetailResponse {
 
     float totalRating;
 
-    public CocktailDetailResponse(Long id, String name, List<Volume> volumes, List<Theme> themes, List<Review> reviews, String recipe, String imageUrl, String youtubeLink, int likes, float totalRating) {
+    public CocktailDetailResponse(Long id, String name, List<VolumeDto> volumes, List<ThemeDto> themes, List<ReviewDto> reviews, String recipe, String imageUrl, String youtubeLink, int likes, float totalRating) {
         this.id = id;
         this.name = name;
         this.volumes = volumes;
