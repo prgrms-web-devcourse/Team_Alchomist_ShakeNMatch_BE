@@ -1,8 +1,8 @@
-package com.shake_match.alchomist.review.dto;
+package com.shake_match.alchomist.review.dto.response;
 
 import com.shake_match.alchomist.review.Review;
 
-public class ReviewResponse {
+public class ReviewDetailResponse {
 
     private Long reviewId;
     private Long userId;
@@ -11,7 +11,7 @@ public class ReviewResponse {
     private String description;
     private int rating;
 
-    public ReviewResponse(Review review) {
+    public ReviewDetailResponse(Review review) {
         this.reviewId = review.getId();
         this.userId = review.getUsers().getId();
         this.cocktailId = review.getCocktails().getId();

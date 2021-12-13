@@ -1,9 +1,9 @@
-package com.shake_match.alchomist.review.dto;
+package com.shake_match.alchomist.review.dto.request;
 
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.users.Users;
 
-public class ReviewRequest {
+public class ReviewDetailRequest {
 
     private Users users;
     private Cocktail cocktail;
@@ -29,5 +29,13 @@ public class ReviewRequest {
 
     public int getRating() {
         return rating;
+    }
+
+    public ReviewDetailRequest(Users users, Cocktail cocktail, String imageUrl, String description, int rating) {
+        this.users = users;
+        this.cocktail = cocktail;
+        this.imageUrl = imageUrl;
+        this.description = description;
+        this.rating = rating;
     }
 }

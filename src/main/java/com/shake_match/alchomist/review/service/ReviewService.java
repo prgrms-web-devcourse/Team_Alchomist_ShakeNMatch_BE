@@ -6,8 +6,10 @@ import com.shake_match.alchomist.global.ErrorCode;
 import com.shake_match.alchomist.global.NotFoundException;
 import com.shake_match.alchomist.review.Review;
 import com.shake_match.alchomist.review.converter.ReviewConverter;
-import com.shake_match.alchomist.review.dto.ReviewRequest;
-import com.shake_match.alchomist.review.dto.ReviewResponse;
+import com.shake_match.alchomist.review.dto.request.ReviewDetailRequest;
+import com.shake_match.alchomist.review.dto.request.ReviewUpdateRequest;
+import com.shake_match.alchomist.review.dto.response.ReviewDetailResponse;
+import com.shake_match.alchomist.review.dto.response.ReviewUpdateResponse;
 import com.shake_match.alchomist.review.repository.ReviewRepository;
 import com.shake_match.alchomist.users.Users;
 import com.shake_match.alchomist.users.repository.UsersRepository;
@@ -36,12 +38,12 @@ public class ReviewService {
 
 
     @Transactional // 리뷰 작성
-    public ReviewResponse insert(ReviewRequest request) throws NotFoundException {
+    public ReviewDetailResponse insert(ReviewDetailRequest request) throws NotFoundException {
         getUser(request.getUsers().getId());
         getCocktail(request.getCocktail().getId());
         Review review = reviewConverter.converterReview(request);
         Review insertedReview = reviewRepository.save(review);
-        return new ReviewResponse(insertedReview);
+        return new ReviewDetailResponse(insertedReview);
     }
 
     @Transactional // 리뷰 삭제
@@ -54,24 +56,32 @@ public class ReviewService {
         reviewRepository.delete(review);
     }
 
+    @Transactional // ingredient 수정
+    public ReviewUpdateResponse updateById(Long reviewId, ReviewUpdateRequest request) throws Exception {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_INGREDIENT));
+        review.update(request);
+        return new ReviewUpdateResponse(review);
+    }
+
     @Transactional // 리뷰 전체 조회
-    public Page<ReviewResponse> findAll(Pageable pageable) {
+    public Page<ReviewDetailResponse> findAll(Pageable pageable) {
         return reviewRepository.findAll(pageable)
-                .map(ReviewResponse::new);
+                .map(ReviewDetailResponse::new);
     }
 
     @Transactional // 리뷰, 사용자 id를 이용한 조회
-    public List<ReviewResponse> findAllByUserId(Pageable pageable, Long userId) throws NotFoundException {
+    public List<ReviewDetailResponse> findAllByUserId(Pageable pageable, Long userId) throws NotFoundException {
         return reviewRepository.findAll(pageable)
-                .map(ReviewResponse::new)
+                .map(ReviewDetailResponse::new)
                 .stream().filter(x -> x.getUserId().equals(userId))
                 .collect(Collectors.toList());
     }
 
     @Transactional // 리뷰, 칵테일 id를 이용한 조회
-    public List<ReviewResponse> findAllByCocktailId(Pageable pageable, Long cocktailId) throws NotFoundException {
+    public List<ReviewDetailResponse> findAllByCocktailId(Pageable pageable, Long cocktailId) throws NotFoundException {
         return reviewRepository.findAll(pageable)
-                .map(ReviewResponse::new)
+                .map(ReviewDetailResponse::new)
                 .stream().filter(x -> x.getCocktailId().equals(cocktailId))
                 .collect(Collectors.toList());
     }

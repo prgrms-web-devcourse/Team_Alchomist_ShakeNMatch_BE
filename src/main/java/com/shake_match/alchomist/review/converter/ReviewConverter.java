@@ -1,15 +1,13 @@
 package com.shake_match.alchomist.review.converter;
 
-import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.review.Review;
-import com.shake_match.alchomist.review.dto.ReviewRequest;
-import com.shake_match.alchomist.users.Users;
+import com.shake_match.alchomist.review.dto.request.ReviewDetailRequest;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ReviewConverter {
 
-    public Review converterReview(ReviewRequest request){ // Dto -> Entity
+    public Review converterReview(ReviewDetailRequest request){ // Dto -> Entity
         return Review.builder()
                 .rating(request.getRating())
                 .description(request.getDescription())

@@ -2,23 +2,15 @@ package com.shake_match.alchomist.review.service;
 
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.cocktail.repository.CocktailRepository;
-import com.shake_match.alchomist.ingredient.dto.response.IngredientDetailResponse;
 import com.shake_match.alchomist.review.Review;
-import com.shake_match.alchomist.review.dto.ReviewRequest;
-import com.shake_match.alchomist.review.dto.ReviewResponse;
 import com.shake_match.alchomist.review.repository.ReviewRepository;
-import com.shake_match.alchomist.users.Users;
-import com.shake_match.alchomist.users.dto.request.UserRequest;
 import com.shake_match.alchomist.users.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 import java.util.ArrayList;
 import java.util.List;
