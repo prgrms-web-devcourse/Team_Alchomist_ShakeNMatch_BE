@@ -1,26 +1,32 @@
 spring:
-  h2:
-    console:
-      enabled: true
+#  h2:
+#    console:
+#      enabled: true
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem://localhost/~/testdb;MODE=MYSQL
-    username: sa
-    password:
-    hikari:
-      jdbc-url: jdbc:h2:mem://localhost/~/testdb;MODE=MYSQL
-
+#    driver-class-name: org.h2.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+#    hikari:
+#      jdbc-url: jdbc:h2:tcp://localhost/~/testdb;MODE=MYSQL
 
   jpa:
+    defer-datasource-initialization: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         query.in_clause_parameter_padding: true
         storage_engin: innodb
         hbm2ddl:
-          auto: update
+          auto: create
         show_sql: true
         format_sql: true
+#  sql:
+#    init:
+#      mode: always
+#      platform: h2
+#      data-locations: classpath:sql/data_new.sql
+#      encoding: UTF-8
 
 logging.level:
   org.hibernate.SQL: debug
