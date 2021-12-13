@@ -25,6 +25,15 @@ public class Ingredient extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "is_alcohol")
+    private boolean isAlcohol;
+
+    @Column(name = "measure")
+    private String measure;
+
     @OneToMany(fetch = FetchType.EAGER)
     private List<Cocktail> cocktails = new ArrayList<>();
 
