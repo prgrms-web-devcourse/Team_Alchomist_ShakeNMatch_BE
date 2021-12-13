@@ -51,14 +51,14 @@ public class ReviewController {
         return ApiResponse.ok(user.getName() + "님의 리뷰가 삭제되었습니다.");
     }
 
-    @PutMapping("/review/{id}") // 리뷰 수정
-    public ApiResponse<Void> updateByReviewId(@PathVariable Long id, @RequestBody ReviewUpdateRequest request) throws Exception {
+    @DeleteMapping("admin/review/{id}") // 관리자의 리뷰 삭제
+    public ApiResponse<Void> deleteByAdmin(@PathVariable("id") Long reviewId) throws Exception {
+        reviewService.deleteByAdmin(reviewId);
         return ApiResponse.ok(null);
     }
 
-    @DeleteMapping("/review/{id}") // 관리자의 리뷰 삭제
-    public ApiResponse<Void> deleteByAdmin(@PathVariable("id") Long reviewId) throws Exception {
-        reviewRepository.deleteById(reviewId);
+    @PutMapping("/review/{id}") // 리뷰 수정
+    public ApiResponse<Void> updateByReviewId(@PathVariable Long id, @RequestBody ReviewUpdateRequest request) throws Exception {
         return ApiResponse.ok(null);
     }
 }

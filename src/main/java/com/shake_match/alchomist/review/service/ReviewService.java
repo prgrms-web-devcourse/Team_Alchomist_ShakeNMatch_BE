@@ -56,6 +56,11 @@ public class ReviewService {
         reviewRepository.delete(review);
     }
 
+    @Transactional // 관리자 모드 리뷰 삭제
+    public void deleteByAdmin(Long reviewId) throws Exception {
+        reviewRepository.deleteById(reviewId);
+    }
+
     @Transactional // ingredient 수정
     public ReviewUpdateResponse updateById(Long reviewId, ReviewUpdateRequest request) throws Exception {
         Review review = reviewRepository.findById(reviewId)
