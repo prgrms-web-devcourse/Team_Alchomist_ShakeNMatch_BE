@@ -1,4 +1,4 @@
-package com.shake_match.alchomist.theme;
+package com.shake_match.alchomist.theme.domain;
 
 import com.shake_match.alchomist.global.BaseEntity;
 import lombok.AccessLevel;
