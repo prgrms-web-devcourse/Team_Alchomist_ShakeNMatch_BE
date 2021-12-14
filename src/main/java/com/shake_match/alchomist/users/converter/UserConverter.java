@@ -28,30 +28,7 @@ public class UserConverter {
         return new UserBookmarkResponse(
             cocktail.getId(),
             cocktail.getName(),
-            cocktail.getType()
-        );
-    }
-
-    public UserDetailResponse toUserResponse(Users user) {
-        return new UserDetailResponse(
-            user.getName(),
-            user.getNickname(),
-            user.isMan(),
-            user.getAge(),
-            user.getMbti(),
-            user.getImageUrl(),
-            toIngredientsResponses(user.getIngredients())
-        );
-    }
-    
-    public Users toUser(UserRequest userRequest) {
-        return new Users(
-            userRequest.getName(),
-            userRequest.getNickname(),
-            userRequest.getImageUrl(),
-            userRequest.isMan(),
-            userRequest.getAge(),
-            userRequest.getMbti()
+            cocktail.getImageUrl()
         );
     }
 
