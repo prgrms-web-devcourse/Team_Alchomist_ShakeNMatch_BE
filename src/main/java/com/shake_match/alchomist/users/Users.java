@@ -3,7 +3,9 @@ package com.shake_match.alchomist.users;
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.global.BaseEntity;
 import com.shake_match.alchomist.ingredient.Ingredient;
+import com.shake_match.alchomist.ingredient.dto.request.IngredientUpdateRequest;
 import com.shake_match.alchomist.review.Review;
+import com.shake_match.alchomist.users.dto.request.UserUpdateRequest;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -30,7 +32,7 @@ public class Users extends BaseEntity {
     java.lang.Long id;
 
     @Column(nullable = false)
-    String name;
+    String email;
 
     @Column(nullable = true)
     String password;
@@ -60,9 +62,9 @@ public class Users extends BaseEntity {
     @OneToMany
     List<Cocktail> cocktails = new ArrayList<>();
 
-    public Users(String name, String nickname, String imageUrl, boolean gender, int age,
+    public Users(String email, String nickname, String imageUrl, boolean gender, int age,
                  String mbti) {
-        this.name = name;
+        this.email = email;
         this.nickname = nickname;
         this.imageUrl = imageUrl;
         this.isMan = gender;
@@ -78,5 +80,12 @@ public class Users extends BaseEntity {
             cocktails.remove(cocktail);
             cocktail.addLikes(false);
         }
+    }
+
+    public void update(UserUpdateRequest userUpdateRequest) {
+        this.nickname = userUpdateRequest.getNickname();
+        this.isMan = userUpdateRequest.isMan();
+        this.age = userUpdateRequest.getAge();
+        this.mbti = userUpdateRequest.getMbti();
     }
 }

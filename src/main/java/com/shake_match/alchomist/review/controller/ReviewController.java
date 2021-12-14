@@ -51,7 +51,7 @@ public class ReviewController {
     @DeleteMapping("/review/{id}") // 리뷰 삭제
     public ApiResponse<String> delete(@PathVariable("id") Long reviewId, Users user) throws Exception {
         reviewService.delete(reviewId, user);
-        return ApiResponse.ok(user.getName() + "님의 리뷰가 삭제되었습니다.");
+        return ApiResponse.ok(user.getEmail() + "님의 리뷰가 삭제되었습니다.");
     }
 
     @DeleteMapping("admin/review/{id}") // 관리자의 리뷰 삭제

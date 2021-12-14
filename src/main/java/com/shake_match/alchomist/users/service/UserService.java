@@ -8,10 +8,12 @@ import com.shake_match.alchomist.users.Users;
 import com.shake_match.alchomist.users.converter.UserConverter;
 import com.shake_match.alchomist.users.dto.request.UserBookmarkRequest;
 import com.shake_match.alchomist.users.dto.request.UserRequest;
+import com.shake_match.alchomist.users.dto.request.UserUpdateRequest;
 import com.shake_match.alchomist.users.dto.response.UserBookmarkResponse;
 import com.shake_match.alchomist.users.dto.response.UserDetailResponse;
 import com.shake_match.alchomist.users.dto.response.UserLikeResponse;
 import com.shake_match.alchomist.users.dto.response.UserNicknameResponse;
+import com.shake_match.alchomist.users.dto.response.UserUpdateResponse;
 import com.shake_match.alchomist.users.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,15 @@ public class UserService {
     public UserDetailResponse addUser(UserRequest userRequest) {
         Users savedUser = userRepository.save(userConverter.toUser(userRequest));
         return userConverter.toUserResponse(savedUser);
+    }
+
+    @Transactional
+    public UserUpdateResponse updateById(Long userId, UserUpdateRequest userUpdateRequest)
+        throws Exception {
+        Users changedUser = userRepository.findById(userId)
+            .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
+        changedUser.update(userUpdateRequest);
+        return userConverter.toUserUpdateResponse(changedUser);
     }
 
     @Transactional
