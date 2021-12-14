@@ -3,15 +3,13 @@ package com.shake_match.alchomist.ingredient;
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.global.BaseEntity;
 import com.shake_match.alchomist.ingredient.dto.request.IngredientUpdateRequest;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 import java.util.ArrayList;
 import javax.persistence.*;
 
+@Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,20 +35,11 @@ public class Ingredient extends BaseEntity {
     @OneToMany(fetch = FetchType.EAGER)
     private List<Cocktail> cocktails = new ArrayList<>();
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public List<Cocktail> getCocktails() {
-        return cocktails;
-    }
-
     public void update(IngredientUpdateRequest request) {
         this.name = request.getIngredientName();
         this.cocktails = request.getCocktails();
+        this.type = request.getType();
+        this.isAlcohol = request.isAlcohol();
+        this.measure = request.getMeasure();
     }
 }

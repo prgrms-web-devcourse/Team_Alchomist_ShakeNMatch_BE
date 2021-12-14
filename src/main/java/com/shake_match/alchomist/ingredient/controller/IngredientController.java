@@ -35,7 +35,7 @@ public class IngredientController {
         return ApiResponse.ok(ingredientService.findByName(ingredientName));
     }
 
-    @Transactional // 재료 전체 조회
+    @GetMapping("/ingredient")
     public Page<IngredientDetailResponse> findAll(Pageable pageable) {
         return ingredientRepository.findAll(pageable)
                 .map(IngredientDetailResponse::new);
@@ -56,6 +56,6 @@ public class IngredientController {
     @PutMapping("/ingredient/{id}") // 재료 수정
     public ApiResponse<String> updateByIngredientId(@PathVariable Long id, @RequestBody IngredientUpdateRequest request) throws Exception {
         ingredientService.updateById(id, request);
-        return ApiResponse.ok("재료가 수정되었습니다");
+        return ApiResponse.ok("재료가 수정되었습니다.");
     }
 }
