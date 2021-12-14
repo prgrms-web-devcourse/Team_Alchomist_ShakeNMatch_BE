@@ -43,7 +43,7 @@ public class CocktailConvertor {
                 themeDtos,
                 reviewDtos,
                 cocktail.getRecipe(),
-                cocktail.getImageUrl(),
+                cocktail.getType(),
                 cocktail.getYoutubeLink(),
                 cocktail.getLikes(),
                 cocktail.getTotalRating()
@@ -57,7 +57,7 @@ public class CocktailConvertor {
     public SearchResponse toSearch(Cocktail cocktail){
         return new SearchResponse(cocktail.getId(),
                 cocktail.getName(),
-                cocktail.getImageUrl()
+                cocktail.getType()
         );
     }
 
@@ -65,7 +65,7 @@ public class CocktailConvertor {
         return new Cocktail(
                 createCocktailRequest.getName(),
                 createCocktailRequest.getRecipe(),
-                createCocktailRequest.getImageUrl(),
+                createCocktailRequest.getType(),
                 createCocktailRequest.getYoutubeLink(),
                 themes,
                 volumes
