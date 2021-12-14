@@ -24,12 +24,10 @@ public class ReviewController {
 
     private final ReviewService reviewService;
     private final ReviewRepository reviewRepository;
-    private final S3Service s3Service;
 
-    public ReviewController(ReviewService reviewService, ReviewRepository reviewRepository, S3Service s3Service) {
+    public ReviewController(ReviewService reviewService, ReviewRepository reviewRepository) {
         this.reviewService = reviewService;
         this.reviewRepository = reviewRepository;
-        this.s3Service = s3Service;
     }
 
     @PostMapping("/review") // 리뷰 생성
