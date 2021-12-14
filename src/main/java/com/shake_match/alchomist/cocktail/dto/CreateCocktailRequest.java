@@ -12,15 +12,15 @@ public class CreateCocktailRequest {
 
     private String name;
     private String recipe;
-    private String imageUrl;
+    private String Type;
     private String youtubeLink;
     private List<String> theme;
     private List<String> ingredient;
 
-    public CreateCocktailRequest(String name, String recipe, String imageUrl, String youtubeLink) {
+    public CreateCocktailRequest(String name, String recipe, String Type, String youtubeLink) {
         this.name = name;
         this.recipe = recipe;
-        this.imageUrl = imageUrl;
+        this.Type = Type;
         this.youtubeLink = youtubeLink;
     }
 }

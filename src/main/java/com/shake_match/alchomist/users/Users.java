@@ -62,6 +62,7 @@ public class Users extends BaseEntity {
     @OneToMany
     List<Cocktail> cocktails = new ArrayList<>();
 
+
     public Users(String email, String nickname, String imageUrl, boolean gender, int age,
                  String mbti) {
         this.email = email;
