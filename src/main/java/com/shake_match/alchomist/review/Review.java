@@ -1,15 +1,20 @@
 package com.shake_match.alchomist.review;
 
 import com.shake_match.alchomist.global.BaseEntity;
+import com.shake_match.alchomist.review.dto.request.ReviewUpdateRequest;
 import com.shake_match.alchomist.users.Users;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
+import javax.persistence.*;
+
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "reviews")
 public class Review extends BaseEntity {
 
@@ -31,4 +36,10 @@ public class Review extends BaseEntity {
 
     @ManyToOne
     Cocktail cocktails;
+
+    public void update(ReviewUpdateRequest request) {
+        this.rating = request.getRating();
+        this.description = request.getDescription();
+        this.url = request.getUrl();
+    }
 }

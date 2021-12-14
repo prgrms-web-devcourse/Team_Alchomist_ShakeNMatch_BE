@@ -25,6 +25,15 @@ public class Ingredient extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "is_alcohol")
+    private boolean isAlcohol;
+
+    @Column(name = "measure")
+    private String measure;
+
     @OneToMany(fetch = FetchType.EAGER)
     private List<Cocktail> cocktails = new ArrayList<>();
 
@@ -43,5 +52,9 @@ public class Ingredient extends BaseEntity {
     public void update(IngredientUpdateRequest request) {
         this.name = request.getIngredientName();
         this.cocktails = request.getCocktails();
+    }
+
+    public void addCocktail(Cocktail cocktail){
+        this.cocktails.add(cocktail);
     }
 }

@@ -1,6 +1,6 @@
 package com.shake_match.alchomist.theme.repository;
 
-import com.shake_match.alchomist.theme.Theme;
+import com.shake_match.alchomist.theme.domain.Theme;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
