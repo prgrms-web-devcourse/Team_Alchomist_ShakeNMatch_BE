@@ -9,6 +9,7 @@ import com.shake_match.alchomist.users.dto.request.UserRequest;
 import com.shake_match.alchomist.users.dto.response.UserBookmarkResponse;
 import com.shake_match.alchomist.users.dto.response.UserDetailResponse;
 import com.shake_match.alchomist.users.dto.response.UserNicknameResponse;
+import com.shake_match.alchomist.users.dto.response.UserUpdateResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,8 @@ public class UserConverter {
 
     public UserDetailResponse toUserResponse(Users user) {
         return new UserDetailResponse(
-            user.getName(),
+            user.getId(),
+            user.getEmail(),
             user.getNickname(),
             user.isMan(),
             user.getAge(),
@@ -42,15 +44,24 @@ public class UserConverter {
             toIngredientsResponses(user.getIngredients())
         );
     }
-    
+
     public Users toUser(UserRequest userRequest) {
         return new Users(
-            userRequest.getName(),
+            userRequest.getEmail(),
             userRequest.getNickname(),
             userRequest.getImageUrl(),
             userRequest.isMan(),
             userRequest.getAge(),
             userRequest.getMbti()
+        );
+    }
+
+    public UserUpdateResponse toUserUpdateResponse(Users users) {
+        return new UserUpdateResponse(
+            users.getNickname(),
+            users.isMan(),
+            users.getAge(),
+            users.getMbti()
         );
     }
 
