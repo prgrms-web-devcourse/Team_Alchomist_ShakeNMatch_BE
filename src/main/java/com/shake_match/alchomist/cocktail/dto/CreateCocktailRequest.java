@@ -16,7 +16,7 @@ public class CreateCocktailRequest {
     private String youtubeLink;
     private List<String> theme;
     private List<String> ingredient;
-
+  
     public CreateCocktailRequest(String name, String recipe, String type, String youtubeLink) {
         this.name = name;
         this.recipe = recipe;

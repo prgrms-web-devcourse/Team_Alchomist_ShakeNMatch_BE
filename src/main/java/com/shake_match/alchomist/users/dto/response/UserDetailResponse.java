@@ -12,7 +12,8 @@ import lombok.ToString;
 @Getter
 public class UserDetailResponse {
 
-    private String name;
+    private Long id;
+    private String email;
     private String nickname;
     private boolean isMan;
     private int age;
@@ -21,10 +22,11 @@ public class UserDetailResponse {
 
     List<IngredientResponse> ingredients = new ArrayList<>();
 
-    public UserDetailResponse(String name, String nickname, boolean isMan, int age, String mbti,
+    public UserDetailResponse(Long id, String email, String nickname, boolean isMan, int age, String mbti,
                               String imageUrl,
                               List<IngredientResponse> ingredients) {
-        this.name = name;
+        this.id = id;
+        this.email = email;
         this.nickname = nickname;
         this.isMan = isMan;
         this.age = age;
