@@ -29,7 +29,7 @@ public class Review extends BaseEntity {
     String description;
 
     @Column
-    String url;
+    String type;
 
     @ManyToOne
     Users users;
@@ -40,6 +40,6 @@ public class Review extends BaseEntity {
     public void update(ReviewUpdateRequest request) {
         this.rating = request.getRating();
         this.description = request.getDescription();
-        this.url = request.getUrl();
+        this.type = request.getType();
     }
 }

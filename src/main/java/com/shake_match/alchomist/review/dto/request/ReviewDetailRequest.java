@@ -9,14 +9,14 @@ public class ReviewDetailRequest {
 
     private Users user;
     private Cocktail cocktail;
-    private String imageUrl;
+    private String type;
     private String description;
     private int rating;
 
-    public ReviewDetailRequest(Users user, Cocktail cocktail, String imageUrl, String description, int rating) {
+    public ReviewDetailRequest(Users user, Cocktail cocktail, String type, String description, int rating) {
         this.user = user;
         this.cocktail = cocktail;
-        this.imageUrl = imageUrl;
+        this.type = type;
         this.description = description;
         this.rating = rating;
     }

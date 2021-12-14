@@ -38,6 +38,4 @@ public class ImageController {
         imageService.saveImage(imageDto);
         return "redirect:/image";
     }
-
-
 }

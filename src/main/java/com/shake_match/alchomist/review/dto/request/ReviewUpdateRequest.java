@@ -1,13 +1,11 @@
 package com.shake_match.alchomist.review.dto.request;
 
-import javax.persistence.Column;
-
 public class ReviewUpdateRequest {
 
     private Long reviewId;
     private int rating;
     private String description;
-    private String url;
+    private String type;
 
     public Long getReviewId() {
         return reviewId;
@@ -21,7 +19,7 @@ public class ReviewUpdateRequest {
         return description;
     }
 
-    public String getUrl() {
-        return url;
+    public String getType() {
+        return type;
     }
 }

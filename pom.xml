@@ -80,6 +80,21 @@
 			<version>8.0.16</version>
 		</dependency>
 
+		<dependency> <!-- S3 이미지처리를 위해 새롭게 추가함-->
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-s3</artifactId>
+			<version>1.12.111</version>
+		</dependency>
+		<dependency> <!-- S3 이미지처리를 위해 새롭게 추가함-->
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-aws</artifactId>
+			<version>2.2.1.RELEASE</version>
+		</dependency>
+		<dependency> <!-- S3 이미지처리를 위해 새롭게 추가함-->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<version>2.5.6</version>
+		</dependency>
 	</dependencies>
 
 	<build>

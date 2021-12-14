@@ -36,3 +36,15 @@ server:
     encoding:
       force: true
       charset: UTF-8
+
+cloud:
+  aws:
+    credentials:
+      accessKey: AKIASRDLDX3THKA3JQOP
+      secretKey: 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
+    s3:
+      bucket: team15-image-bucket
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false

@@ -15,7 +15,7 @@ public class ReviewImageRequest {
 
     private Users user;
     private Cocktail cocktail;
-    private String imageUrl;
+    private String type;
     private String description;
     private int rating;
 }

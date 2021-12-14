@@ -13,7 +13,7 @@ public class ReviewConverter {
         return Review.builder()
                 .rating(request.getRating())
                 .description(request.getDescription())
-                .url(request.getImageUrl())
+                .type(request.getType())
                 .users(request.getUser())
                 .cocktails(request.getCocktail())
                 .build();
@@ -23,7 +23,7 @@ public class ReviewConverter {
         return Review.builder()
                 .rating(request.getRating())
                 .description(request.getDescription())
-                .url(request.getImageUrl())
+                .type(request.getType())
                 .users(request.getUser())
                 .cocktails(request.getCocktail())
                 .build();
@@ -32,7 +32,7 @@ public class ReviewConverter {
     public static ReviewDto toReviewDto(Review review) {
         return new ReviewDto(review.getRating(),
                 review.getDescription(),
-                review.getUrl(),
+                review.getType(),
                 review.getUsers().getId(),
                 review.getUsers().getName(),
                 review.getCocktails().getId(),

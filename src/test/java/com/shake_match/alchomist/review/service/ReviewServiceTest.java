@@ -56,7 +56,7 @@ class ReviewServiceTest {
                 .id(REVIEW_ID1)
                 .description("테스트용 묘사")
                 .rating(5)
-                .url("이미지 url")
+                .type("이미지 url")
                 .build();
         reviewRepository.save(review1);
 
@@ -64,7 +64,7 @@ class ReviewServiceTest {
                 .id(REVIEW_ID2)
                 .description("테스트용 묘사")
                 .rating(1)
-                .url("이미지 url")
+                .type("이미지 url")
                 .build();
         reviewRepository.save(review2);
 
@@ -99,7 +99,7 @@ class ReviewServiceTest {
                 .age(28)
                 .name("오재욱")
                 .nickname("우코")
-                .gender(true)
+                .isMan(true)
                 .mbti("ENTJ")
                 .build();
         userRepository.save(user);
@@ -109,7 +109,7 @@ class ReviewServiceTest {
                 .name("모히또가서 몰디브 한잔")
                 .recipe("화이트럼 45ml, 민트 6, 설탕 2tsp, 라임 20ml, 탄산수")
                 .likes(0)
-                .imageUrl("이미지 url")
+                .type("이미지 url")
                 .totalRating(4.3f)
                 .youtubeLink("https://www.youtube.com/watch?v=8getArw9Ryk")
                 .build();
@@ -119,7 +119,7 @@ class ReviewServiceTest {
                 .description("테스트용 묘사")
                 .rating(1)
                 .users(user)
-                .url("이미지")
+                .type("이미지")
                 .cocktails(cocktail)
                 .build();
         reviewRepository.save(review);
