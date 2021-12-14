@@ -57,8 +57,8 @@ public class UserController {
     }
 
     @DeleteMapping("/bookmark/{bookmark_id}") // 북마크 삭제
-    public ApiResponse<String> deleteUserBookmark(@PathVariable("bookmark_id") Long userId,
-                                                  Long cocktailId) {
+    public ApiResponse<String> deleteUserBookmark(@PathVariable("bookmark_id") java.lang.Long userId,
+                                                  java.lang.Long cocktailId) {
         UserLikeResponse userLikeResponse = userService.deleteBookmark(userId, cocktailId);
         return ApiResponse.ok("bookmark added successfully");
     }

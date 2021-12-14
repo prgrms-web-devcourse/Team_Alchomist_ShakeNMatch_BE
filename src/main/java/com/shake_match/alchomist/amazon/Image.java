@@ -9,9 +9,8 @@ import javax.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Entity
-@Table(name = "gallery")
-public class Gallery {
+@Entity(name = "images")
+public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,7 +22,7 @@ public class Gallery {
     private String filePath;
 
     @Builder
-    public Gallery(Long id, String title, String filePath) {
+    public Image(Long id, String title, String filePath) {
         this.id = id;
         this.title = title;
         this.filePath = filePath;

@@ -21,6 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Range;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,7 +32,7 @@ public class Users extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    java.lang.Long id;
 
     @Column(nullable = false)
     String name;
@@ -48,7 +49,7 @@ public class Users extends BaseEntity {
     @Column(nullable = false)
     boolean gender;
 
-    @Size(min = 20)
+    @Range(min = 20)
     @Column(nullable = false)
     int age;
 

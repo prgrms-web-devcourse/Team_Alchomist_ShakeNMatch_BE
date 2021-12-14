@@ -1,7 +1,9 @@
 package com.shake_match.alchomist.review.dto.response;
 
 import com.shake_match.alchomist.review.Review;
+import lombok.Getter;
 
+@Getter
 public class ReviewDetailResponse {
 
     private Long reviewId;
@@ -18,13 +20,5 @@ public class ReviewDetailResponse {
         this.imageUrl = review.getUrl();
         this.description = review.getDescription();
         this.rating = review.getRating();
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public Long getCocktailId() {
-        return cocktailId;
     }
 }
