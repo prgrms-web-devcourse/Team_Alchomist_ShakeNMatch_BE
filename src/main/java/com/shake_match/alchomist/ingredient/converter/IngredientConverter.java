@@ -2,7 +2,7 @@ package com.shake_match.alchomist.ingredient.converter;
 
 import com.shake_match.alchomist.ingredient.Ingredient;
 import com.shake_match.alchomist.ingredient.dto.request.IngredientDetailRequest;
-import com.shake_match.alchomist.ingredient.dto.response.IngredientDetailResponse;
+import com.shake_match.alchomist.ingredient.dto.response.IngredientResponse;
 import org.springframework.stereotype.Component;
 
 @Component

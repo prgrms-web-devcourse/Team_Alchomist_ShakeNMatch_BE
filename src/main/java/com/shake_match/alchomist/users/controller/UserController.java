@@ -1,12 +1,12 @@
 package com.shake_match.alchomist.users.controller;
 
 import com.shake_match.alchomist.global.ApiResponse;
-import com.shake_match.alchomist.users.Users;
 import com.shake_match.alchomist.users.dto.request.UserBookmarkRequest;
 import com.shake_match.alchomist.users.dto.request.UserRequest;
 import com.shake_match.alchomist.users.dto.response.UserBookmarkResponse;
+import com.shake_match.alchomist.users.dto.response.UserDetailResponse;
 import com.shake_match.alchomist.users.dto.response.UserLikeResponse;
-import com.shake_match.alchomist.users.dto.response.UserResponse;
+import com.shake_match.alchomist.users.dto.response.UserNicknameResponse;
 import com.shake_match.alchomist.users.service.UserService;
 import java.util.List;
 import javax.validation.Valid;
@@ -29,23 +29,22 @@ public class UserController {
     }
 
     @PostMapping("/join") // 회원가입
-    public ApiResponse<UserResponse> saveUser(@RequestBody @Valid UserRequest userRequest) {
-        UserResponse userResponse = userService.addUser(userRequest);
+    public ApiResponse<UserDetailResponse> saveUser(@RequestBody @Valid UserRequest userRequest) {
+        UserDetailResponse userResponse = userService.addUser(userRequest);
         return ApiResponse.ok(userResponse);
     }
 
-    @GetMapping("/{nickname}") // 닉네임 검색
-    public ApiResponse<Users> findUserByNickname(@PathVariable("nickname") String nickname) {
-        Users user = userService.getUserByNickname(nickname);
-        return ApiResponse.ok(user);
+    @GetMapping("/{userId}") // 유저 디테일 조회
+    public ApiResponse<UserDetailResponse> findUserDetail(@PathVariable("userId") Long id) {
+        UserDetailResponse userResponse = userService.getUserDetail(id);
+        return ApiResponse.ok(userResponse);
     }
 
-    @GetMapping("/bookmark/{user_id}") // 북마크 검색
-    public ApiResponse<List<UserBookmarkResponse>> findBookmarkById(
-        @PathVariable("user_id") Long id) {
-        List<UserBookmarkResponse> userBookmarkResponses = userService.getBookmarkById(id);
-        return ApiResponse.ok(userBookmarkResponses);
-
+    @GetMapping("/nickname/{nickname}") // 닉네임 검색
+    public ApiResponse<UserNicknameResponse> findUserByNickname(
+        @PathVariable("nickname") String nickname) {
+        UserNicknameResponse userNicknameResponse = userService.getUserByNickname(nickname);
+        return ApiResponse.ok(userNicknameResponse);
     }
 
     @PostMapping("/bookmark") // 북마크 추가
@@ -56,15 +55,18 @@ public class UserController {
         return ApiResponse.ok(userLikeResponse);
     }
 
-    @DeleteMapping("/bookmark/{bookmark_id}") // 북마크 삭제
-    public ApiResponse<String> deleteUserBookmark(@PathVariable("bookmark_id") Long userId,
-                                                  Long cocktailId) {
-        UserLikeResponse userLikeResponse = userService.deleteBookmark(userId, cocktailId);
-        return ApiResponse.ok("bookmark added successfully");
+    @GetMapping("/bookmark/{userId}") // 북마크 검색
+    public ApiResponse<List<UserBookmarkResponse>> findBookmarkById(
+        @PathVariable("userId") Long id) {
+        List<UserBookmarkResponse> userBookmarkResponses = userService.getBookmarkById(id);
+        return ApiResponse.ok(userBookmarkResponses);
     }
 
-    // 술장고 재료 조회  GET /ingredients/{user_id}
+    @DeleteMapping("/bookmark") // 북마크 삭제
+    public ApiResponse<String> deleteUserBookmark(@RequestBody UserBookmarkRequest userBookmarkRequest) {
+        userService.deleteBookmark(userBookmarkRequest);
+        return ApiResponse.ok("bookmark Deleted successfully");
+    }
 
-    // 술장고 재료 추가, 수정 POST /ingredients/{user_id}
 
 }

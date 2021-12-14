@@ -6,11 +6,12 @@ import com.shake_match.alchomist.global.ErrorCode;
 import com.shake_match.alchomist.global.NotFoundException;
 import com.shake_match.alchomist.users.Users;
 import com.shake_match.alchomist.users.converter.UserConverter;
+import com.shake_match.alchomist.users.dto.request.UserBookmarkRequest;
 import com.shake_match.alchomist.users.dto.request.UserRequest;
 import com.shake_match.alchomist.users.dto.response.UserBookmarkResponse;
-import com.shake_match.alchomist.users.dto.response.UserIngredientsResponse;
+import com.shake_match.alchomist.users.dto.response.UserDetailResponse;
 import com.shake_match.alchomist.users.dto.response.UserLikeResponse;
-import com.shake_match.alchomist.users.dto.response.UserResponse;
+import com.shake_match.alchomist.users.dto.response.UserNicknameResponse;
 import com.shake_match.alchomist.users.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +30,17 @@ public class UserService {
 
     private final UserConverter userConverter;
 
+    @Transactional
+    public UserDetailResponse addUser(UserRequest userRequest) {
+        Users savedUser = userRepository.save(userConverter.toUser(userRequest));
+        return userConverter.toUserResponse(savedUser);
+    }
 
     @Transactional
-    public UserResponse addUser(UserRequest userRequest) {
-        Users savedUser = userRepository.save(userConverter.convertUser(userRequest));
-        return new UserResponse(savedUser);
-
+    public UserDetailResponse getUserDetail(Long id) {
+        Users user = userRepository.findById(id)
+            .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
+        return userConverter.toUserResponse(user);
     }
 
     @Transactional
@@ -43,11 +49,13 @@ public class UserService {
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
     }
 
-
     @Transactional
-    public Users getUserByNickname(String nickname) {
-        return userRepository.findByNickname(nickname)
-            .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_NICKNAME));
+    public UserNicknameResponse getUserByNickname(String nickname) {
+        boolean can = true;
+        if (userRepository.findByNickname(nickname).isPresent()) {
+            can = false;
+        }
+        return userConverter.toUserNicknameResponse(can);
     }
 
     @Transactional
@@ -61,10 +69,10 @@ public class UserService {
     }
 
     @Transactional
-    public UserLikeResponse deleteBookmark(Long userId, Long cocktailId) {
-        Users user = userRepository.findById(userId)
+    public UserLikeResponse deleteBookmark(UserBookmarkRequest userBookmarkRequest) {
+        Users user = userRepository.findById(userBookmarkRequest.getUserId())
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
-        Cocktail cocktail = cocktailRepository.findById(cocktailId)
+        Cocktail cocktail = cocktailRepository.findById(userBookmarkRequest.getCocktailId())
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_COCKTAIL));
         user.addCocktails(cocktail);
         return new UserLikeResponse(user);
