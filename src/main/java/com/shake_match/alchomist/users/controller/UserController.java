@@ -3,13 +3,13 @@ package com.shake_match.alchomist.users.controller;
 import com.shake_match.alchomist.global.ApiResponse;
 import com.shake_match.alchomist.users.dto.request.UserBookmarkRequest;
 import com.shake_match.alchomist.users.dto.request.UserRequest;
-import com.shake_match.alchomist.users.dto.response.UserBookmarkResponse;
 import com.shake_match.alchomist.users.dto.response.UserDetailResponse;
 import com.shake_match.alchomist.users.dto.response.UserLikeResponse;
 import com.shake_match.alchomist.users.dto.response.UserNicknameResponse;
 import com.shake_match.alchomist.users.service.UserService;
-import java.util.List;
+
 import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,24 +42,17 @@ public class UserController {
 
     @GetMapping("/nickname/{nickname}") // 닉네임 검색
     public ApiResponse<UserNicknameResponse> findUserByNickname(
-        @PathVariable("nickname") String nickname) {
+            @PathVariable("nickname") String nickname) {
         UserNicknameResponse userNicknameResponse = userService.getUserByNickname(nickname);
         return ApiResponse.ok(userNicknameResponse);
     }
 
     @PostMapping("/bookmark") // 북마크 추가
     public ApiResponse<UserLikeResponse> addUserBookmark(
-        @RequestBody UserBookmarkRequest userBookmarkRequest) {
+            @RequestBody UserBookmarkRequest userBookmarkRequest) {
         UserLikeResponse userLikeResponse = userService.addBookmark(userBookmarkRequest.getUserId(),
-            userBookmarkRequest.getCocktailId());
+                userBookmarkRequest.getCocktailId());
         return ApiResponse.ok(userLikeResponse);
-    }
-
-    @DeleteMapping("/bookmark/{bookmark_id}") // 북마크 삭제
-    public ApiResponse<String> deleteUserBookmark(@PathVariable("bookmark_id") java.lang.Long userId,
-                                                  java.lang.Long cocktailId) {
-        UserLikeResponse userLikeResponse = userService.deleteBookmark(userId, cocktailId);
-        return ApiResponse.ok("bookmark added successfully");
     }
 
     @DeleteMapping("/bookmark") // 북마크 삭제
@@ -67,6 +60,4 @@ public class UserController {
         userService.deleteBookmark(userBookmarkRequest);
         return ApiResponse.ok("bookmark Deleted successfully");
     }
-
-
 }

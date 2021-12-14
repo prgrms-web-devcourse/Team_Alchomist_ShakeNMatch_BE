@@ -24,7 +24,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 @SpringBootTest
-//@WebAppConfiguration
 class ReviewServiceTest {
 
     @Autowired
@@ -72,7 +71,7 @@ class ReviewServiceTest {
         reviews.add(review2);
 
         Cocktail cocktail = Cocktail.builder()
-                .id(1L)
+                .id(COCKTAIL_ID)
                 .name("모히또가서 몰디브 한잔")
                 .recipe("화이트럼 45ml, 민트 6, 설탕 2tsp, 라임 20ml, 탄산수")
                 .likes(0)
@@ -87,46 +86,48 @@ class ReviewServiceTest {
 
     @AfterEach
     public void cleanup() {
+        cocktailRepository.deleteAll();
         reviewRepository.deleteAll();
     }
 
-    @Test
-    @DisplayName("사용자 id로 리뷰 조회 테스트")
-    public void findOneByUserIdTest() {
-        Users user = Users.builder()
-                .id(USER_ID)
-                .password("1234!")
-                .age(28)
-                .name("오재욱")
-                .nickname("우코")
-                .isMan(true)
-                .mbti("ENTJ")
-                .build();
-        userRepository.save(user);
-
-        Cocktail cocktail = Cocktail.builder()
-                .id(COCKTAIL_ID)
-                .name("모히또가서 몰디브 한잔")
-                .recipe("화이트럼 45ml, 민트 6, 설탕 2tsp, 라임 20ml, 탄산수")
-                .likes(0)
-                .type("이미지 url")
-                .totalRating(4.3f)
-                .youtubeLink("https://www.youtube.com/watch?v=8getArw9Ryk")
-                .build();
-        cocktailRepository.save(cocktail);
-
-        Review review = Review.builder()
-                .description("테스트용 묘사")
-                .rating(1)
-                .users(user)
-                .type("이미지")
-                .cocktails(cocktail)
-                .build();
-        reviewRepository.save(review);
-        PageRequest pageRequest = PageRequest.of(0, 10);
-        List<ReviewDetailResponse> responses = reviewService.findAllByUserId(pageRequest, USER_ID);
-        assertThat(responses.get(0).getUserId()).isEqualTo(USER_ID);
-    }
+//    @Test
+//    @DisplayName("사용자 id로 리뷰 조회 테스트")
+//    public void findOneByUserIdTest() {
+//        Users user = Users.builder()
+//                .id(USER_ID)
+//                .password("1234!")
+//                .age(28)
+//                .name("오재욱")
+//                .nickname("우코")
+//                .isMan(true)
+//                .mbti("ENTJ")
+//                .build();
+//        userRepository.save(user);
+//
+//        Cocktail cocktail = Cocktail.builder()
+//                .id(COCKTAIL_ID)
+//                .name("모히또가서 몰디브 한잔")
+//                .recipe("화이트럼 45ml, 민트 6, 설탕 2tsp, 라임 20ml, 탄산수")
+//                .likes(0)
+//                .type("이미지 url")
+//                .totalRating(4.3f)
+//                .youtubeLink("https://www.youtube.com/watch?v=8getArw9Ryk")
+//                .build();
+//        cocktailRepository.save(cocktail);
+//
+//        Review review = Review.builder()
+//                .id(REVIEW_ID1)
+//                .description("테스트용 묘사")
+//                .rating(1)
+//                .users(user)
+//                .type("이미지")
+//                .cocktails(cocktail)
+//                .build();
+//        reviewRepository.save(review);
+//        PageRequest pageRequest = PageRequest.of(0, 10);
+//        List<ReviewDetailResponse> responses = reviewService.findAllByUserId(pageRequest, USER_ID);
+//        assertThat(responses.get(0).getUserId()).isEqualTo(USER_ID);
+//    }
 
 //    @Test
 //    @DisplayName("칵테일 id로 리뷰 조회 테스트")
