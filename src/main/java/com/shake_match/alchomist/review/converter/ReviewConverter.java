@@ -14,6 +14,7 @@ public class ReviewConverter {
                 .rating(request.getRating())
                 .description(request.getDescription())
                 .type(request.getType())
+                .url(request.getImageUrl())
                 .users(request.getUser())
                 .cocktails(request.getCocktail())
                 .build();

@@ -55,11 +55,11 @@ public class UserController {
         return ApiResponse.ok(userLikeResponse);
     }
 
-    @GetMapping("/bookmark/{userId}") // 북마크 검색
-    public ApiResponse<List<UserBookmarkResponse>> findBookmarkById(
-        @PathVariable("userId") Long id) {
-        List<UserBookmarkResponse> userBookmarkResponses = userService.getBookmarkById(id);
-        return ApiResponse.ok(userBookmarkResponses);
+    @DeleteMapping("/bookmark/{bookmark_id}") // 북마크 삭제
+    public ApiResponse<String> deleteUserBookmark(@PathVariable("bookmark_id") java.lang.Long userId,
+                                                  java.lang.Long cocktailId) {
+        UserLikeResponse userLikeResponse = userService.deleteBookmark(userId, cocktailId);
+        return ApiResponse.ok("bookmark added successfully");
     }
 
     @DeleteMapping("/bookmark") // 북마크 삭제

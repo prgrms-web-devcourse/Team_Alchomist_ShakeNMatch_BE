@@ -44,7 +44,7 @@ public class UserService {
     }
 
     @Transactional
-    public Users getUserById(Long userId) {
+    public Users getUserById(java.lang.Long userId) {
         return userRepository.findById(userId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
     }
@@ -59,7 +59,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserLikeResponse addBookmark(Long userId, Long cocktailId) {
+    public UserLikeResponse addBookmark(java.lang.Long userId, java.lang.Long cocktailId) {
         Users user = userRepository.findById(userId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         Cocktail cocktail = cocktailRepository.findById(cocktailId)
@@ -79,7 +79,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public List<UserBookmarkResponse> getBookmarkById(Long userId) {
+    public List<UserBookmarkResponse> getBookmarkById(java.lang.Long userId) {
         Users user = userRepository.findById(userId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         List<Cocktail> cocktailByBookmark = user.getCocktails();
