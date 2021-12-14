@@ -68,7 +68,7 @@ class ReviewServiceTest {
                 .name("모히또가서 몰디브 한잔")
                 .recipe("화이트럼 45ml, 민트 6, 설탕 2tsp, 라임 20ml, 탄산수")
                 .likes(0)
-                .imageUrl("이미지 url")
+                .type("이미지 url")
                 .totalRating(4.3f)
                 .youtubeLink("https://www.youtube.com/watch?v=8getArw9Ryk")
                 .reviews(reviews)
