@@ -34,6 +34,9 @@ public class UserService {
 
     @Transactional
     public UserDetailResponse addUser(UserRequest userRequest) {
+        if (userRepository.findByNickname(userRequest.getNickname()).isPresent()) {
+            throw new NotFoundException(ErrorCode.DUPLICATION_MEMBER_NICKNAME);
+        }
         Users savedUser = userRepository.save(userConverter.toUser(userRequest));
         return userConverter.toUserResponse(savedUser);
     }
