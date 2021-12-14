@@ -1,9 +1,11 @@
 package com.shake_match.alchomist.theme.service;
 
-import com.shake_match.alchomist.theme.Theme;
+import com.shake_match.alchomist.theme.dto.ThemeDto;
+
+import java.util.List;
 
 public interface ThemeService {
 
-    public Theme createTheme(Theme theme) throws Exception;
-    public Theme findTheme(Theme theme) throws Exception;
+    ThemeDto createTheme(ThemeDto themeDto) throws Exception;
+    List<ThemeDto> findAll();
 }
