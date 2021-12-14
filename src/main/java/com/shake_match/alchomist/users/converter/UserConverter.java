@@ -28,7 +28,7 @@ public class UserConverter {
         return new UserBookmarkResponse(
             cocktail.getId(),
             cocktail.getName(),
-            cocktail.getType()
+            cocktail.getImageUrl()
         );
     }
 
