@@ -16,4 +16,9 @@ public class IngredientConverter {
                 .build();
     }
 
+    // entity -> dto
+    public IngredientResponse converterIngredientResponse(Ingredient ingredient){
+        return new IngredientResponse(ingredient.getName());
+    }
+
 }
