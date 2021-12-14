@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/ingredient")
 public class IngredientController {
     private final IngredientService ingredientService;
     private final IngredientRepository ingredientRepository;
@@ -25,36 +27,38 @@ public class IngredientController {
         this.ingredientRepository = ingredientRepository;
     }
 
-    @GetMapping("/ingredient/{id}") // 재료 id 조회
-    public ApiResponse<IngredientDetailResponse> findById(@PathVariable("id") Long ingredientId) throws NotFoundException {
-        return ApiResponse.ok(ingredientService.findById(ingredientId));
+    @GetMapping("/id") // 재료 id 조회
+    public ApiResponse<IngredientDetailResponse> findById(@RequestParam Long id) throws NotFoundException {
+        return ApiResponse.ok(ingredientService.findById(id));
     }
 
-    @GetMapping("/ingredient/{name}") // 재료 이름 조회
-    public ApiResponse<IngredientDetailResponse> findByName(@PathVariable("name") String ingredientName) throws NotFoundException {
-        return ApiResponse.ok(ingredientService.findByName(ingredientName));
+    @GetMapping("/name") // 재료 이름 조회
+    public ApiResponse<IngredientDetailResponse> findByName(@RequestParam String name) throws NotFoundException {
+        return ApiResponse.ok(ingredientService.findByName(name));
     }
 
-    @GetMapping("/ingredient")
-    public Page<IngredientDetailResponse> findAll(Pageable pageable) {
+    @GetMapping
+    public List<IngredientDetailResponse> findAll(Pageable pageable) {
         return ingredientRepository.findAll(pageable)
-                .map(IngredientDetailResponse::new);
+                .map(IngredientDetailResponse::new)
+                .stream()
+                .collect(Collectors.toList());
     }
 
-    @PostMapping("/ingredient") // 재료 생성
+    @PostMapping // 재료 생성
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponse<IngredientDetailResponse> insert(@RequestBody IngredientDetailRequest request) throws NotFoundException {
         return ApiResponse.ok(ingredientService.save(request));
     }
 
-    @DeleteMapping("/ingredient/{id}") // 재료 삭제
+    @DeleteMapping("/{id}") // 재료 삭제
     public ApiResponse<String> delete(@PathVariable("id") Long ingredientId) throws Exception {
         ingredientService.deleteOneById(ingredientId);
         return ApiResponse.ok("재료가 삭제되었습니다.");
     }
 
-    @PutMapping("/ingredient/{id}") // 재료 수정
-    public ApiResponse<String> updateByIngredientId(@PathVariable Long id, @RequestBody IngredientUpdateRequest request) throws Exception {
+    @PutMapping("/{id}") // 재료 수정
+    public ApiResponse<String> updateByIngredientId(@PathVariable("id") Long id, @RequestBody IngredientUpdateRequest request) throws Exception {
         ingredientService.updateById(id, request);
         return ApiResponse.ok("재료가 수정되었습니다.");
     }
