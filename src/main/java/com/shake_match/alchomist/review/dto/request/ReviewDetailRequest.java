@@ -2,8 +2,10 @@ package com.shake_match.alchomist.review.dto.request;
 
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.users.Users;
+import lombok.Builder;
 import lombok.Getter;
 
+@Builder
 @Getter
 public class ReviewDetailRequest {
 
@@ -12,12 +14,4 @@ public class ReviewDetailRequest {
     private String type;
     private String description;
     private int rating;
-
-    public ReviewDetailRequest(Users user, Cocktail cocktail, String type, String description, int rating) {
-        this.user = user;
-        this.cocktail = cocktail;
-        this.type = type;
-        this.description = description;
-        this.rating = rating;
-    }
 }

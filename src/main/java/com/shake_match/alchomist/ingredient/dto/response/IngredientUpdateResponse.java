@@ -11,7 +11,6 @@ import java.util.List;
 @Setter
 public class IngredientUpdateResponse {
 
-    private Long ingredientId;
     private String ingredientName;
     private List<Cocktail> cocktails;
     private String type;
@@ -19,7 +18,6 @@ public class IngredientUpdateResponse {
     private String measure;
 
     public IngredientUpdateResponse(Ingredient ingredient) {
-        this.ingredientId = ingredient.getId();
         this.ingredientName = ingredient.getName();
         this.cocktails = ingredient.getCocktails();
         this.type = ingredient.getType();

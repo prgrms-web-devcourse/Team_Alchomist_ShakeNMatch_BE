@@ -5,6 +5,7 @@ import com.shake_match.alchomist.global.NotFoundException;
 import com.shake_match.alchomist.ingredient.dto.request.IngredientDetailRequest;
 import com.shake_match.alchomist.ingredient.dto.request.IngredientUpdateRequest;
 import com.shake_match.alchomist.ingredient.dto.response.IngredientDetailResponse;
+import com.shake_match.alchomist.ingredient.dto.response.IngredientUpdateResponse;
 import com.shake_match.alchomist.ingredient.repository.IngredientRepository;
 import com.shake_match.alchomist.ingredient.service.IngredientService;
 import org.springframework.data.domain.Page;
@@ -27,14 +28,14 @@ public class IngredientController {
         this.ingredientRepository = ingredientRepository;
     }
 
-    @GetMapping("/id") // 재료 id 조회
-    public ApiResponse<IngredientDetailResponse> findById(@RequestParam Long id) throws NotFoundException {
-        return ApiResponse.ok(ingredientService.findById(id));
+    @GetMapping("/{ingredientId}") // 재료 id 조회
+    public ApiResponse<IngredientDetailResponse> findById(@PathVariable("ingredientId") Long ingredientId) throws NotFoundException {
+        return ApiResponse.ok(ingredientService.findById(ingredientId));
     }
 
-    @GetMapping("/name") // 재료 이름 조회
-    public ApiResponse<IngredientDetailResponse> findByName(@RequestParam String name) throws NotFoundException {
-        return ApiResponse.ok(ingredientService.findByName(name));
+    @GetMapping("/ingredientName") // 재료 이름 조회
+    public ApiResponse<IngredientDetailResponse> findByName(@RequestParam String ingredientName) throws NotFoundException {
+        return ApiResponse.ok(ingredientService.findByName(ingredientName));
     }
 
     @GetMapping
@@ -58,8 +59,7 @@ public class IngredientController {
     }
 
     @PutMapping("/{id}") // 재료 수정
-    public ApiResponse<String> updateByIngredientId(@PathVariable("id") Long id, @RequestBody IngredientUpdateRequest request) throws Exception {
-        ingredientService.updateById(id, request);
-        return ApiResponse.ok("재료가 수정되었습니다.");
+    public ApiResponse<IngredientUpdateResponse> updateByIngredientId(@PathVariable("id") Long id, @RequestBody IngredientUpdateRequest request) throws Exception {
+        return ApiResponse.ok(ingredientService.updateById(id, request));
     }
 }

@@ -43,27 +43,27 @@ public class ReviewService {
         getUser(request.getUser().getId());
         getCocktail(request.getCocktail().getId());
         Review review = reviewConverter.converterReviewDetail(request);
-        Review insertedReview = reviewRepository.save(review);
-        return new ReviewDetailResponse(insertedReview);
+        reviewRepository.save(review);
+        return new ReviewDetailResponse(review);
     }
 
     @Transactional // 리뷰 삭제
-    public void delete(Long reviewId, Users users) throws Exception {
+    public void delete(Long reviewId) throws NotFoundException {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_REVIEW));
-        if (!users.getId().equals(review.getUsers().getId())) { // 자기 자신의 리뷰만을 삭제 가능
-            throw new NotFoundException(ErrorCode.NOT_EXIST_MEMBER);
-        }
+//        if (!userId.equals(review.getUsers().getId())) { // 자기 자신의 리뷰만을 삭제 가능
+//            throw new NotFoundException(ErrorCode.NOT_EXIST_MEMBER);
+//        }
         reviewRepository.delete(review);
     }
 
     @Transactional // 관리자 모드 리뷰 삭제
-    public void deleteByAdmin(Long reviewId) throws Exception {
+    public void deleteByAdmin(Long reviewId) throws NotFoundException {
         reviewRepository.deleteById(reviewId);
     }
 
     @Transactional // ingredient 수정
-    public ReviewUpdateResponse updateById(Long reviewId, ReviewUpdateRequest request) throws Exception {
+    public ReviewUpdateResponse updateById(Long reviewId, ReviewUpdateRequest request) throws NotFoundException {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_INGREDIENT));
         review.update(request);

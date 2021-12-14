@@ -65,7 +65,7 @@ class IngredientServiceTest {
         cocktails.add(cocktailTest2);
 
         IngredientDetailRequest request = IngredientDetailRequest.builder()
-                .ingredientId(INGREDIENT_ID)
+                //.ingredientId(INGREDIENT_ID)
                 .ingredientName("레몬주스")
                 .cocktails(cocktails)
                 .build();

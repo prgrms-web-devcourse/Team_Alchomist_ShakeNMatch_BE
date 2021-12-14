@@ -7,6 +7,7 @@ import com.shake_match.alchomist.global.NotFoundException;
 import com.shake_match.alchomist.review.dto.request.ReviewDetailRequest;
 import com.shake_match.alchomist.review.dto.request.ReviewUpdateRequest;
 import com.shake_match.alchomist.review.dto.response.ReviewDetailResponse;
+import com.shake_match.alchomist.review.dto.response.ReviewUpdateResponse;
 import com.shake_match.alchomist.review.repository.ReviewRepository;
 import com.shake_match.alchomist.review.service.ReviewService;
 import com.shake_match.alchomist.users.Users;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class ReviewController {
@@ -37,38 +39,34 @@ public class ReviewController {
     }
 
     // 사용자 id를 통한 조회
-    @GetMapping("/review/{userId}")
-    public ApiResponse<List<ReviewDetailResponse>> findAllByUserId(Pageable pageable, @PathVariable("userId") Long userId) throws NotFoundException {
+    @GetMapping("/review/{id}")
+    public ApiResponse<List<ReviewDetailResponse>> findAllByUserId(@PathVariable("id") Long userId, Pageable pageable) throws NotFoundException {
         return ApiResponse.ok(reviewService.findAllByUserId(pageable, userId));
     }
 
     // 칵테일 id를 통한 조회
-    @GetMapping("/review/{cocktailId}")
-    public ApiResponse<List<ReviewDetailResponse>> findAllByCocktailId(Pageable pageable, @PathVariable("cocktailId") Long cocktailId) throws NotFoundException {
+    @GetMapping("/review/cocktailId")
+    public ApiResponse<List<ReviewDetailResponse>> findAllByCocktailId(@RequestParam Long cocktailId, Pageable pageable) throws NotFoundException {
         return ApiResponse.ok(reviewService.findAllByCocktailId(pageable, cocktailId));
     }
 
     @DeleteMapping("/review/{id}") // 리뷰 삭제
-    public ApiResponse<String> delete(@PathVariable("id") Long reviewId, Users user) throws Exception {
-        reviewService.delete(reviewId, user);
-        return ApiResponse.ok(user.getEmail() + "님의 리뷰가 삭제되었습니다.");
-    }
-
-    @DeleteMapping("admin/review/{id}") // 관리자의 리뷰 삭제
-    public ApiResponse<Void> deleteByAdmin(@PathVariable("id") Long reviewId) throws Exception {
-        reviewService.deleteByAdmin(reviewId);
-        return ApiResponse.ok(null);
+    public ApiResponse<String> delete(@PathVariable("id") Long id) throws Exception {
+        reviewService.delete(id);
+        return ApiResponse.ok("리뷰가 삭제되었습니다.");
     }
 
     @PutMapping("/review/{id}") // 리뷰 수정
-    public ApiResponse<Void> updateByReviewId(@PathVariable("id") Long id, @RequestBody ReviewUpdateRequest request) throws Exception {
-        reviewService.updateById(id, request);
-        return ApiResponse.ok(null);
+    public ApiResponse<ReviewUpdateResponse> updateByReviewId(@PathVariable("id") Long id, @RequestBody ReviewUpdateRequest request) throws Exception {
+        return ApiResponse.ok(reviewService.updateById(id, request));
     }
 
     @GetMapping("/review")
-    public ApiResponse<Page<ReviewDetailResponse>> findAll(Pageable pageable){
-        return ApiResponse.ok(reviewService.findAll(pageable));
+    public ApiResponse<List<ReviewDetailResponse>> findAll(Pageable pageable){
+        return ApiResponse.ok(
+                reviewService.findAll(pageable)
+                .stream()
+                .collect(Collectors.toList()));
     }
 
 //    @GetMapping("/review/image")

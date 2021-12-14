@@ -31,10 +31,10 @@ public class Review extends BaseEntity {
     @Column
     String type;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     Users users;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     Cocktail cocktails;
 
     public void update(ReviewUpdateRequest request) {

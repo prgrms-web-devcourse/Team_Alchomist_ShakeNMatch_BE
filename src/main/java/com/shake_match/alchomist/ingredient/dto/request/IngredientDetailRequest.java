@@ -10,7 +10,6 @@ import java.util.List;
 @Getter
 public class IngredientDetailRequest {
 
-    private Long ingredientId;
     private String ingredientName;
     private String type;
     private List<Cocktail> cocktails;
