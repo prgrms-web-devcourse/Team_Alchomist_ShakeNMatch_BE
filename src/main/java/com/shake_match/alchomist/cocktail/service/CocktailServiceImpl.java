@@ -91,11 +91,6 @@ public class CocktailServiceImpl implements CocktailService {
         }
 
         Cocktail cocktail = repository.save(convertor.toCocktail(createCocktailRequest, themes, volumes));
-
-//        for(Ingredient ingredient : ingredients){
-//            ingredient.addCocktail(cocktail);
-//        }
-
         return "success";
     }
 
