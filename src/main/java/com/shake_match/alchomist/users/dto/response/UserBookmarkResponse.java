@@ -1,5 +1,8 @@
 package com.shake_match.alchomist.users.dto.response;
 
+import lombok.Getter;
+
+@Getter
 public class UserBookmarkResponse {
 
     Long id;

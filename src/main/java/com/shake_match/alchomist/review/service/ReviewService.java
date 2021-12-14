@@ -12,7 +12,7 @@ import com.shake_match.alchomist.review.dto.response.ReviewDetailResponse;
 import com.shake_match.alchomist.review.dto.response.ReviewUpdateResponse;
 import com.shake_match.alchomist.review.repository.ReviewRepository;
 import com.shake_match.alchomist.users.Users;
-import com.shake_match.alchomist.users.repository.UsersRepository;
+import com.shake_match.alchomist.users.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,13 +26,13 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
     private final ReviewConverter reviewConverter;
-    private final UsersRepository usersRepository;
+    private final UserRepository userRepository;
     private final CocktailRepository cocktailRepository;
 
-    public ReviewService(ReviewRepository reviewRepository, ReviewConverter reviewConverter, UsersRepository usersRepository, CocktailRepository cocktailRepository) {
+    public ReviewService(ReviewRepository reviewRepository, ReviewConverter reviewConverter, UserRepository userRepository, CocktailRepository cocktailRepository) {
         this.reviewRepository = reviewRepository;
         this.reviewConverter = reviewConverter;
-        this.usersRepository = usersRepository;
+        this.userRepository = userRepository;
         this.cocktailRepository = cocktailRepository;
     }
 
@@ -93,7 +93,7 @@ public class ReviewService {
 
     @Transactional // 실제로 저장되어있는 사용자인지 확인하고 조회하는 메소드
     public Users getUser(Long userId) throws NotFoundException {
-        return usersRepository.findById(userId)
+        return userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
     }
 

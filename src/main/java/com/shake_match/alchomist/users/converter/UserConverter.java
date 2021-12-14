@@ -1,13 +1,27 @@
 package com.shake_match.alchomist.users.converter;
 
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
+import com.shake_match.alchomist.ingredient.Ingredient;
+import com.shake_match.alchomist.ingredient.converter.IngredientConverter;
+import com.shake_match.alchomist.ingredient.dto.response.IngredientResponse;
 import com.shake_match.alchomist.users.Users;
 import com.shake_match.alchomist.users.dto.request.UserRequest;
 import com.shake_match.alchomist.users.dto.response.UserBookmarkResponse;
+import com.shake_match.alchomist.users.dto.response.UserDetailResponse;
+import com.shake_match.alchomist.users.dto.response.UserNicknameResponse;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
 
 @Controller
 public class UserConverter {
+
+    private IngredientConverter ingredientConverter;
+
+    public UserConverter(
+        IngredientConverter ingredientConverter) {
+        this.ingredientConverter = ingredientConverter;
+    }
 
     public UserBookmarkResponse toSearchByBookmark(Cocktail cocktail) {
         return new UserBookmarkResponse(
@@ -17,24 +31,37 @@ public class UserConverter {
         );
     }
 
-    // DTO -> entity
-    public Users convertUser(UserRequest userRequest) {
-        return Users.builder()
-            .nickname(userRequest.getNickname())
-            .gender(userRequest.isGender())
-            .age(userRequest.getAge())
-            .mbti(userRequest.getMbti())
-            .build();
+    public UserDetailResponse toUserResponse(Users user) {
+        return new UserDetailResponse(
+            user.getName(),
+            user.getNickname(),
+            user.isMan(),
+            user.getAge(),
+            user.getMbti(),
+            user.getImageUrl(),
+            toIngredientsResponses(user.getIngredients())
+        );
+    }
+    
+    public Users toUser(UserRequest userRequest) {
+        return new Users(
+            userRequest.getName(),
+            userRequest.getNickname(),
+            userRequest.getImageUrl(),
+            userRequest.isMan(),
+            userRequest.getAge(),
+            userRequest.getMbti()
+        );
     }
 
-    // entity -> DTO
-    public UserRequest convertUserRequest(Users users) {
-        return UserRequest.builder()
-            .nickname(users.getNickname())
-            .gender(users.isGender())
-            .age(users.getAge())
-            .mbti(users.getMbti())
-            .build();
+    public UserNicknameResponse toUserNicknameResponse(boolean can) {
+        return new UserNicknameResponse(can);
+    }
+
+    public List<IngredientResponse> toIngredientsResponses(List<Ingredient> ingredients) {
+        return ingredients.stream()
+            .map(ingredient -> ingredientConverter.converterIngredientResponse(
+                ingredient)).collect(Collectors.toList());
     }
 
 }
