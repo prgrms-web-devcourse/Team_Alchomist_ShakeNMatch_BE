@@ -7,6 +7,7 @@ import com.shake_match.alchomist.global.NotFoundException;
 import com.shake_match.alchomist.review.Review;
 import com.shake_match.alchomist.review.converter.ReviewConverter;
 import com.shake_match.alchomist.review.dto.request.ReviewDetailRequest;
+import com.shake_match.alchomist.review.dto.request.ReviewImageRequest;
 import com.shake_match.alchomist.review.dto.request.ReviewUpdateRequest;
 import com.shake_match.alchomist.review.dto.response.ReviewDetailResponse;
 import com.shake_match.alchomist.review.dto.response.ReviewUpdateResponse;
@@ -39,9 +40,9 @@ public class ReviewService {
 
     @Transactional // 리뷰 작성
     public ReviewDetailResponse insert(ReviewDetailRequest request) throws NotFoundException {
-        getUser(request.getUsers().getId());
+        getUser(request.getUser().getId());
         getCocktail(request.getCocktail().getId());
-        Review review = reviewConverter.converterReview(request);
+        Review review = reviewConverter.converterReviewDetail(request);
         Review insertedReview = reviewRepository.save(review);
         return new ReviewDetailResponse(insertedReview);
     }
@@ -100,6 +101,10 @@ public class ReviewService {
     @Transactional // 실제로 저장되어있는 칵테일인지 확인하고 조회하는 메소드
     public Cocktail getCocktail(Long cocktailId) throws NotFoundException {
         return cocktailRepository.findById(cocktailId)
-                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_REVIEW)); // 수정해야함
+                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_COCKTAIL));
+    }
+
+    public void saveImage(ReviewImageRequest request) {
+        reviewRepository.save(reviewConverter.converterReviewImage(request));
     }
 }

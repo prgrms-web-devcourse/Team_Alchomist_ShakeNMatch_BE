@@ -16,5 +16,4 @@ public class MvcConfiguration implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/templates/")
                 .setCacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES));
     }
-
 }
