@@ -5,19 +5,16 @@ import com.shake_match.alchomist.amazon.service.S3Service;
 import com.shake_match.alchomist.global.ApiResponse;
 import com.shake_match.alchomist.global.NotFoundException;
 import com.shake_match.alchomist.review.dto.request.ReviewDetailRequest;
-import com.shake_match.alchomist.review.dto.request.ReviewImageRequest;
 import com.shake_match.alchomist.review.dto.request.ReviewUpdateRequest;
 import com.shake_match.alchomist.review.dto.response.ReviewDetailResponse;
 import com.shake_match.alchomist.review.repository.ReviewRepository;
 import com.shake_match.alchomist.review.service.ReviewService;
 import com.shake_match.alchomist.users.Users;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -67,6 +64,11 @@ public class ReviewController {
     public ApiResponse<Void> updateByReviewId(@PathVariable("id") Long id, @RequestBody ReviewUpdateRequest request) throws Exception {
         reviewService.updateById(id, request);
         return ApiResponse.ok(null);
+    }
+
+    @GetMapping("/review")
+    public ApiResponse<Page<ReviewDetailResponse>> findAll(Pageable pageable){
+        return ApiResponse.ok(reviewService.findAll(pageable));
     }
 
 //    @GetMapping("/review/image")
