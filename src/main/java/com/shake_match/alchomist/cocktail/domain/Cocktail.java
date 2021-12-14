@@ -27,7 +27,7 @@ public class Cocktail extends BaseEntity {
     @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     List<Volume> volumes = new ArrayList<>();
 
-    @OneToMany
+    @ManyToMany
     List<Theme> themes = new ArrayList<>();
 
     @OneToMany(mappedBy = "cocktails")
@@ -37,7 +37,7 @@ public class Cocktail extends BaseEntity {
     String recipe; //TODO: 프론트와 recipe의 상세 확인해보기
 
     @Column
-    String imageUrl;
+    String type;
 
     @Column
     String youtubeLink;
@@ -48,38 +48,10 @@ public class Cocktail extends BaseEntity {
     @Column
     float totalRating;
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getRecipe() {
-        return recipe;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public String getYoutubeLink() {
-        return youtubeLink;
-    }
-
-    public int getLikes() {
-        return likes;
-    }
-
-    public float getTotalRating() {
-        return totalRating;
-    }
-
-    public Cocktail(String name, String recipe, String imageUrl, String youtubeLink, List<Theme> themes, List<Volume> volumes) {
+    public Cocktail(String name, String recipe, String type, String youtubeLink, List<Theme> themes, List<Volume> volumes) {
         this.name = name;
         this.recipe = recipe;
-        this.imageUrl = imageUrl;
+        this.type = type;
         this.youtubeLink = youtubeLink;
         this.themes = themes;
         this.volumes = volumes;
@@ -91,7 +63,7 @@ public class Cocktail extends BaseEntity {
         themes.add(theme);
     }
 
-    public void addLikes(Boolean bool){
+    public void addLikes(boolean bool){
         if(bool){
             likes++;
         }
