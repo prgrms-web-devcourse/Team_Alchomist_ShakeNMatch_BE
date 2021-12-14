@@ -13,6 +13,9 @@ public class IngredientConverter {
                 .id(request.getIngredientId())
                 .name(request.getIngredientName())
                 .cocktails(request.getCocktails())
+                .isAlcohol(request.isAlcohol())
+                .type(request.getType())
+                .measure(request.getMeasure())
                 .build();
     }
 

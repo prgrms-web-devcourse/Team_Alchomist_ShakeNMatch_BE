@@ -18,11 +18,17 @@ public class IngredientDetailResponse {
     private Long ingredientId;
     private String ingredientName;
     private List<Cocktail> cocktails;
+    private String type;
+    private boolean isAlcohol;
+    private String measure;
 
     public IngredientDetailResponse(Ingredient ingredient) {
         this.ingredientId = ingredient.getId();
         this.ingredientName = ingredient.getName();
         this.cocktails = ingredient.getCocktails();
+        this.type = ingredient.getType();
+        this.measure = ingredient.getMeasure();
+        this.isAlcohol = ingredient.isAlcohol();
     }
 
     public Long getIngredientId() {
