@@ -9,11 +9,11 @@ public class SearchResponse {
 
     String name;
 
-    String imageUrl;
+    String type;
 
-    public SearchResponse(Long id, String name, String imageUrl) {
+    public SearchResponse(Long id, String name, String type) {
         this.id = id;
         this.name = name;
-        this.imageUrl = imageUrl;
+        this.type = type;
     }
 }
