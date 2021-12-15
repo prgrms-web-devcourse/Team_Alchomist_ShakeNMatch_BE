@@ -4,6 +4,7 @@ import com.shake_match.alchomist.global.ApiResponse;
 import com.shake_match.alchomist.jwt.JwtAuthentication;
 import com.shake_match.alchomist.users.converter.UserConverter;
 import com.shake_match.alchomist.users.dto.response.UserDetailResponse;
+import com.shake_match.alchomist.ingredient.dto.response.IngredientToListResponse;
 import com.shake_match.alchomist.users.dto.request.UserBookmarkRequest;
 import com.shake_match.alchomist.users.dto.request.UserRequest;
 import com.shake_match.alchomist.users.dto.request.UserUpdateRequest;
@@ -84,5 +85,30 @@ public class UserController {
         userService.deleteBookmark(userBookmarkRequest);
         return ApiResponse.ok("bookmark Deleted successfully");
     }
+
+    // 내 술장고 재료조회
+    @GetMapping("/ingredient/{userId}")
+    public ApiResponse<IngredientToListResponse> findUserByIngredient(
+        @PathVariable("userId") Long id) {
+        IngredientToListResponse userByIngredient = userService.getUserByIngredient(id);
+        return ApiResponse.ok(userByIngredient);
+    }
+
+    @PostMapping("/ingredient/{userId}")
+    public ApiResponse<IngredientToListResponse> saveIngredientOfUser(
+        @PathVariable("userId") Long id, @RequestBody List<Long> ingredientIds) {
+        userService.saveIngredientOfUser(id, ingredientIds);
+        IngredientToListResponse userByIngredient = userService.getUserByIngredient(id);
+        return ApiResponse.ok(userByIngredient);
+    }
+
+    @DeleteMapping("/ingredient/{userId}")
+    public ApiResponse<String> deleteUserIngredient(@PathVariable("userId") Long id,
+                                                    @RequestBody List<Long> ingredientIds) {
+        userService.deletedIngredientOfUser(id, ingredientIds);
+        return ApiResponse.ok("술장고에 재료정보를 삭제하였습니다.");
+
+    }
+
 
 }

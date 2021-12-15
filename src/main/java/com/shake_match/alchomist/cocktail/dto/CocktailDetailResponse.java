@@ -2,9 +2,8 @@ package com.shake_match.alchomist.cocktail.dto;
 
 import com.shake_match.alchomist.review.dto.ReviewDto;
 import com.shake_match.alchomist.theme.dto.ThemeDto;
-import lombok.Getter;
-
 import java.util.List;
+import lombok.Getter;
 
 @Getter
 public class CocktailDetailResponse {
@@ -29,7 +28,9 @@ public class CocktailDetailResponse {
 
     float totalRating;
 
-    public CocktailDetailResponse(Long id, String name, List<VolumeDto> volumes, List<ThemeDto> themes, List<ReviewDto> reviews, String recipe, String type, String youtubeLink, int likes, float totalRating) {
+    public CocktailDetailResponse(Long id, String name, List<VolumeDto> volumes,
+                                  List<ThemeDto> themes, List<ReviewDto> reviews, String recipe,
+                                  String type, String youtubeLink, int likes, float totalRating) {
         this.id = id;
         this.name = name;
         this.volumes = volumes;
