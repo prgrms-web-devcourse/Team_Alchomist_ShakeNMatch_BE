@@ -51,6 +51,7 @@ server:
     encoding:
       force: true
       charset: UTF-8
+      
 #  port: 8080
 #  ssl:
 #    key-store-type: PKCS12
