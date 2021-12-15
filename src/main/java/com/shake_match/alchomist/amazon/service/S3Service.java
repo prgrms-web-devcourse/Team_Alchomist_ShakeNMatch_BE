@@ -42,34 +42,19 @@ public class S3Service {
                 .build();
     }
 
-    public void getImage(MultipartFile file) throws IOException {
-//        String fileName = file.getOriginalFilename();
-//        s3Client.getObject(new GetObjectRequest(bucket, fileName));
-//        return fileName;
-
-        String destFilename = "C:/Users/wooko/Desktop/칵테일 사진모음";
-        S3Object s3object = s3Client.getObject(bucket, "cake.jpg");
-    }
-
-    public String upload(String currentFilePath, MultipartFile file) throws IOException {
-//        고유한 key 값을 갖기위해 현재 시간을 postfix로 붙여줌
-//        SimpleDateFormat date = new SimpleDateFormat("yyyyMMddHHmmss");
-//        String fileName = file.getOriginalFilename() + "-" + date.format(new Date());
-
-        // 파일 업로드
+    public String upload(MultipartFile file) throws IOException {
         String fileName = file.getOriginalFilename();
         s3Client.putObject(new PutObjectRequest(bucket, fileName, file.getInputStream(), null)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
-        return fileName;
+        return s3Client.getUrl(bucket, fileName).toString();
     }
 
-    public void delete(String currentFilePath, MultipartFile file) {
+    public void delete(String fileName) throws IOException {
         // key가 존재하면 기존 파일은 삭제
-        if (!"".equals(currentFilePath) && currentFilePath != null) {
-            boolean isExistObject = s3Client.doesObjectExist(bucket, currentFilePath);
-
+        if (!"".equals(fileName) && fileName != null) {
+            boolean isExistObject = s3Client.doesObjectExist(bucket, fileName);
             if (isExistObject) {
-                s3Client.deleteObject(bucket, currentFilePath);
+                s3Client.deleteObject(bucket, fileName);
             }
         }
     }
