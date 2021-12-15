@@ -23,7 +23,7 @@ public class ReviewConverter {
                 review.getDescription(),
                 review.getUrl(),
                 review.getUsers().getId(),
-                review.getUsers().getEmail(),
+                review.getUsers().getUsername(),
                 review.getCocktails().getId(),
                 review.getCocktails().getName());
     }
