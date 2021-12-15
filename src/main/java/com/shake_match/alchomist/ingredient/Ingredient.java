@@ -4,10 +4,13 @@ import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.global.BaseEntity;
 import com.shake_match.alchomist.ingredient.dto.request.IngredientUpdateRequest;
 import lombok.*;
-
 import java.util.List;
 import java.util.ArrayList;
 import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 
 @Getter
 @Builder
@@ -43,7 +46,8 @@ public class Ingredient extends BaseEntity {
         this.measure = request.getMeasure();
     }
 
-    public void addCocktail(Cocktail cocktail){
+    public void addCocktail(Cocktail cocktail) {
         this.cocktails.add(cocktail);
     }
+
 }
