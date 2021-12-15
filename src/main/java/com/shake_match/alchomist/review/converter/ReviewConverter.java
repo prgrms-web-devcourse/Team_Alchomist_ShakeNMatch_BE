@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReviewConverter {
 
-    private final String bucket = "AKIASRDLDX3THKA3JQOP";
-    private final String region = "PGotRJBdOIN2F25UUYuHuwL6D4O1nB0E/aGceKKA";
+    private final String bucket = "team15-image-bucket";
+    private final String region = "ap-northeast-2";
 
     public Review converterReviewDetail(ReviewDetailRequest request) { // Dto -> Entity
         return Review.builder()
