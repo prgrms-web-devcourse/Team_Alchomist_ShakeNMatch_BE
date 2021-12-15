@@ -1,22 +1,17 @@
 package com.shake_match.alchomist.users.dto.response;
 
+import com.shake_match.alchomist.ingredient.Ingredient;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 
 @Getter
 public class UserIngredientsResponse {
 
-    private Long id;
-    private String name;
-    private String type;
-    private boolean isAlcohol;
-    private String measure;
+    List<Ingredient> ingredients = new ArrayList<>();
 
-    public UserIngredientsResponse(Long id, String name, String type, boolean isAlcohol,
-                                   String measure) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.isAlcohol = isAlcohol;
-        this.measure = measure;
+    public UserIngredientsResponse(
+        List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 }

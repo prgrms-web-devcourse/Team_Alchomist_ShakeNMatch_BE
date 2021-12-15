@@ -6,18 +6,24 @@ import com.shake_match.alchomist.global.ErrorCode;
 import com.shake_match.alchomist.global.NotFoundException;
 import com.shake_match.alchomist.group.domain.Group;
 import com.shake_match.alchomist.group.repository.GroupRepository;
+import com.shake_match.alchomist.ingredient.converter.IngredientConverter;
+import com.shake_match.alchomist.ingredient.dto.response.IngredientListResponse;
+import com.shake_match.alchomist.ingredient.dto.response.IngredientToListResponse;
+import com.shake_match.alchomist.ingredient.repository.IngredientRepository;
 import com.shake_match.alchomist.users.Users;
+import com.shake_match.alchomist.users.UsersIngredient;
 import com.shake_match.alchomist.users.converter.UserConverter;
 import com.shake_match.alchomist.users.dto.request.UserBookmarkRequest;
 import com.shake_match.alchomist.users.dto.request.UserRequest;
 import com.shake_match.alchomist.users.dto.request.UserUpdateRequest;
 import com.shake_match.alchomist.users.dto.response.*;
 import com.shake_match.alchomist.users.repository.UserRepository;
+import com.shake_match.alchomist.users.repository.UserIngredientRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +34,6 @@ import org.springframework.transaction.annotation.Transactional;
 import static com.google.common.base.Preconditions.checkArgument;
 import static org.hibernate.internal.util.StringHelper.isNotEmpty;
 
-@Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -37,17 +42,25 @@ public class UserService {
 
     private final CocktailRepository cocktailRepository;
 
+    private final IngredientRepository ingredientRepository;
+
     private final UserConverter userConverter;
 
     private final GroupRepository groupRepository;
 
     private Logger log = LoggerFactory.getLogger(getClass());
 
+    private final IngredientConverter ingredientConverter;
+
+    private final UserIngredientRepository userIngredientRepository;
+
     @Transactional
     public UserDetailResponse addUser(UserRequest userRequest) {
-//        Users savedUser = userRepository.save(userConverter.toUser(userRequest));
-//        return userConverter.toUserResponse(savedUser);
-        return null;
+        if (userRepository.findByNickname(userRequest.getNickname()).isPresent()) {
+            throw new NotFoundException(ErrorCode.DUPLICATION_MEMBER_NICKNAME);
+        }
+        Users savedUser = userRepository.save(userConverter.toUser(userRequest));
+        return userConverter.toUserResponse(savedUser);
     }
 
     @Transactional
@@ -67,18 +80,47 @@ public class UserService {
     }
 
     @Transactional
-    public UserDetailResponse getUserById(Long userId) {
+    public IngredientToListResponse getUserByIngredient(Long id) {
+        Users user = userRepository.findByProviderId(id)
+            .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
+        List<IngredientListResponse> ingredientListResponseList =
+            user.getUsersIngredient().stream()
+                .map(UsersIngredient::getIngredient)
+                .map(ingredientConverter::converterIngredientListResponse)
+                .collect(Collectors.toList());
+        return ingredientConverter.converterIngredientToListResponse(ingredientListResponseList);
+    }
+
+    @Transactional
+    public void saveIngredientOfUser(Long userId, List<Long> ingredientIds) {
         Users user = userRepository.findByProviderId(userId)
-                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
-        return userConverter.toUserResponse(user);
+            .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
+
+        List<UsersIngredient> usersIngredients = ingredientIds.stream()
+            .map(ingredientId -> ingredientRepository.getById(ingredientId))
+            .map(ingredient -> new UsersIngredient(user, ingredient))
+            .collect(Collectors.toList());
+        userIngredientRepository.saveAll(usersIngredients);
+    }
+
+
+    @Transactional
+    public void deletedIngredientOfUser(Long userId, List<Long> ingredientIds) {
+        Users user = userRepository.findByProviderId(userId)
+            .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
+        userIngredientRepository.deleteUsersIdAndIngredientIds(userId, ingredientIds);
+    }
+
+
+    @Transactional
+    public Users getUserById(Long userId) {
+        return userRepository.findByProviderId(userId)
+            .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
     }
 
     @Transactional
     public UserNicknameResponse getUserByNickname(String nickname) {
-        boolean can = true;
-        if (userRepository.findByNickname(nickname).isPresent()) {
-            can = false;
-        }
+        boolean can = userRepository.findByNickname(nickname).isEmpty();
         return userConverter.toUserNicknameResponse(can);
     }
 

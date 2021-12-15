@@ -3,14 +3,18 @@ package com.shake_match.alchomist.ingredient;
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.global.BaseEntity;
 import com.shake_match.alchomist.ingredient.dto.request.IngredientUpdateRequest;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-
-import java.util.List;
-import java.util.ArrayList;
-import javax.persistence.*;
 
 @Builder
 @AllArgsConstructor
@@ -49,12 +53,25 @@ public class Ingredient extends BaseEntity {
         return cocktails;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public boolean isAlcohol() {
+        return isAlcohol;
+    }
+
+    public String getMeasure() {
+        return measure;
+    }
+
     public void update(IngredientUpdateRequest request) {
         this.name = request.getIngredientName();
         this.cocktails = request.getCocktails();
     }
 
-    public void addCocktail(Cocktail cocktail){
+    public void addCocktail(Cocktail cocktail) {
         this.cocktails.add(cocktail);
     }
+
 }

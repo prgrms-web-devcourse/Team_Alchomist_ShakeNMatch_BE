@@ -12,7 +12,6 @@ import java.util.List;
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
@@ -22,7 +21,6 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Getter
 @Entity(name = "users")
 public class Users extends BaseEntity {
@@ -63,8 +61,8 @@ public class Users extends BaseEntity {
     @OneToMany(mappedBy = "users")
     List<Review> reviews = new ArrayList<>();
 
-    @OneToMany
-    List<Ingredient> ingredients = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    List<UsersIngredient> usersIngredient = new ArrayList<>();
 
     @OneToMany
     List<Cocktail> cocktails = new ArrayList<>();
@@ -105,4 +103,5 @@ public class Users extends BaseEntity {
         this.age = userUpdateRequest.getAge();
         this.mbti = userUpdateRequest.getMbti();
     }
+
 }
