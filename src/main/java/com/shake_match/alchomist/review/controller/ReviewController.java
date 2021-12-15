@@ -25,12 +25,10 @@ import java.util.stream.Collectors;
 public class ReviewController {
 
     private final ReviewService reviewService;
-    private final ReviewRepository reviewRepository;
     private final S3Service s3Service;
 
-    public ReviewController(ReviewService reviewService, ReviewRepository reviewRepository, S3Service s3Service) {
+    public ReviewController(ReviewService reviewService, S3Service s3Service) {
         this.reviewService = reviewService;
-        this.reviewRepository = reviewRepository;
         this.s3Service = s3Service;
     }
 
@@ -65,7 +63,7 @@ public class ReviewController {
     }
 
     @GetMapping
-    public ApiResponse<List<ReviewDetailResponse>> findAll(Pageable pageable) throws NotFoundException{
+    public ApiResponse<List<ReviewDetailResponse>> findAll(Pageable pageable) throws NotFoundException {
         return ApiResponse.ok(reviewService.findAll(pageable)
                 .stream()
                 .collect(Collectors.toList()));
