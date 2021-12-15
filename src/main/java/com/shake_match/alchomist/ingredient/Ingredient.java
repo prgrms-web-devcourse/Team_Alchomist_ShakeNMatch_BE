@@ -20,7 +20,7 @@ public class Ingredient extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(nullable = false)
     private String name;
 
     @Column(name = "type")

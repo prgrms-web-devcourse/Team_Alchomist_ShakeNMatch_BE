@@ -54,8 +54,7 @@ public class ReviewService {
     public void delete(Long reviewId) throws IOException {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_REVIEW));
-        String url = review.getUrl();
-        s3Service.delete(url);
+        s3Service.delete(review.getUrl());
         reviewRepository.delete(review);
     }
 
