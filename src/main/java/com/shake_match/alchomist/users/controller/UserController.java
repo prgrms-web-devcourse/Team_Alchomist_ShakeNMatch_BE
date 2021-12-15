@@ -89,10 +89,11 @@ public class UserController {
     }
 
     @PostMapping("/ingredient/{userId}")
-    public ApiResponse<String> saveIngredientOfUser(
+    public ApiResponse<IngredientToListResponse> saveIngredientOfUser(
         @PathVariable("userId") Long id, @RequestBody List<Long> ingredientIds) {
         userService.saveIngredientOfUser(id, ingredientIds);
-        return ApiResponse.ok("술장고에 재료정보가 저장되었습니다");
+        IngredientToListResponse userByIngredient = userService.getUserByIngredient(id);
+        return ApiResponse.ok(userByIngredient);
     }
 
     @DeleteMapping("/ingredient/{userId}")
