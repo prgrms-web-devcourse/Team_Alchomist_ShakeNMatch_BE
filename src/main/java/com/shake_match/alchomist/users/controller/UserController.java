@@ -37,12 +37,6 @@ public class UserController {
         this.converter = converter;
     }
 
-    @PostMapping("/join") // 회원가입
-    public ApiResponse<UserDetailResponse> saveUser(@RequestBody @Valid UserRequest userRequest) {
-        UserDetailResponse userResponse = userService.addUser(userRequest);
-        return ApiResponse.ok(userResponse);
-    }
-
     @PutMapping("/info/{userId}") // 회원정보 수정
     public ApiResponse<String> updateUserInfo(@PathVariable("userId") Long id,
                                               @RequestBody UserUpdateRequest userUpdateRequest)
@@ -85,7 +79,6 @@ public class UserController {
         userService.deleteBookmark(userBookmarkRequest);
         return ApiResponse.ok("bookmark Deleted successfully");
     }
-
     // 내 술장고 재료조회
     @GetMapping("/ingredient/{userId}")
     public ApiResponse<IngredientToListResponse> findUserByIngredient(
@@ -109,6 +102,4 @@ public class UserController {
         return ApiResponse.ok("술장고에 재료정보를 삭제하였습니다.");
 
     }
-
-
 }

@@ -41,7 +41,7 @@ public class UserConverter {
             user.isMan(),
             user.getAge(),
             user.getMbti(),
-            toIngredientsResponses(user.getIngredients())
+            toIngredientsResponses(user.getUsersIngredient())
         );
     }
 
