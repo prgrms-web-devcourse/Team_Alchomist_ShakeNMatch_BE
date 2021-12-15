@@ -41,18 +41,6 @@ public class ReviewController {
         return ApiResponse.ok(reviewService.insert(request));
     }
 
-//    @PostMapping("/image") // 리뷰 이미지를 S3에서 생성
-//    public ApiResponse<ReviewDetailResponse> insertImage(@RequestBody ReviewDetailRequest request, MultipartFile file) throws IOException {
-//        s3Service.upload(file);
-//        return ApiResponse.ok(reviewService.insert(request));
-//    }
-
-//    @DeleteMapping("/image/fileName") // 리뷰 이미지를 S3에서 삭제
-//    public ApiResponse<String> insertImage(@RequestParam String fileName) throws IOException {
-//        s3Service.delete(fileName);
-//        return ApiResponse.ok("해당 이미지를 S3에서 삭제했습니다.");
-//    }
-
     // 사용자 id를 통한 조회
     @GetMapping("/{id}")
     public ApiResponse<List<ReviewDetailResponse>> findAllByUserId(@PathVariable("id") Long userId, Pageable pageable) throws NotFoundException {

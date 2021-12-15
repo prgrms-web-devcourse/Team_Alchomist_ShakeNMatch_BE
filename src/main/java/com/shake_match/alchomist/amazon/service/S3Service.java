@@ -49,8 +49,10 @@ public class S3Service {
         return s3Client.getUrl(bucket, fileName).toString();
     }
 
-    public void delete(String fileName) throws IOException {
+    public void delete(String url) throws IOException {
         // key가 존재하면 기존 파일은 삭제
+        String fileName = url.substring(url.indexOf("com/")).substring(4);
+
         if (!"".equals(fileName) && fileName != null) {
             boolean isExistObject = s3Client.doesObjectExist(bucket, fileName);
             if (isExistObject) {
