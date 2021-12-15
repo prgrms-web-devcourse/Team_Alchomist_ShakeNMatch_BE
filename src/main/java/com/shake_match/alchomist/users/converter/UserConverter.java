@@ -12,9 +12,11 @@ import com.shake_match.alchomist.users.dto.response.UserNicknameResponse;
 import com.shake_match.alchomist.users.dto.response.UserUpdateResponse;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
-@Controller
+@Component
 public class UserConverter {
 
     private IngredientConverter ingredientConverter;
@@ -34,25 +36,12 @@ public class UserConverter {
 
     public UserDetailResponse toUserResponse(Users user) {
         return new UserDetailResponse(
-            user.getId(),
-            user.getEmail(),
+            user.getProviderId(),
             user.getNickname(),
             user.isMan(),
             user.getAge(),
             user.getMbti(),
-            user.getImageUrl(),
             toIngredientsResponses(user.getIngredients())
-        );
-    }
-
-    public Users toUser(UserRequest userRequest) {
-        return new Users(
-            userRequest.getEmail(),
-            userRequest.getNickname(),
-            userRequest.getImageUrl(),
-            userRequest.isMan(),
-            userRequest.getAge(),
-            userRequest.getMbti()
         );
     }
 

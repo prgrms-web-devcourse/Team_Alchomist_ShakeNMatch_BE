@@ -1,16 +1,20 @@
 package com.shake_match.alchomist.users.controller;
 
 import com.shake_match.alchomist.global.ApiResponse;
+import com.shake_match.alchomist.jwt.JwtAuthentication;
+import com.shake_match.alchomist.users.converter.UserConverter;
+import com.shake_match.alchomist.users.dto.response.UserDetailResponse;
 import com.shake_match.alchomist.users.dto.request.UserBookmarkRequest;
 import com.shake_match.alchomist.users.dto.request.UserRequest;
 import com.shake_match.alchomist.users.dto.request.UserUpdateRequest;
 import com.shake_match.alchomist.users.dto.response.UserBookmarkResponse;
-import com.shake_match.alchomist.users.dto.response.UserDetailResponse;
 import com.shake_match.alchomist.users.dto.response.UserLikeResponse;
 import com.shake_match.alchomist.users.dto.response.UserNicknameResponse;
 import com.shake_match.alchomist.users.service.UserService;
 import java.util.List;
 import javax.validation.Valid;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,9 +29,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
+    private final UserConverter converter;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserConverter converter) {
         this.userService = userService;
+        this.converter = converter;
     }
 
     @PostMapping("/join") // 회원가입
