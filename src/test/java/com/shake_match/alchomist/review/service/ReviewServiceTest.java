@@ -55,7 +55,7 @@ class ReviewServiceTest {
                 .id(REVIEW_ID1)
                 .description("테스트용 묘사")
                 .rating(5)
-                .type("이미지 url")
+                .url("이미지 url")
                 .build();
         reviewRepository.save(review1);
 
@@ -63,7 +63,7 @@ class ReviewServiceTest {
                 .id(REVIEW_ID2)
                 .description("테스트용 묘사")
                 .rating(1)
-                .type("이미지 url")
+                .url("이미지 url")
                 .build();
         reviewRepository.save(review2);
 

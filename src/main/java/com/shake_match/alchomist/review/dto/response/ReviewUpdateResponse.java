@@ -8,11 +8,11 @@ public class ReviewUpdateResponse {
 
     private int rating;
     private String description;
-    private String type;
+    private String url;
 
     public ReviewUpdateResponse(Review review) {
         this.rating = review.getRating();
         this.description = review.getDescription();
-        this.type = review.getType();
+        this.url = review.getUrl();
     }
 }

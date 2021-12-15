@@ -7,7 +7,6 @@ import com.shake_match.alchomist.global.NotFoundException;
 import com.shake_match.alchomist.review.Review;
 import com.shake_match.alchomist.review.converter.ReviewConverter;
 import com.shake_match.alchomist.review.dto.request.ReviewDetailRequest;
-import com.shake_match.alchomist.review.dto.request.ReviewImageRequest;
 import com.shake_match.alchomist.review.dto.request.ReviewUpdateRequest;
 import com.shake_match.alchomist.review.dto.response.ReviewDetailResponse;
 import com.shake_match.alchomist.review.dto.response.ReviewUpdateResponse;
@@ -102,9 +101,5 @@ public class ReviewService {
     public Cocktail getCocktail(Long cocktailId) throws NotFoundException {
         return cocktailRepository.findById(cocktailId)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_COCKTAIL));
-    }
-
-    public void saveImage(ReviewImageRequest request) {
-        reviewRepository.save(reviewConverter.converterReviewImage(request));
     }
 }

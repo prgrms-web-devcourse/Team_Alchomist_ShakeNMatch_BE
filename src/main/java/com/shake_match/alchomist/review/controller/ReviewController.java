@@ -60,26 +60,10 @@ public class ReviewController {
     }
 
     @GetMapping("/review")
-    public ApiResponse<List<ReviewDetailResponse>> findAll(Pageable pageable){
+    public ApiResponse<List<ReviewDetailResponse>> findAll(Pageable pageable) {
         return ApiResponse.ok(
                 reviewService.findAll(pageable)
-                .stream()
-                .collect(Collectors.toList()));
+                        .stream()
+                        .collect(Collectors.toList()));
     }
-
-//    @GetMapping("/review/image")
-//    public ModelAndView getImage() {
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("test"); // html 이름 지정
-//        modelAndView.addObject("response", "이미지 URL"); // 넘겨줄 값 지정
-//        return modelAndView;
-//    }
-//
-//    @PostMapping("/review/image")
-//    public ApiResponse<String> saveImage(@RequestBody ReviewImageRequest request, MultipartFile file) throws IOException {
-//        String imgPath = s3Service.upload(file.getOriginalFilename(), file);
-//        request.setImageUrl(imgPath);
-//        reviewService.saveImage(request);
-//        return ApiResponse.ok("redirect:/test");
-//    }
 }

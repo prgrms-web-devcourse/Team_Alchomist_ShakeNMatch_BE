@@ -1,19 +1,10 @@
 package com.shake_match.alchomist.review.dto.request;
 
+import lombok.Getter;
+
+@Getter
 public class ReviewUpdateRequest {
     private int rating;
     private String description;
-    private String type;
-
-    public int getRating() {
-        return rating;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getType() {
-        return type;
-    }
+    private String url;
 }

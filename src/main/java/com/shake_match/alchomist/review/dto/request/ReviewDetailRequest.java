@@ -11,7 +11,7 @@ public class ReviewDetailRequest {
 
     private Users user;
     private Cocktail cocktail;
-    private String type;
+    private String url;
     private String description;
     private int rating;
 }

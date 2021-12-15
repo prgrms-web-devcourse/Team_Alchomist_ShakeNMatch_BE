@@ -8,7 +8,7 @@ public class ReviewDto {
 
     private int rating;
     private String description;
-    private String type;
+    private String url;
     private Long userId;
     private String userName;
     private Long cocktailId;
@@ -17,14 +17,14 @@ public class ReviewDto {
 
     public ReviewDto(int rating,
                      String description,
-                     String type,
+                     String url,
                      Long userId,
                      String userName,
                      Long cocktailId,
                      String cocktailName) {
         this.rating = rating;
         this.description = description;
-        this.type = type;
+        this.url = url;
         this.userId = userId;
         this.userName = userName;
         this.cocktailId = cocktailId;
