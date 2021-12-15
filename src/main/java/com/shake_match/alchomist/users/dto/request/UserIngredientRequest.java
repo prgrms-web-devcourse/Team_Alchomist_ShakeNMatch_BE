@@ -1,11 +1,15 @@
 package com.shake_match.alchomist.users.dto.request;
 
-import com.shake_match.alchomist.ingredient.Ingredient;
-import java.util.List;
+import lombok.Getter;
 
+@Getter
 public class UserIngredientRequest {
 
-    public List<Ingredient> getIngredientList() {
-        return this.getIngredientList();
+    private final String userid;
+    private final String ingredientid;
+
+    public UserIngredientRequest(String userid, String ingredientid) {
+        this.userid = userid;
+        this.ingredientid = ingredientid;
     }
 }

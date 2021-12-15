@@ -2,8 +2,6 @@ package com.shake_match.alchomist.users;
 
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.global.BaseEntity;
-import com.shake_match.alchomist.ingredient.Ingredient;
-import com.shake_match.alchomist.ingredient.dto.request.IngredientUpdateRequest;
 import com.shake_match.alchomist.review.Review;
 import com.shake_match.alchomist.users.dto.request.UserUpdateRequest;
 import java.util.ArrayList;
@@ -15,14 +13,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Getter
 @Entity(name = "users")
 public class Users extends BaseEntity {
@@ -56,8 +52,8 @@ public class Users extends BaseEntity {
     @OneToMany(mappedBy = "users")
     List<Review> reviews = new ArrayList<>();
 
-    @OneToMany
-    List<Ingredient> ingredients = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    List<UsersIngredient> usersIngredient = new ArrayList<>();
 
     @OneToMany
     List<Cocktail> cocktails = new ArrayList<>();
@@ -88,4 +84,5 @@ public class Users extends BaseEntity {
         this.age = userUpdateRequest.getAge();
         this.mbti = userUpdateRequest.getMbti();
     }
+
 }
