@@ -53,7 +53,7 @@ public class Users extends BaseEntity {
     @Column
     String mbti;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany
     List<Review> reviews = new ArrayList<>();
 
     @OneToMany

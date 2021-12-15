@@ -31,11 +31,17 @@ public class Review extends BaseEntity {
     @Column
     String url;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    Users users;
+    @Column(name = "user_id")
+    Long userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    Cocktail cocktails;
+    @Column(name = "cocktail_id")
+    Long cocktailId;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    Users users;
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    Cocktail cocktails;
 
     public void update(ReviewUpdateRequest request) {
         this.rating = request.getRating();

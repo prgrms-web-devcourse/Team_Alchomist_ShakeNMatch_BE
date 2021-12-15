@@ -1,7 +1,5 @@
 package com.shake_match.alchomist.review.dto.request;
 
-import com.shake_match.alchomist.cocktail.domain.Cocktail;
-import com.shake_match.alchomist.users.Users;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -9,8 +7,8 @@ import lombok.Getter;
 @Getter
 public class ReviewDetailRequest {
 
-    private Users user;
-    private Cocktail cocktail;
+    private Long userId;
+    private Long cocktailId;
     private String url;
     private String description;
     private int rating;

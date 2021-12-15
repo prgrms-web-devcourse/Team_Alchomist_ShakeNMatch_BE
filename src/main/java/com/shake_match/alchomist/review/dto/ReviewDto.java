@@ -14,20 +14,11 @@ public class ReviewDto {
     private Long cocktailId;
     private String cocktailName;
 
-
-    public ReviewDto(int rating,
-                     String description,
-                     String url,
-                     Long userId,
-                     String userName,
-                     Long cocktailId,
-                     String cocktailName) {
+    public ReviewDto(int rating, String description, String url, Long userId, Long cocktailId) {
         this.rating = rating;
         this.description = description;
         this.url = url;
         this.userId = userId;
-        this.userName = userName;
         this.cocktailId = cocktailId;
-        this.cocktailName = cocktailName;
     }
 }

@@ -36,21 +36,22 @@ public class ReviewController {
 
     @PostMapping // 리뷰 생성
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse<ReviewDetailResponse> insert(@RequestBody ReviewDetailRequest request) throws NotFoundException {
+    public ApiResponse<ReviewDetailResponse> insert(@RequestPart(value = "request") ReviewDetailRequest request, @RequestPart(value = "file") MultipartFile file) throws IOException {
+        s3Service.upload(file);
         return ApiResponse.ok(reviewService.insert(request));
     }
 
-    @PostMapping("/image") // 리뷰 이미지를 S3에서 생성
-    public ApiResponse<String> insertImage(MultipartFile file) throws IOException {
-        s3Service.upload(file);
-        return ApiResponse.ok("리뷰 이미지가 S3에 등록되었습니다.");
-    }
+//    @PostMapping("/image") // 리뷰 이미지를 S3에서 생성
+//    public ApiResponse<ReviewDetailResponse> insertImage(@RequestBody ReviewDetailRequest request, MultipartFile file) throws IOException {
+//        s3Service.upload(file);
+//        return ApiResponse.ok(reviewService.insert(request));
+//    }
 
-    @DeleteMapping("/image/fileName") // 리뷰 이미지를 S3에서 삭제
-    public ApiResponse<String> insertImage(@RequestParam String fileName) throws IOException {
-        s3Service.delete(fileName);
-        return ApiResponse.ok("해당 이미지를 S3에서 삭제했습니다.");
-    }
+//    @DeleteMapping("/image/fileName") // 리뷰 이미지를 S3에서 삭제
+//    public ApiResponse<String> insertImage(@RequestParam String fileName) throws IOException {
+//        s3Service.delete(fileName);
+//        return ApiResponse.ok("해당 이미지를 S3에서 삭제했습니다.");
+//    }
 
     // 사용자 id를 통한 조회
     @GetMapping("/{id}")

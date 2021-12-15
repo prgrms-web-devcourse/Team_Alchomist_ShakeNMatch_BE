@@ -16,18 +16,18 @@ public class ReviewConverter {
                 .rating(request.getRating())
                 .description(request.getDescription())
                 .url("https://" + bucket + ".s3." + region + ".amazonaws.com/" + request.getUrl())
-                .users(request.getUser())
-                .cocktails(request.getCocktail())
+                .userId(request.getUserId())
+                .cocktailId(request.getCocktailId())
                 .build();
     }
 
     public static ReviewDto toReviewDto(Review review) {
-        return new ReviewDto(review.getRating(),
+        return new ReviewDto(
+                review.getRating(),
                 review.getDescription(),
                 review.getUrl(),
-                review.getUsers().getId(),
-                review.getUsers().getEmail(),
-                review.getCocktails().getId(),
-                review.getCocktails().getName());
+                review.getUserId(),
+                review.getCocktailId()
+        );
     }
 }

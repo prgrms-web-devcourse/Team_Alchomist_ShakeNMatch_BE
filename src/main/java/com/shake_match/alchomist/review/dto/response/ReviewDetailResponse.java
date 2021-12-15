@@ -15,8 +15,8 @@ public class ReviewDetailResponse {
 
     public ReviewDetailResponse(Review review) {
         this.reviewId = review.getId();
-        this.userId = review.getUsers().getId();
-        this.cocktailId = review.getCocktails().getId();
+        this.userId = review.getUserId();
+        this.cocktailId = review.getCocktailId();
         this.url = review.getUrl();
         this.description = review.getDescription();
         this.rating = review.getRating();
