@@ -1,10 +1,10 @@
 package com.shake_match.alchomist.users.converter;
 
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
-import com.shake_match.alchomist.ingredient.Ingredient;
 import com.shake_match.alchomist.ingredient.converter.IngredientConverter;
 import com.shake_match.alchomist.ingredient.dto.response.IngredientResponse;
 import com.shake_match.alchomist.users.Users;
+import com.shake_match.alchomist.users.UsersIngredient;
 import com.shake_match.alchomist.users.dto.request.UserRequest;
 import com.shake_match.alchomist.users.dto.response.UserBookmarkResponse;
 import com.shake_match.alchomist.users.dto.response.UserDetailResponse;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class UserConverter {
 
-    private IngredientConverter ingredientConverter;
+    private final IngredientConverter ingredientConverter;
 
     public UserConverter(
         IngredientConverter ingredientConverter) {
@@ -41,7 +41,7 @@ public class UserConverter {
             user.getAge(),
             user.getMbti(),
             user.getImageUrl(),
-            toIngredientsResponses(user.getIngredients())
+            toIngredientsResponses(user.getUsersIngredient())
         );
     }
 
@@ -69,8 +69,9 @@ public class UserConverter {
         return new UserNicknameResponse(can);
     }
 
-    public List<IngredientResponse> toIngredientsResponses(List<Ingredient> ingredients) {
-        return ingredients.stream()
+    public List<IngredientResponse> toIngredientsResponses(List<UsersIngredient> usersIngredients) {
+        return usersIngredients.stream()
+            .map(UsersIngredient::getIngredient)
             .map(ingredient -> ingredientConverter.converterIngredientResponse(
                 ingredient)).collect(Collectors.toList());
     }
