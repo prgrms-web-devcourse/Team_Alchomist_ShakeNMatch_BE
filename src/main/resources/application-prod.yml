@@ -24,8 +24,15 @@ server:
     encoding:
       force: true
       charset: UTF-8
+  port: 8080
+  ssl:
+    key-store-type: PKCS12
+    key-store: /keystore.p12
+    key-alias: tomcat
+    key-store-password: sktkddnjs
 
 security:
+  requrie-ssl: true
   oauth2:
     client:
       registration:
@@ -49,3 +56,4 @@ jwt:
   issuer: alchomist
   client-secret: ${JWT_CLIENT_SECRET}
   expiry-seconds: 3600
+
