@@ -1,5 +1,6 @@
 package com.shake_match.alchomist.cocktail.service;
 
+import com.shake_match.alchomist.amazon.service.S3Service;
 import com.shake_match.alchomist.cocktail.convertor.CocktailConvertor;
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.cocktail.domain.Volume;
@@ -30,6 +31,7 @@ public class CocktailServiceImpl implements CocktailService {
     private final VolumeRepository volumeRepository;
     private final IngredientRepository ingredientRepository;
     private final ThemeRepository themeRepository;
+    private final S3Service s3Service;
 
     @Override
     @Transactional(readOnly = true)
@@ -101,6 +103,7 @@ public class CocktailServiceImpl implements CocktailService {
         if (cocktail.isEmpty()) {
             throw new EntityNotFoundException();
         }
+        s3Service.delete(cocktail.get().getType());
         repository.deleteById(cocktail.get().getId());
         return "success";
     }
