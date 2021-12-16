@@ -2,7 +2,6 @@ package com.shake_match.alchomist.cocktail.dto;
 
 import java.util.List;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

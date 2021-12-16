@@ -10,7 +10,6 @@ import com.shake_match.alchomist.cocktail.dto.CreateCocktailRequest;
 import com.shake_match.alchomist.cocktail.dto.SearchResponse;
 import com.shake_match.alchomist.cocktail.repository.CocktailIngredientRepository;
 import com.shake_match.alchomist.cocktail.repository.CocktailRepository;
-import com.shake_match.alchomist.cocktail.repository.VolumeRepository;
 import com.shake_match.alchomist.global.ErrorCode;
 import com.shake_match.alchomist.global.NotFoundException;
 import com.shake_match.alchomist.ingredient.Ingredient;
@@ -23,7 +22,6 @@ import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +31,6 @@ public class CocktailServiceImpl implements CocktailService {
 
     private final CocktailRepository repository;
     private final CocktailConvertor convertor;
-//    private final VolumeRepository volumeRepository;
     private final IngredientRepository ingredientRepository;
     private final ThemeRepository themeRepository;
     private final S3Service s3Service;
