@@ -14,7 +14,6 @@ import com.shake_match.alchomist.users.Users;
 import com.shake_match.alchomist.users.UsersIngredient;
 import com.shake_match.alchomist.users.converter.UserConverter;
 import com.shake_match.alchomist.users.dto.request.UserBookmarkRequest;
-import com.shake_match.alchomist.users.dto.request.UserRequest;
 import com.shake_match.alchomist.users.dto.request.UserUpdateRequest;
 import com.shake_match.alchomist.users.dto.response.*;
 import com.shake_match.alchomist.users.repository.UserRepository;
