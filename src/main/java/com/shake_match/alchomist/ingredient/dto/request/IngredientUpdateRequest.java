@@ -9,7 +9,6 @@ import java.util.List;
 public class IngredientUpdateRequest {
 
     private String ingredientName;
-    private List<Cocktail> cocktails;
     private String type;
     private boolean isAlcohol;
     private String measure;
