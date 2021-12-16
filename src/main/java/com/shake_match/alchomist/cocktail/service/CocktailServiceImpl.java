@@ -65,12 +65,14 @@ public class CocktailServiceImpl implements CocktailService {
 
     @Override
     @Transactional(readOnly = true)
-    public CocktailDetailResponse searchByName(String name) {
+    public List<SearchResponse> searchByName(String name) {
         Optional<Cocktail> cocktail = repository.findByName(name);
         if (cocktail.isEmpty()) {
             throw new EntityNotFoundException();
         }
-        return convertor.toCocktailDetail(cocktail.get());
+        List<SearchResponse> responses = new ArrayList<>();
+        responses.add(convertor.toSearch(cocktail.get()));
+        return responses;
     }
 
     @Override

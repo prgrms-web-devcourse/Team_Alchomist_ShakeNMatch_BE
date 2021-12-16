@@ -35,8 +35,8 @@ public class CocktailController {
         return ApiResponse.ok(service.searchByTheme(mainCategory, subCategory));
     }
 
-    @GetMapping("/name") //칵테일 이름으로 상세 정보 검색
-    public ApiResponse<CocktailDetailResponse> searchCocktail(@RequestParam String name)
+    @GetMapping("/name") //칵테일 이름으로 축약 정보 검색
+    public ApiResponse<List<SearchResponse>> searchCocktail(@RequestParam String name)
         throws Exception {
         return ApiResponse.ok(service.searchByName(name));
     }
