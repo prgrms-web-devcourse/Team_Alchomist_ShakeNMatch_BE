@@ -46,7 +46,6 @@ class IngredientServiceTest {
                 .likes(0)
                 .type("이미지 url")
                 .totalRating(4.3f)
-                .youtubeLink("https://www.youtube.com/watch?v=8getArw9Ryk")
                 .build();
         cocktailRepository.save(cocktailTest1);
 
@@ -56,7 +55,6 @@ class IngredientServiceTest {
                 .likes(0)
                 .type("이미지 url")
                 .totalRating(4.3f)
-                .youtubeLink("https://www.youtube.com/watch?v=8getArw9Ryk")
                 .build();
         cocktailRepository.save(cocktailTest2);
 

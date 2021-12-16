@@ -48,7 +48,6 @@ public class CocktailConvertor {
                 reviewDtos,
                 cocktail.getRecipe(),
                 cocktail.getType(),
-                cocktail.getYoutubeLink(),
                 cocktail.getLikes(),
                 cocktail.getTotalRating()
         );
@@ -70,7 +69,6 @@ public class CocktailConvertor {
                 createCocktailRequest.getName(),
                 createCocktailRequest.getRecipe(),
                 s3Address + createCocktailRequest.getType(),
-                createCocktailRequest.getYoutubeLink(),
                 themes,
                 volumes
         );

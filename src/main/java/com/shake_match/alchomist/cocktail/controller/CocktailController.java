@@ -41,7 +41,7 @@ public class CocktailController {
     }
 
     @PostMapping //칵테일 정보 저장
-    public ApiResponse<String> createCocktail(@RequestPart(value = "request") CreateCocktailRequest createCocktailRequest, @RequestPart(value = "file") MultipartFile file) throws Exception{
+    public ApiResponse<String> createCocktail(@RequestPart(value = "request") CreateCocktailRequest createCocktailRequest, @RequestPart(value = "file") MultipartFile file) throws Exception {
         s3Service.upload(file);
         return ApiResponse.ok(service.createCocktail(createCocktailRequest));
     }
