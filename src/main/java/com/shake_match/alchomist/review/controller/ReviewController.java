@@ -1,6 +1,7 @@
 package com.shake_match.alchomist.review.controller;
 
 
+import com.shake_match.alchomist.amazon.service.S3Service;
 import com.shake_match.alchomist.global.ApiResponse;
 import com.shake_match.alchomist.global.NotFoundException;
 import com.shake_match.alchomist.review.dto.request.ReviewDetailRequest;
@@ -9,56 +10,63 @@ import com.shake_match.alchomist.review.dto.response.ReviewDetailResponse;
 import com.shake_match.alchomist.review.dto.response.ReviewUpdateResponse;
 import com.shake_match.alchomist.review.repository.ReviewRepository;
 import com.shake_match.alchomist.review.service.ReviewService;
-import com.shake_match.alchomist.users.Users;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 @RestController
+@RequestMapping("/review")
 public class ReviewController {
 
     private final ReviewService reviewService;
-    private final ReviewRepository reviewRepository;
+    private final S3Service s3Service;
 
-    public ReviewController(ReviewService reviewService, ReviewRepository reviewRepository) {
+    public ReviewController(ReviewService reviewService, S3Service s3Service) {
         this.reviewService = reviewService;
-        this.reviewRepository = reviewRepository;
+        this.s3Service = s3Service;
     }
 
-    @PostMapping("/review") // 리뷰 생성
+    @PostMapping // 리뷰 생성
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse<ReviewDetailResponse> insert(@RequestBody ReviewDetailRequest request) throws NotFoundException {
+    public ApiResponse<ReviewDetailResponse> insert(@RequestPart(value = "request") ReviewDetailRequest request, @RequestPart(value = "file") MultipartFile file) throws IOException {
+        s3Service.upload(file);
         return ApiResponse.ok(reviewService.insert(request));
     }
 
-    // 칵테일 id를 통한 조회
-    @GetMapping("/review/{userId}")
-    public ApiResponse<List<ReviewDetailResponse>> findAllByUserId(Pageable pageable, @PathVariable("userId") Long userId) throws NotFoundException {
+    // 사용자 id를 통한 조회
+    @GetMapping("/{id}")
+    public ApiResponse<List<ReviewDetailResponse>> findAllByUserId(@PathVariable("id") Long userId, Pageable pageable) throws NotFoundException {
         return ApiResponse.ok(reviewService.findAllByUserId(pageable, userId));
     }
 
-    // 사용자 id를 통한 조회
-    @GetMapping("/review/{cocktailId}")
-    public ApiResponse<List<ReviewDetailResponse>> findAllByCocktailId(Pageable pageable, @PathVariable("cocktailId") Long cocktailId) throws NotFoundException {
+    // 칵테일 id를 통한 조회
+    @GetMapping("/cocktailId")
+    public ApiResponse<List<ReviewDetailResponse>> findAllByCocktailId(@RequestParam Long cocktailId, Pageable pageable) throws NotFoundException {
         return ApiResponse.ok(reviewService.findAllByCocktailId(pageable, cocktailId));
     }
 
-    @DeleteMapping("/review/{id}") // 리뷰 삭제
-    public ApiResponse<String> delete(@PathVariable("id") Long reviewId, Users user) throws Exception {
-        reviewService.delete(reviewId, user);
-        return ApiResponse.ok(user.getUsername() + "님의 리뷰가 삭제되었습니다.");
+    @DeleteMapping("/{id}") // 리뷰 삭제
+    public ApiResponse<String> delete(@PathVariable("id") Long id) throws Exception {
+        reviewService.delete(id);
+        return ApiResponse.ok("리뷰가 삭제되었습니다.");
+    }
+    
+
+    @PutMapping("/{id}") // 리뷰 수정
+    public ApiResponse<ReviewUpdateResponse> updateByReviewId(@PathVariable("id") Long id, @RequestBody ReviewUpdateRequest request) throws Exception {
+        return ApiResponse.ok(reviewService.updateById(id, request));
     }
 
-    @DeleteMapping("admin/review/{id}") // 관리자의 리뷰 삭제
-    public ApiResponse<Void> deleteByAdmin(@PathVariable("id") Long reviewId) throws Exception {
-        reviewService.deleteByAdmin(reviewId);
-        return ApiResponse.ok(null);
-    }
-
-    @PutMapping("/review/{id}") // 리뷰 수정
-    public ApiResponse<Void> updateByReviewId(@PathVariable Long id, @RequestBody ReviewUpdateRequest request) throws Exception {
-        return ApiResponse.ok(null);
+    @GetMapping
+    public ApiResponse<List<ReviewDetailResponse>> findAll(Pageable pageable) throws NotFoundException {
+        return ApiResponse.ok(reviewService.findAll(pageable)
+                .stream()
+                .collect(Collectors.toList()));
     }
 }

@@ -1,5 +1,6 @@
 package com.shake_match.alchomist.review.service;
 
+import com.shake_match.alchomist.amazon.service.S3Service;
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.cocktail.repository.CocktailRepository;
 import com.shake_match.alchomist.global.ErrorCode;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,41 +30,36 @@ public class ReviewService {
     private final ReviewConverter reviewConverter;
     private final UserRepository userRepository;
     private final CocktailRepository cocktailRepository;
+    private final S3Service s3Service;
 
-    public ReviewService(ReviewRepository reviewRepository, ReviewConverter reviewConverter, UserRepository userRepository, CocktailRepository cocktailRepository) {
+    public ReviewService(ReviewRepository reviewRepository, ReviewConverter reviewConverter, UserRepository userRepository, CocktailRepository cocktailRepository, S3Service s3Service) {
         this.reviewRepository = reviewRepository;
         this.reviewConverter = reviewConverter;
         this.userRepository = userRepository;
         this.cocktailRepository = cocktailRepository;
+        this.s3Service = s3Service;
     }
 
 
     @Transactional // 리뷰 작성
     public ReviewDetailResponse insert(ReviewDetailRequest request) throws NotFoundException {
-        getUser(request.getUsers().getId());
-        getCocktail(request.getCocktail().getId());
-        Review review = reviewConverter.converterReview(request);
-        Review insertedReview = reviewRepository.save(review);
-        return new ReviewDetailResponse(insertedReview);
+        getUser(request.getUserId());
+        getCocktail(request.getCocktailId());
+        Review review = reviewConverter.converterReviewDetail(request);
+        reviewRepository.save(review);
+        return new ReviewDetailResponse(review);
     }
 
     @Transactional // 리뷰 삭제
-    public void delete(Long reviewId, Users users) throws Exception {
+    public void delete(Long reviewId) throws IOException {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_REVIEW));
-        if (!users.getId().equals(review.getUsers().getId())) { // 자기 자신의 리뷰만을 삭제 가능
-            throw new NotFoundException(ErrorCode.NOT_EXIST_MEMBER);
-        }
+        s3Service.delete(review.getUrl());
         reviewRepository.delete(review);
     }
 
-    @Transactional // 관리자 모드 리뷰 삭제
-    public void deleteByAdmin(Long reviewId) throws Exception {
-        reviewRepository.deleteById(reviewId);
-    }
-
     @Transactional // ingredient 수정
-    public ReviewUpdateResponse updateById(Long reviewId, ReviewUpdateRequest request) throws Exception {
+    public ReviewUpdateResponse updateById(Long reviewId, ReviewUpdateRequest request) throws NotFoundException {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_INGREDIENT));
         review.update(request);
@@ -100,6 +97,6 @@ public class ReviewService {
     @Transactional // 실제로 저장되어있는 칵테일인지 확인하고 조회하는 메소드
     public Cocktail getCocktail(Long cocktailId) throws NotFoundException {
         return cocktailRepository.findById(cocktailId)
-                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_REVIEW)); // 수정해야함
+                .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_COCKTAIL));
     }
 }

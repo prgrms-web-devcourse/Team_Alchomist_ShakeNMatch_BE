@@ -8,23 +8,26 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReviewConverter {
 
-    public Review converterReview(ReviewDetailRequest request){ // Dto -> Entity
+    private final String bucket = "team15-image-bucket";
+    private final String region = "ap-northeast-2";
+
+    public Review converterReviewDetail(ReviewDetailRequest request) { // Dto -> Entity
         return Review.builder()
                 .rating(request.getRating())
                 .description(request.getDescription())
-                .url(request.getImageUrl())
-                .users(request.getUsers())
-                .cocktails(request.getCocktail())
+                .url("https://" + bucket + ".s3." + region + ".amazonaws.com/" + request.getUrl())
+                .userId(request.getUserId())
+                .cocktailId(request.getCocktailId())
                 .build();
     }
 
     public static ReviewDto toReviewDto(Review review) {
-        return new ReviewDto(review.getRating(),
+        return new ReviewDto(
+                review.getRating(),
                 review.getDescription(),
                 review.getUrl(),
-                review.getUsers().getId(),
-                review.getUsers().getUsername(),
-                review.getCocktails().getId(),
-                review.getCocktails().getName());
+                review.getUserId(),
+                review.getCocktailId()
+        );
     }
 }

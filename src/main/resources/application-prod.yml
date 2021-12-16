@@ -24,7 +24,6 @@ spring:
       encoding: UTF-8
 
   security:
-#    requrie-ssl: true
     oauth2:
       client:
         registration:
@@ -47,17 +46,27 @@ logging.level:
   org.hibernate.SQL: debug
 
 server:
+  port: 443
+  ssl:
+    key-store: classpath:keystore.p12
+    key-store-type: PKCS12
+    key-store-password: sktkddnjs
   servlet:
     encoding:
       force: true
       charset: UTF-8
-      
-#  port: 8080
-#  ssl:
-#    key-store-type: PKCS12
-#    key-store: /keystore.p12
-#    key-alias: tomcat
-#    key-store-password: sktkddnjs
+
+cloud:
+  aws:
+    credentials:
+      accessKey: ${S3_ACCESSKEY}
+      secretKey: ${S3_SECRETKEY}
+    s3:
+      bucket: ${S3_BUCKET}
+    region:
+      static: ${S3_REGION}
+    stack:
+      auto: false
 
 jwt:
   header: token

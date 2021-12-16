@@ -2,25 +2,17 @@ package com.shake_match.alchomist.ingredient.dto.request;
 
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import lombok.Builder;
+import lombok.Getter;
 
 import java.util.List;
 
 @Builder
+@Getter
 public class IngredientDetailRequest {
 
-    private Long ingredientId;
     private String ingredientName;
+    private String type;
     private List<Cocktail> cocktails;
-
-    public Long getIngredientId() {
-        return ingredientId;
-    }
-
-    public String getIngredientName() {
-        return this.ingredientName;
-    }
-
-    public List<Cocktail> getCocktails() {
-        return this.cocktails;
-    }
+    private boolean isAlcohol;
+    private String measure;
 }

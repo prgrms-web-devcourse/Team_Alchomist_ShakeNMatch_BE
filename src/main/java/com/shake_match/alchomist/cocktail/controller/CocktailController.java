@@ -1,5 +1,6 @@
 package com.shake_match.alchomist.cocktail.controller;
 
+import com.shake_match.alchomist.amazon.service.S3Service;
 import com.shake_match.alchomist.cocktail.dto.CocktailDetailResponse;
 import com.shake_match.alchomist.cocktail.dto.CreateCocktailRequest;
 import com.shake_match.alchomist.cocktail.dto.SearchResponse;
@@ -7,6 +8,7 @@ import com.shake_match.alchomist.cocktail.service.CocktailService;
 import com.shake_match.alchomist.global.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -16,6 +18,7 @@ import java.util.List;
 public class CocktailController {
 
     private final CocktailService service;
+    private final S3Service s3Service;
 
     @GetMapping("/theme") //테마에 따라서 칵테일 검색
     public ApiResponse<List<SearchResponse>> searchByTheme(@RequestParam String mainCategory, @RequestParam String subCategory) throws Exception{
@@ -38,7 +41,8 @@ public class CocktailController {
     }
 
     @PostMapping //칵테일 정보 저장
-    public ApiResponse<String> createCocktail(@RequestBody CreateCocktailRequest createCocktailRequest) throws Exception{
+    public ApiResponse<String> createCocktail(@RequestPart(value = "request") CreateCocktailRequest createCocktailRequest, @RequestPart(value = "file") MultipartFile file) throws Exception{
+        s3Service.upload(file);
         return ApiResponse.ok(service.createCocktail(createCocktailRequest));
     }
 

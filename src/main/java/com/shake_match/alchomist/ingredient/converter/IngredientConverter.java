@@ -13,10 +13,12 @@ public class IngredientConverter {
 
     public Ingredient converterIngredient(IngredientDetailRequest request) { // dto -> entity
         return Ingredient.builder()
-            .id(request.getIngredientId())
-            .name(request.getIngredientName())
-            .cocktails(request.getCocktails())
-            .build();
+                .name(request.getIngredientName())
+                .cocktails(request.getCocktails())
+                .isAlcohol(request.isAlcohol())
+                .type(request.getType())
+                .measure(request.getMeasure())
+                .build();
     }
 
     // entity -> dto

@@ -13,9 +13,15 @@ public class IngredientUpdateResponse {
 
     private String ingredientName;
     private List<Cocktail> cocktails;
+    private String type;
+    private boolean isAlcohol;
+    private String measure;
 
     public IngredientUpdateResponse(Ingredient ingredient) {
         this.ingredientName = ingredient.getName();
         this.cocktails = ingredient.getCocktails();
+        this.type = ingredient.getType();
+        this.isAlcohol = ingredient.isAlcohol();
+        this.measure = ingredient.getMeasure();
     }
 }
