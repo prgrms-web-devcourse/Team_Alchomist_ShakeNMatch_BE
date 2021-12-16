@@ -15,5 +15,7 @@ public interface CocktailService {
     String createCocktail(CreateCocktailRequest createCocktailRequest) throws Exception;
     String deleteCocktail(String name) throws Exception;
 
+    void cocktailandIngredient(Long cocktail_id, Long ingredient_id);
+
     List<SearchResponse> searchAll() throws Exception;
 }
