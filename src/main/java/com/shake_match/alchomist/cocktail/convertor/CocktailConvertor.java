@@ -21,6 +21,10 @@ import java.util.List;
 @Component
 public class CocktailConvertor {
 
+    private final String bucket = "team15-image-bucket";
+    private final String region = "ap-northeast-2";
+    private final String s3Address = "https://" + bucket + ".s3." + region + ".amazonaws.com/";
+
     public CocktailDetailResponse toCocktailDetail(Cocktail cocktail){
         List<VolumeDto> volumeDtos = new ArrayList<>();
         for(Volume volume: cocktail.getVolumes()){
@@ -65,7 +69,7 @@ public class CocktailConvertor {
         return new Cocktail(
                 createCocktailRequest.getName(),
                 createCocktailRequest.getRecipe(),
-                createCocktailRequest.getType(),
+                s3Address + createCocktailRequest.getType(),
                 createCocktailRequest.getYoutubeLink(),
                 themes,
                 volumes
