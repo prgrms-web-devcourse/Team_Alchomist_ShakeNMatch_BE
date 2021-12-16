@@ -1,20 +1,16 @@
 package com.shake_match.alchomist.users.controller;
 
+import com.shake_match.alchomist.cocktail.dto.CocktailSimpleListResponse;
 import com.shake_match.alchomist.global.ApiResponse;
-import com.shake_match.alchomist.jwt.JwtAuthentication;
-import com.shake_match.alchomist.users.converter.UserConverter;
-import com.shake_match.alchomist.users.dto.response.UserDetailResponse;
 import com.shake_match.alchomist.ingredient.dto.response.IngredientToListResponse;
+import com.shake_match.alchomist.users.converter.UserConverter;
 import com.shake_match.alchomist.users.dto.request.UserBookmarkRequest;
-import com.shake_match.alchomist.users.dto.request.UserRequest;
 import com.shake_match.alchomist.users.dto.request.UserUpdateRequest;
-import com.shake_match.alchomist.users.dto.response.UserBookmarkResponse;
+import com.shake_match.alchomist.users.dto.response.UserDetailResponse;
 import com.shake_match.alchomist.users.dto.response.UserLikeResponse;
 import com.shake_match.alchomist.users.dto.response.UserNicknameResponse;
 import com.shake_match.alchomist.users.service.UserService;
-import javax.validation.Valid;
 import java.util.List;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,11 +25,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
-    private final UserConverter converter;
 
-    public UserController(UserService userService, UserConverter converter) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.converter = converter;
     }
 
     @PutMapping("/info/{userId}") // 회원정보 수정
@@ -52,16 +46,16 @@ public class UserController {
 
     @GetMapping("/nickname/{nickname}") // 닉네임 검색
     public ApiResponse<UserNicknameResponse> findUserByNickname(
-            @PathVariable("nickname") String nickname) {
+        @PathVariable("nickname") String nickname) {
         UserNicknameResponse userNicknameResponse = userService.getUserByNickname(nickname);
         return ApiResponse.ok(userNicknameResponse);
     }
 
     @PostMapping("/bookmark") // 북마크 추가
     public ApiResponse<UserLikeResponse> addUserBookmark(
-            @RequestBody UserBookmarkRequest userBookmarkRequest) {
+        @RequestBody UserBookmarkRequest userBookmarkRequest) {
         UserLikeResponse userLikeResponse = userService.addBookmark(userBookmarkRequest.getUserId(),
-                userBookmarkRequest.getCocktailId());
+            userBookmarkRequest.getCocktailId());
         return ApiResponse.ok(userLikeResponse);
     }
 
@@ -71,12 +65,22 @@ public class UserController {
         userService.deleteBookmark(userBookmarkRequest);
         return ApiResponse.ok("bookmark Deleted successfully");
     }
+
     // 내 술장고 재료조회
     @GetMapping("/ingredient/{userId}")
     public ApiResponse<IngredientToListResponse> findUserByIngredient(
         @PathVariable("userId") Long id) {
         IngredientToListResponse userByIngredient = userService.getUserByIngredient(id);
         return ApiResponse.ok(userByIngredient);
+    }
+
+    // 내 술장고 재료 조회해서 칵테일 배열로 반환
+    @GetMapping("/ingredient")
+    public ApiResponse<CocktailSimpleListResponse> getAllCocktailByIngredients(
+        @RequestBody List<Long> ingredientIds) {
+        CocktailSimpleListResponse allCocktailByIngredient = userService.getAllCocktailByIngredient(
+            ingredientIds);
+        return ApiResponse.ok(allCocktailByIngredient);
     }
 
     @PostMapping("/ingredient/{userId}")

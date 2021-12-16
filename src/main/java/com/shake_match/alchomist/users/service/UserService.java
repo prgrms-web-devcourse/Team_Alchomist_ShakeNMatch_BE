@@ -1,6 +1,9 @@
 package com.shake_match.alchomist.users.service;
 
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
+import com.shake_match.alchomist.cocktail.domain.CocktailIngredient;
+import com.shake_match.alchomist.cocktail.dto.CocktailSimpleListResponse;
+import com.shake_match.alchomist.cocktail.dto.CocktailSimpleResponse;
 import com.shake_match.alchomist.cocktail.repository.CocktailRepository;
 import com.shake_match.alchomist.global.ErrorCode;
 import com.shake_match.alchomist.global.NotFoundException;
@@ -14,12 +17,13 @@ import com.shake_match.alchomist.users.Users;
 import com.shake_match.alchomist.users.UsersIngredient;
 import com.shake_match.alchomist.users.converter.UserConverter;
 import com.shake_match.alchomist.users.dto.request.UserBookmarkRequest;
-import com.shake_match.alchomist.users.dto.request.UserRequest;
 import com.shake_match.alchomist.users.dto.request.UserUpdateRequest;
 import com.shake_match.alchomist.users.dto.response.*;
 import com.shake_match.alchomist.users.repository.UserRepository;
 import com.shake_match.alchomist.users.repository.UserIngredientRepository;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -80,6 +84,25 @@ public class UserService {
                 .map(ingredientConverter::converterIngredientListResponse)
                 .collect(Collectors.toList());
         return ingredientConverter.converterIngredientToListResponse(ingredientListResponseList);
+    }
+
+    @Transactional
+    public CocktailSimpleListResponse getAllCocktailByIngredient(List<Long> ingredientId) {
+        List<CocktailIngredient> cocktailIngredients = cocktailRepository.findAllByIngredients(
+            ingredientId);
+
+        Map<Long, Cocktail> map = new HashMap<>();
+        for (CocktailIngredient cocktailIngredient : cocktailIngredients) {
+            Long key = cocktailIngredient.getCocktail().getId();
+            if (!map.containsKey(key)) {
+                map.put(key, cocktailIngredient.getCocktail());
+            }
+        }
+        List<CocktailSimpleResponse> cocktails = map.values()
+            .stream()
+            .map(CocktailSimpleResponse::new)
+            .collect(Collectors.toList());
+        return new CocktailSimpleListResponse(cocktails);
     }
 
     @Transactional
