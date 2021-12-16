@@ -67,4 +67,5 @@ public class Cocktail extends BaseEntity {
             likes--;
         }
     }
+
 }

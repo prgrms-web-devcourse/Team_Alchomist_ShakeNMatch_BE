@@ -3,12 +3,16 @@ package com.shake_match.alchomist.cocktail.service;
 import com.shake_match.alchomist.amazon.service.S3Service;
 import com.shake_match.alchomist.cocktail.convertor.CocktailConvertor;
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
+import com.shake_match.alchomist.cocktail.domain.CocktailIngredient;
 import com.shake_match.alchomist.cocktail.domain.Volume;
 import com.shake_match.alchomist.cocktail.dto.CocktailDetailResponse;
 import com.shake_match.alchomist.cocktail.dto.CreateCocktailRequest;
 import com.shake_match.alchomist.cocktail.dto.SearchResponse;
+import com.shake_match.alchomist.cocktail.repository.CocktailIngredientRepository;
 import com.shake_match.alchomist.cocktail.repository.CocktailRepository;
 import com.shake_match.alchomist.cocktail.repository.VolumeRepository;
+import com.shake_match.alchomist.global.ErrorCode;
+import com.shake_match.alchomist.global.NotFoundException;
 import com.shake_match.alchomist.ingredient.Ingredient;
 import com.shake_match.alchomist.ingredient.repository.IngredientRepository;
 import com.shake_match.alchomist.theme.domain.Theme;
@@ -19,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,10 +33,12 @@ public class CocktailServiceImpl implements CocktailService {
 
     private final CocktailRepository repository;
     private final CocktailConvertor convertor;
-    private final VolumeRepository volumeRepository;
+//    private final VolumeRepository volumeRepository;
     private final IngredientRepository ingredientRepository;
     private final ThemeRepository themeRepository;
     private final S3Service s3Service;
+    private final CocktailIngredientRepository cocktailIngredientRepository;
+
 
     @Override
     @Transactional(readOnly = true)
@@ -106,6 +113,17 @@ public class CocktailServiceImpl implements CocktailService {
         s3Service.delete(cocktail.get().getType());
         repository.deleteById(cocktail.get().getId());
         return "success";
+    }
+
+    @Override
+    @Transactional
+    public void cocktailandIngredient(Long cocktail_id, Long ingredient_id) {
+        Cocktail cocktail = repository.findById(cocktail_id)
+            .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_COCKTAIL));
+        Ingredient ingredient = ingredientRepository.findById(ingredient_id)
+            .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_INGREDIENT));
+        CocktailIngredient cocktailIngredient = new CocktailIngredient(cocktail, ingredient);
+        cocktailIngredientRepository.save(cocktailIngredient);
     }
 
     @Override
