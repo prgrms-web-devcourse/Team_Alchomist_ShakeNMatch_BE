@@ -51,6 +51,7 @@ server:
     key-store: classpath:keystore.p12
     key-store-type: PKCS12
     key-store-password: sktkddnjs
+
   http2.enabled: true
 
   servlet:
