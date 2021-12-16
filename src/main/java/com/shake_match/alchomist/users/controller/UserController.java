@@ -12,9 +12,8 @@ import com.shake_match.alchomist.users.dto.response.UserBookmarkResponse;
 import com.shake_match.alchomist.users.dto.response.UserLikeResponse;
 import com.shake_match.alchomist.users.dto.response.UserNicknameResponse;
 import com.shake_match.alchomist.users.service.UserService;
-import java.util.List;
 import javax.validation.Valid;
-
+import java.util.List;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,24 +52,17 @@ public class UserController {
 
     @GetMapping("/nickname/{nickname}") // 닉네임 검색
     public ApiResponse<UserNicknameResponse> findUserByNickname(
-        @PathVariable("nickname") String nickname) {
+            @PathVariable("nickname") String nickname) {
         UserNicknameResponse userNicknameResponse = userService.getUserByNickname(nickname);
         return ApiResponse.ok(userNicknameResponse);
     }
 
     @PostMapping("/bookmark") // 북마크 추가
     public ApiResponse<UserLikeResponse> addUserBookmark(
-        @RequestBody UserBookmarkRequest userBookmarkRequest) {
+            @RequestBody UserBookmarkRequest userBookmarkRequest) {
         UserLikeResponse userLikeResponse = userService.addBookmark(userBookmarkRequest.getUserId(),
-            userBookmarkRequest.getCocktailId());
+                userBookmarkRequest.getCocktailId());
         return ApiResponse.ok(userLikeResponse);
-    }
-
-    @GetMapping("/bookmark/{userId}") // 북마크 검색
-    public ApiResponse<List<UserBookmarkResponse>> findBookmarkById(
-        @PathVariable("userId") Long id) {
-        List<UserBookmarkResponse> userBookmarkResponses = userService.getBookmarkById(id);
-        return ApiResponse.ok(userBookmarkResponses);
     }
 
     @DeleteMapping("/bookmark") // 북마크 삭제

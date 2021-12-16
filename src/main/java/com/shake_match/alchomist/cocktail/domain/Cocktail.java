@@ -30,7 +30,7 @@ public class Cocktail extends BaseEntity {
     @ManyToMany
     List<Theme> themes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "cocktails")
+    @OneToMany
     List<Review> reviews = new ArrayList<>();
 
     @Column

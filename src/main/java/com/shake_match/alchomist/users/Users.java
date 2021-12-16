@@ -27,7 +27,7 @@ public class Users extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    java.lang.Long id;
 
     @Column(name = "username")
     private String username;
@@ -58,7 +58,7 @@ public class Users extends BaseEntity {
     @JoinColumn(name = "group_id")
     private Group group;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany
     List<Review> reviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")

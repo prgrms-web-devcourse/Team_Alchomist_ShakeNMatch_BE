@@ -3,19 +3,16 @@ package com.shake_match.alchomist.ingredient;
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.global.BaseEntity;
 import com.shake_match.alchomist.ingredient.dto.request.IngredientUpdateRequest;
-import java.util.ArrayList;
+import lombok.*;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+
+@Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -41,33 +38,12 @@ public class Ingredient extends BaseEntity {
     @OneToMany(fetch = FetchType.EAGER)
     private List<Cocktail> cocktails = new ArrayList<>();
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public List<Cocktail> getCocktails() {
-        return cocktails;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public boolean isAlcohol() {
-        return isAlcohol;
-    }
-
-    public String getMeasure() {
-        return measure;
-    }
-
     public void update(IngredientUpdateRequest request) {
         this.name = request.getIngredientName();
         this.cocktails = request.getCocktails();
+        this.type = request.getType();
+        this.isAlcohol = request.isAlcohol();
+        this.measure = request.getMeasure();
     }
 
     public void addCocktail(Cocktail cocktail) {
