@@ -1,11 +1,8 @@
 package com.shake_match.alchomist.ingredient.dto.response;
 
-import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.ingredient.Ingredient;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter
