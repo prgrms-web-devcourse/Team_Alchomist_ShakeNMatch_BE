@@ -8,12 +8,12 @@ public class VolumeDto {
     private Long ingredientId;
     private String name;
     private Double amount;
-//    private String measure;
+    private String type;
 
-    public VolumeDto(Long ingredientId, String name, Double amount) {
+    public VolumeDto(Long ingredientId, String name, Double amount, String type) {
         this.ingredientId = ingredientId;
         this.name = name;
         this.amount = amount;
-//        this.measure = measure;
+        this.type = type;
     }
 }
