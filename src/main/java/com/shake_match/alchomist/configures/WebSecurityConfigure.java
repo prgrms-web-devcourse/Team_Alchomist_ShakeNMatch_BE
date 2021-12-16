@@ -38,9 +38,9 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
         web.ignoring().antMatchers(
-                "login/**",
+                "/login/**",
                 "/assets/**",
-                "oauth2/**");
+                "/oauth2/**");
     }
 
     @Bean
