@@ -40,19 +40,15 @@ public class Cocktail extends BaseEntity {
     String type;
 
     @Column
-    String youtubeLink;
-
-    @Column
     int likes;
 
     @Column
     float totalRating;
 
-    public Cocktail(String name, String recipe, String type, String youtubeLink, List<Theme> themes, List<Volume> volumes) {
+    public Cocktail(String name, String recipe, String type, List<Theme> themes, List<Volume> volumes) {
         this.name = name;
         this.recipe = recipe;
         this.type = type;
-        this.youtubeLink = youtubeLink;
         this.themes = themes;
         this.volumes = volumes;
         this.likes = 0;
