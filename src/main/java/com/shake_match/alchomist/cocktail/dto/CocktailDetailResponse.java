@@ -22,15 +22,13 @@ public class CocktailDetailResponse {
 
     String type;
 
-    String youtubeLink;
-
     int likes;
 
     float totalRating;
 
     public CocktailDetailResponse(Long id, String name, List<VolumeDto> volumes,
                                   List<ThemeDto> themes, List<ReviewDto> reviews, String recipe,
-                                  String type, String youtubeLink, int likes, float totalRating) {
+                                  String type, int likes, float totalRating) {
         this.id = id;
         this.name = name;
         this.volumes = volumes;
@@ -38,7 +36,6 @@ public class CocktailDetailResponse {
         this.reviews = reviews;
         this.recipe = recipe;
         this.type = type;
-        this.youtubeLink = youtubeLink;
         this.likes = likes;
         this.totalRating = totalRating;
     }

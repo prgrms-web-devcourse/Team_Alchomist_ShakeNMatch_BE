@@ -8,7 +8,4 @@ public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
 
     Optional<Ingredient> findByName(String name);
 
-//    @Query("select ig from Ingredient ig"
-//        + " where ig.id in :igs")
-//    List<Ingredient>
 }
