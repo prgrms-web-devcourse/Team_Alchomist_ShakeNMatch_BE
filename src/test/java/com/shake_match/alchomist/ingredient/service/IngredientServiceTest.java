@@ -46,7 +46,6 @@ class IngredientServiceTest {
                 .likes(0)
                 .type("이미지 url")
                 .totalRating(4.3f)
-                .youtubeLink("https://www.youtube.com/watch?v=8getArw9Ryk")
                 .build();
         cocktailRepository.save(cocktailTest1);
 
@@ -56,7 +55,6 @@ class IngredientServiceTest {
                 .likes(0)
                 .type("이미지 url")
                 .totalRating(4.3f)
-                .youtubeLink("https://www.youtube.com/watch?v=8getArw9Ryk")
                 .build();
         cocktailRepository.save(cocktailTest2);
 
@@ -83,7 +81,6 @@ class IngredientServiceTest {
     public void insertTest() {
         List<Ingredient> ingredientList = ingredientRepository.findAll();
         assertThat(ingredientList.size()).isEqualTo(1); // 재료 1개
-        assertThat(ingredientList.get(0).getCocktails().size()).isEqualTo(2); // 재료 1개에 칵테일 2개
     }
 
     @Test

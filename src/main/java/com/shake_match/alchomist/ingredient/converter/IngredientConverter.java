@@ -2,8 +2,8 @@ package com.shake_match.alchomist.ingredient.converter;
 
 import com.shake_match.alchomist.ingredient.Ingredient;
 import com.shake_match.alchomist.ingredient.dto.request.IngredientDetailRequest;
-import com.shake_match.alchomist.ingredient.dto.response.IngredientListResponse;
 import com.shake_match.alchomist.ingredient.dto.response.IngredientResponse;
+import com.shake_match.alchomist.ingredient.dto.response.IngredientListResponse;
 import com.shake_match.alchomist.ingredient.dto.response.IngredientToListResponse;
 import java.util.List;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,6 @@ public class IngredientConverter {
     public Ingredient converterIngredient(IngredientDetailRequest request) { // dto -> entity
         return Ingredient.builder()
                 .name(request.getIngredientName())
-                .cocktails(request.getCocktails())
                 .isAlcohol(request.isAlcohol())
                 .type(request.getType())
                 .measure(request.getMeasure())
@@ -28,8 +27,7 @@ public class IngredientConverter {
 
     public IngredientListResponse converterIngredientListResponse(Ingredient ingredient) {
         return new IngredientListResponse(ingredient.getId(), ingredient.getName(),
-            ingredient.getType(), ingredient.isAlcohol(), ingredient.getMeasure(),
-            ingredient.getCocktails());
+            ingredient.getType(), ingredient.isAlcohol(), ingredient.getMeasure());
     }
 
     public IngredientToListResponse converterIngredientToListResponse(

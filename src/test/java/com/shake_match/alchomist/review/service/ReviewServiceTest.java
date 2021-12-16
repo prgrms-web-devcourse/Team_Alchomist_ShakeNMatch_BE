@@ -77,7 +77,6 @@ class ReviewServiceTest {
                 .likes(0)
                 .type("이미지 url")
                 .totalRating(4.3f)
-                .youtubeLink("https://www.youtube.com/watch?v=8getArw9Ryk")
                 .reviews(reviews)
                 .build();
         cocktailRepository.save(cocktail);
