@@ -4,6 +4,8 @@ import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.cocktail.repository.CocktailRepository;
 import com.shake_match.alchomist.global.ErrorCode;
 import com.shake_match.alchomist.global.NotFoundException;
+import com.shake_match.alchomist.group.domain.Group;
+import com.shake_match.alchomist.group.repository.GroupRepository;
 import com.shake_match.alchomist.ingredient.converter.IngredientConverter;
 import com.shake_match.alchomist.ingredient.dto.response.IngredientListResponse;
 import com.shake_match.alchomist.ingredient.dto.response.IngredientToListResponse;
@@ -14,21 +16,24 @@ import com.shake_match.alchomist.users.converter.UserConverter;
 import com.shake_match.alchomist.users.dto.request.UserBookmarkRequest;
 import com.shake_match.alchomist.users.dto.request.UserRequest;
 import com.shake_match.alchomist.users.dto.request.UserUpdateRequest;
-import com.shake_match.alchomist.users.dto.response.UserBookmarkResponse;
-import com.shake_match.alchomist.users.dto.response.UserDetailResponse;
-import com.shake_match.alchomist.users.dto.response.UserLikeResponse;
-import com.shake_match.alchomist.users.dto.response.UserNicknameResponse;
-import com.shake_match.alchomist.users.dto.response.UserUpdateResponse;
-import com.shake_match.alchomist.users.repository.UserIngredientRepository;
+import com.shake_match.alchomist.users.dto.response.*;
 import com.shake_match.alchomist.users.repository.UserRepository;
+import com.shake_match.alchomist.users.repository.UserIngredientRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Transactional(readOnly = true)
+import static com.google.common.base.Preconditions.checkArgument;
+import static org.hibernate.internal.util.StringHelper.isNotEmpty;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -41,23 +46,18 @@ public class UserService {
 
     private final UserConverter userConverter;
 
+    private final GroupRepository groupRepository;
+
+    private Logger log = LoggerFactory.getLogger(getClass());
+
     private final IngredientConverter ingredientConverter;
 
     private final UserIngredientRepository userIngredientRepository;
 
     @Transactional
-    public UserDetailResponse addUser(UserRequest userRequest) {
-        if (userRepository.findByNickname(userRequest.getNickname()).isPresent()) {
-            throw new NotFoundException(ErrorCode.DUPLICATION_MEMBER_NICKNAME);
-        }
-        Users savedUser = userRepository.save(userConverter.toUser(userRequest));
-        return userConverter.toUserResponse(savedUser);
-    }
-
-    @Transactional
     public UserUpdateResponse updateById(Long userId, UserUpdateRequest userUpdateRequest)
         throws Exception {
-        Users changedUser = userRepository.findById(userId)
+        Users changedUser = userRepository.findByProviderId(userId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         changedUser.update(userUpdateRequest);
         return userConverter.toUserUpdateResponse(changedUser);
@@ -65,14 +65,14 @@ public class UserService {
 
     @Transactional
     public UserDetailResponse getUserDetail(Long id) {
-        Users user = userRepository.findById(id)
+        Users user = userRepository.findByProviderId(id)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         return userConverter.toUserResponse(user);
     }
 
     @Transactional
     public IngredientToListResponse getUserByIngredient(Long id) {
-        Users user = userRepository.findById(id)
+        Users user = userRepository.findByProviderId(id)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         List<IngredientListResponse> ingredientListResponseList =
             user.getUsersIngredient().stream()
@@ -84,7 +84,7 @@ public class UserService {
 
     @Transactional
     public void saveIngredientOfUser(Long userId, List<Long> ingredientIds) {
-        Users user = userRepository.findById(userId)
+        Users user = userRepository.findByProviderId(userId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
 
         List<UsersIngredient> usersIngredients = ingredientIds.stream()
@@ -97,7 +97,7 @@ public class UserService {
 
     @Transactional
     public void deletedIngredientOfUser(Long userId, List<Long> ingredientIds) {
-        Users user = userRepository.findById(userId)
+        Users user = userRepository.findByProviderId(userId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         userIngredientRepository.deleteUsersIdAndIngredientIds(userId, ingredientIds);
     }
@@ -105,7 +105,7 @@ public class UserService {
 
     @Transactional
     public Users getUserById(Long userId) {
-        return userRepository.findById(userId)
+        return userRepository.findByProviderId(userId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
     }
 
@@ -116,8 +116,8 @@ public class UserService {
     }
 
     @Transactional
-    public UserLikeResponse addBookmark(java.lang.Long userId, java.lang.Long cocktailId) {
-        Users user = userRepository.findById(userId)
+    public UserLikeResponse addBookmark(Long userId, Long cocktailId) {
+        Users user = userRepository.findByProviderId(userId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         Cocktail cocktail = cocktailRepository.findById(cocktailId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_COCKTAIL));
@@ -127,7 +127,7 @@ public class UserService {
 
     @Transactional
     public UserLikeResponse deleteBookmark(UserBookmarkRequest userBookmarkRequest) {
-        Users user = userRepository.findById(userBookmarkRequest.getUserId())
+        Users user = userRepository.findByProviderId(userBookmarkRequest.getUserId())
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         Cocktail cocktail = cocktailRepository.findById(userBookmarkRequest.getCocktailId())
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_COCKTAIL));
@@ -136,8 +136,8 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public List<UserBookmarkResponse> getBookmarkById(java.lang.Long userId) {
-        Users user = userRepository.findById(userId)
+    public List<UserBookmarkResponse> getBookmarkById(Long userId) {
+        Users user = userRepository.findByProviderId(userId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         List<Cocktail> cocktailByBookmark = user.getCocktails();
 
@@ -152,5 +152,46 @@ public class UserService {
         return responses;
     }
 
+    @Transactional
+    public Users join(OAuth2User oauth2User, String authorizedClientRegistrationId) {
+        checkArgument(oauth2User != null, "oauth2User must be provided.");
+        checkArgument(isNotEmpty(authorizedClientRegistrationId), "authorizedClientRegistrationId must be provided.");
 
+        String providerId = oauth2User.getName();
+        return findByProviderAndProviderId(authorizedClientRegistrationId, providerId)
+                .map(user -> {
+                    log.warn("Already exists: {} for (provider: {}, providerId: {})", user, authorizedClientRegistrationId, providerId);
+                    return user;
+                })
+                .orElseGet(() -> {
+                    Map<String, Object> attributes = oauth2User.getAttributes();
+                    @SuppressWarnings("unchecked")
+                    Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
+                    checkArgument(properties != null, "OAuth2User properties is empty");
+
+                    String nickname = (String) properties.get("nickname");
+                    String profileImage = (String) properties.get("profile_image");
+                    Group group = groupRepository.findByName("USER_GROUP")
+                            .orElseThrow(() -> new IllegalStateException("Could not found group for USER_GROUP"));
+                    Users user = new Users(nickname, authorizedClientRegistrationId, providerId, profileImage, group);
+                    user.setOtherInfo("", true, 20, "");
+                    System.out.println(providerId);
+                    return userRepository.save(user);
+                });
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Users> findByUsername(String username) {
+        checkArgument(isNotEmpty(username), "username must be provided.");
+
+        return userRepository.findByUsername(username);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Users> findByProviderAndProviderId(String provider, String providerId) {
+        checkArgument(isNotEmpty(provider), "provider must be provided.");
+        checkArgument(isNotEmpty(providerId), "providerId must be provided.");
+
+        return userRepository.findByProviderAndProviderId(provider, providerId);
+    }
 }

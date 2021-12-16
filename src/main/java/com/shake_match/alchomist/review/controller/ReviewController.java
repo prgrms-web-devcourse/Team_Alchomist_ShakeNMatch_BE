@@ -56,6 +56,7 @@ public class ReviewController {
         reviewService.delete(id);
         return ApiResponse.ok("리뷰가 삭제되었습니다.");
     }
+    
 
     @PutMapping("/{id}") // 리뷰 수정
     public ApiResponse<ReviewUpdateResponse> updateByReviewId(@PathVariable("id") Long id, @RequestBody ReviewUpdateRequest request) throws Exception {

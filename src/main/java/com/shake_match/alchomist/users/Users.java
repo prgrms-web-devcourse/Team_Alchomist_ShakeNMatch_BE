@@ -2,20 +2,22 @@ package com.shake_match.alchomist.users;
 
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.global.BaseEntity;
+import com.shake_match.alchomist.group.domain.Group;
+import com.shake_match.alchomist.ingredient.Ingredient;
+import com.shake_match.alchomist.ingredient.dto.request.IngredientUpdateRequest;
 import com.shake_match.alchomist.review.Review;
 import com.shake_match.alchomist.users.dto.request.UserUpdateRequest;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Range;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,17 +29,20 @@ public class Users extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     java.lang.Long id;
 
-    @Column(nullable = false)
-    String email;
+    @Column(name = "username")
+    private String username;
 
-    @Column(nullable = true)
-    String password;
+    @Column(name = "provider")
+    private String provider;
 
-    @Column
-    String nickname;
+    @Column(name = "provider_id")
+    private String providerId;
 
-    @Column
-    String imageUrl;
+    @Column(name = "profile_image")
+    private String profileImage;
+
+    @Column(name = "nickname")
+    private String nickname;
 
     @Column(nullable = false)
     boolean isMan;
@@ -49,6 +54,10 @@ public class Users extends BaseEntity {
     @Column
     String mbti;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "group_id")
+    private Group group;
+
     @OneToMany
     List<Review> reviews = new ArrayList<>();
 
@@ -58,14 +67,24 @@ public class Users extends BaseEntity {
     @OneToMany
     List<Cocktail> cocktails = new ArrayList<>();
 
-    public Users(String email, String nickname, String imageUrl, boolean gender, int age,
-                 String mbti) {
-        this.email = email;
+    public void setOtherInfo(String nickname, boolean gender, int age, String mbti) {
         this.nickname = nickname;
-        this.imageUrl = imageUrl;
         this.isMan = gender;
         this.age = age;
         this.mbti = mbti;
+    }
+
+    public Users(String username, String provider, String providerId, String profileImage, Group group) {
+        checkArgument(isNotEmpty(username), "username must be provided.");
+        checkArgument(isNotEmpty(provider), "provider must be provided.");
+        checkArgument(isNotEmpty(providerId), "providerId must be provided.");
+        checkArgument(group != null, "group must be provided.");
+
+        this.username = username;
+        this.provider = provider;
+        this.providerId = providerId;
+        this.profileImage = profileImage;
+        this.group = group;
     }
 
     public void addCocktails(Cocktail cocktail) {
