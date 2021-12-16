@@ -46,7 +46,7 @@ logging.level:
   org.hibernate.SQL: debug
 
 server:
-  port: 443
+  port: 8080
   ssl:
     key-store: classpath:keystore.p12
     key-store-type: PKCS12
