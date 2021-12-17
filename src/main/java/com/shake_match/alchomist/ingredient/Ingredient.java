@@ -1,6 +1,5 @@
 package com.shake_match.alchomist.ingredient;
 
-import com.shake_match.alchomist.cocktail.domain.Cocktail;
 import com.shake_match.alchomist.cocktail.domain.CocktailIngredient;
 import com.shake_match.alchomist.global.BaseEntity;
 import com.shake_match.alchomist.ingredient.dto.request.IngredientUpdateRequest;
@@ -30,8 +29,8 @@ public class Ingredient extends BaseEntity {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "is_alcohol")
-    private boolean isAlcohol;
+    @Column(name = "alcohol")
+    private boolean alcohol;
 
     @Column(name = "measure")
     private String measure;
@@ -40,9 +39,9 @@ public class Ingredient extends BaseEntity {
     private List<CocktailIngredient> cocktailIngredients = new ArrayList<>();
 
     public void update(IngredientUpdateRequest request) {
-        this.name = request.getIngredientName();
+        this.name = request.getName();
         this.type = request.getType();
-        this.isAlcohol = request.isAlcohol();
+        this.alcohol = request.isAlcohol();
         this.measure = request.getMeasure();
     }
 }

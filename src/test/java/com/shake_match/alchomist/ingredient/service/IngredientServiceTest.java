@@ -13,7 +13,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +63,7 @@ class IngredientServiceTest {
 
         IngredientDetailRequest request = IngredientDetailRequest.builder()
                 //.ingredientId(INGREDIENT_ID)
-                .ingredientName("레몬주스")
+                .name("레몬주스")
                 .cocktails(cocktails)
                 .build();
 
@@ -87,13 +86,13 @@ class IngredientServiceTest {
     @DisplayName("재료 id 조회 테스트")
     public void findOneByIdTest() {
         IngredientDetailResponse responses = ingredientService.findById(INGREDIENT_ID);
-        assertThat(responses.getIngredientId()).isEqualTo(INGREDIENT_ID);
+        assertThat(responses.getId()).isEqualTo(INGREDIENT_ID);
     }
 
     @Test
     @DisplayName("재료 name 조회 테스트")
     public void findOneByNameTest() {
         IngredientDetailResponse responses = ingredientService.findByName(INGREDIENT_NAME);
-        assertThat(responses.getIngredientName()).isEqualTo(INGREDIENT_NAME);
+        assertThat(responses.getName()).isEqualTo(INGREDIENT_NAME);
     }
 }

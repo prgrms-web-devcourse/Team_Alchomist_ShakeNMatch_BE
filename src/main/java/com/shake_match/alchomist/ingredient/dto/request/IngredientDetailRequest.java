@@ -10,9 +10,9 @@ import java.util.List;
 @Getter
 public class IngredientDetailRequest {
 
-    private String ingredientName;
+    private String name;
     private String type;
     private List<Cocktail> cocktails;
-    private boolean isAlcohol;
+    private boolean alcohol;
     private String measure;
 }

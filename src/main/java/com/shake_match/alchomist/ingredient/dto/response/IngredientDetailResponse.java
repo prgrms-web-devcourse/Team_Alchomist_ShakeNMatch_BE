@@ -12,17 +12,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class IngredientDetailResponse {
 
-    private Long ingredientId;
-    private String ingredientName;
+    private Long id;
+    private String name;
     private String type;
-    private boolean isAlcohol;
+    private boolean alcohol;
     private String measure;
 
     public IngredientDetailResponse(Ingredient ingredient) {
-        this.ingredientId = ingredient.getId();
-        this.ingredientName = ingredient.getName();
+        this.id = ingredient.getId();
+        this.name = ingredient.getName();
         this.type = ingredient.getType();
         this.measure = ingredient.getMeasure();
-        this.isAlcohol = ingredient.isAlcohol();
+        this.alcohol = ingredient.isAlcohol();
     }
 }

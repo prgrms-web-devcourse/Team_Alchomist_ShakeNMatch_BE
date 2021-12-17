@@ -10,6 +10,9 @@ import com.shake_match.alchomist.ingredient.dto.response.IngredientDetailRespons
 import com.shake_match.alchomist.ingredient.dto.request.IngredientUpdateRequest;
 import com.shake_match.alchomist.ingredient.dto.response.IngredientUpdateResponse;
 import com.shake_match.alchomist.ingredient.repository.IngredientRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +26,7 @@ public class IngredientService {
 
     private final IngredientRepository ingredientRepository;
     private final IngredientConverter ingredientConverter; // insert문 빼고는 쓸 일이 없을듯
+    private final int SIZE = 150;
 
     public IngredientService(IngredientRepository ingredientRepository, IngredientConverter ingredientConverter) {
         this.ingredientRepository = ingredientRepository;
@@ -38,7 +42,11 @@ public class IngredientService {
 
     @Transactional // ingredient 전체 조회
     public List<IngredientDetailResponse> findAll() {
-        return ingredientRepository.findAll()
+        PageRequest pageRequest = PageRequest.of(0, SIZE);
+        if (ingredientRepository.findAll().size() > SIZE) { // 150(SIZE)개 보다 재료 수가 더 많으면 예외처리
+            throw new NotFoundException(ErrorCode.TOO_MANY_INGREDIENT);
+        }
+        return ingredientRepository.findAll(pageRequest)
                 .stream()
                 .map(IngredientDetailResponse::new)
                 .collect(Collectors.toList());

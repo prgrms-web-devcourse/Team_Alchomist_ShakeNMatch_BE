@@ -11,11 +11,9 @@ import com.shake_match.alchomist.ingredient.service.IngredientService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/ingredient")
@@ -28,22 +26,19 @@ public class IngredientController {
         this.ingredientRepository = ingredientRepository;
     }
 
-    @GetMapping("/{ingredientId}") // 재료 id 조회
-    public ApiResponse<IngredientDetailResponse> findById(@PathVariable("ingredientId") Long ingredientId) throws NotFoundException {
-        return ApiResponse.ok(ingredientService.findById(ingredientId));
+    @GetMapping("/{id}") // 재료 id 조회
+    public ApiResponse<IngredientDetailResponse> findById(@PathVariable("id") Long id) throws NotFoundException {
+        return ApiResponse.ok(ingredientService.findById(id));
     }
 
-    @GetMapping("/ingredientName") // 재료 이름 조회
-    public ApiResponse<IngredientDetailResponse> findByName(@RequestParam String ingredientName) throws NotFoundException {
-        return ApiResponse.ok(ingredientService.findByName(ingredientName));
+    @GetMapping("/name") // 재료 이름 조회
+    public ApiResponse<IngredientDetailResponse> findByName(@RequestParam String name) throws NotFoundException {
+        return ApiResponse.ok(ingredientService.findByName(name));
     }
 
     @GetMapping
-    public List<IngredientDetailResponse> findAll(Pageable pageable) {
-        return ingredientRepository.findAll(pageable)
-                .map(IngredientDetailResponse::new)
-                .stream()
-                .collect(Collectors.toList());
+    public ApiResponse<List<IngredientDetailResponse>> findAll() {
+        return ApiResponse.ok(ingredientService.findAll());
     }
 
     @PostMapping // 재료 생성
