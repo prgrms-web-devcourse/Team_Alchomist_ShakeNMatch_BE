@@ -81,6 +81,7 @@ public class UserService {
     public IngredientToListResponse getUserByIngredient(Long id) {
         Users user = userRepository.findByProviderId(id.toString())
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
+
         List<IngredientListResponse> ingredientListResponseList =
             user.getUsersIngredient().stream()
                 .map(UsersIngredient::getIngredient)
@@ -112,6 +113,8 @@ public class UserService {
     public void saveIngredientOfUser(Long userId, List<Long> ingredientIds) {
         Users user = userRepository.findByProviderId(userId.toString())
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
+
+        userIngredientRepository.deleteUsersIdAndIngredient(user.getProviderId());
 
         List<UsersIngredient> usersIngredients = ingredientIds.stream()
             .map(ingredientId -> ingredientRepository.getById(ingredientId))
