@@ -1,8 +1,12 @@
 spring:
+  h2:
+    console:
+      enabled: true
   datasource:
     url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     defer-datasource-initialization: true
@@ -15,11 +19,12 @@ spring:
           auto: update
         show_sql: true
         format_sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
   sql:
     init:
       platform: mysql
-      schema-locations: classpath:sql/schema_new.sql, classpath:org/springframework/security/oauth2/client/oauth2-client-schema.sql
+#      schema-locations: classpath:sql/schema_new.sql, classpath:org/springframework/security/oauth2/client/oauth2-client-schema.sql
       data-locations: classpath:sql/data_new.sql
       encoding: UTF-8
 

@@ -10,9 +10,10 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @Entity
-@Table(name = "groups")
+@Table(name = "groups_role")
 public class Group {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 

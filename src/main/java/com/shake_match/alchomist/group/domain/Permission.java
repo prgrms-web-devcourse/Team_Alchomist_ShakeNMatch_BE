@@ -2,10 +2,7 @@ package com.shake_match.alchomist.group.domain;
 
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -13,6 +10,7 @@ import javax.persistence.Table;
 public class Permission {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
