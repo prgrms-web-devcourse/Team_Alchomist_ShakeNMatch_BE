@@ -14,8 +14,8 @@ public class UserDetailResponse {
     private String mbti;
     private List<IngredientResponse> ingredients;
 
-    public UserDetailResponse(String id, String nickname, Boolean isMan, int age, String mbti, List<IngredientResponse> ingredients) {
-        this.id = Long.parseLong(id);
+    public UserDetailResponse(Long id, String nickname, Boolean isMan, int age, String mbti, List<IngredientResponse> ingredients) {
+        this.id = id;
         this.nickname = nickname;
         this.isMan = isMan;
         this.age = age;

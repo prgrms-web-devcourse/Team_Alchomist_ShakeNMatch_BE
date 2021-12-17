@@ -5,10 +5,10 @@ import lombok.Getter;
 @Getter
 public class UserIngredientRequest {
 
-    private final String userid;
-    private final String ingredientid;
+    private final Long userid;
+    private final Long ingredientid;
 
-    public UserIngredientRequest(String userid, String ingredientid) {
+    public UserIngredientRequest(Long userid, Long ingredientid) {
         this.userid = userid;
         this.ingredientid = ingredientid;
     }

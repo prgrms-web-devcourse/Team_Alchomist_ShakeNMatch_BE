@@ -34,7 +34,7 @@ public class UserConverter {
 
     public UserDetailResponse toUserResponse(Users user) {
         return new UserDetailResponse(
-            user.getProviderId(),
+            user.getId(),
             user.getNickname(),
             user.getIsMan(),
             user.getAge(),

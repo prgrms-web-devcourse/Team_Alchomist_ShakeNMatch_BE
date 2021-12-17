@@ -64,7 +64,7 @@ public class UserService {
     @Transactional
     public UserUpdateResponse updateById(Long userId, UserUpdateRequest userUpdateRequest)
         throws Exception {
-        Users changedUser = userRepository.findByProviderId(userId.toString())
+        Users changedUser = userRepository.findById(userId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         changedUser.update(userUpdateRequest);
         return userConverter.toUserUpdateResponse(changedUser);
@@ -72,14 +72,14 @@ public class UserService {
 
     @Transactional
     public UserDetailResponse getUserDetail(Long id) {
-        Users user = userRepository.findByProviderId(id.toString())
+        Users user = userRepository.findById(id)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         return userConverter.toUserResponse(user);
     }
 
     @Transactional
     public IngredientToListResponse getUserByIngredient(Long id) {
-        Users user = userRepository.findByProviderId(id.toString())
+        Users user = userRepository.findById(id)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
 
         List<IngredientListResponse> ingredientListResponseList =
@@ -126,7 +126,7 @@ public class UserService {
 
     @Transactional
     public void deletedIngredientOfUser(Long userId, List<Long> ingredientIds) {
-        Users user = userRepository.findByProviderId(userId.toString())
+        Users user = userRepository.findById(userId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         userIngredientRepository.deleteUsersIdAndIngredientIds(userId, ingredientIds);
     }
@@ -134,7 +134,7 @@ public class UserService {
 
     @Transactional
     public Users getUserById(Long userId) {
-        return userRepository.findByProviderId(userId.toString())
+        return userRepository.findById(userId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
     }
 
@@ -146,7 +146,7 @@ public class UserService {
 
     @Transactional
     public UserLikeResponse addBookmark(Long userId, Long cocktailId) {
-        Users user = userRepository.findByProviderId(userId.toString())
+        Users user = userRepository.findById(userId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         Cocktail cocktail = cocktailRepository.findById(cocktailId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_COCKTAIL));
@@ -156,7 +156,7 @@ public class UserService {
 
     @Transactional
     public UserLikeResponse deleteBookmark(UserBookmarkRequest userBookmarkRequest) {
-        Users user = userRepository.findByProviderId(userBookmarkRequest.getUserId().toString())
+        Users user = userRepository.findById(userBookmarkRequest.getUserId())
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         Cocktail cocktail = cocktailRepository.findById(userBookmarkRequest.getCocktailId())
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_COCKTAIL));
@@ -166,7 +166,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public List<UserBookmarkResponse> getBookmarkById(Long userId) {
-        Users user = userRepository.findByProviderId(userId.toString())
+        Users user = userRepository.findById(userId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         List<Cocktail> cocktailByBookmark = user.getCocktails();
 
