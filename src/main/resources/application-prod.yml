@@ -25,7 +25,7 @@ spring:
     init:
       platform: mysql
 #      schema-locations: classpath:sql/schema_new.sql, classpath:org/springframework/security/oauth2/client/oauth2-client-schema.sql
-      data-locations: classpath:sql/data_new.sql
+#       data-locations: classpath:sql/data_new.sql
       encoding: UTF-8
 
   security:
