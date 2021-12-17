@@ -221,6 +221,7 @@ public class UserService {
         return userRepository.findByProviderAndProviderId(provider, providerId);
     }
 
+    @Transactional
     public UserDetailResponse addJoinInfo(String username, UserJoinRequest userJoinRequest) throws Exception{
         Users users = userRepository.findByUsername(username).get();
         users.setOtherInfo(userJoinRequest.getNickname(),
@@ -230,6 +231,7 @@ public class UserService {
         return userConverter.toUserResponse(users);
     }
 
+    @Transactional(readOnly = true)
     public UserDetailResponse searchByToken(String username) throws Exception{
         Optional<Users> users = userRepository.findByUsername(username);
         if (users.isEmpty()){
