@@ -77,13 +77,6 @@ public class UserController {
         return ApiResponse.ok("북마크를 삭제했습니다.");
     }
 
-    @GetMapping("/bookmark/{userId}") // 북마크 검색
-    public ApiResponse<List<UserBookmarkResponse>> findBookmarkById(
-            @PathVariable("userId") Long id) {
-        List<UserBookmarkResponse> userBookmarkResponses = userService.getBookmarkById(id);
-        return ApiResponse.ok(userBookmarkResponses);
-    }
-
     // 내 술장고 재료조회
     @GetMapping("/ingredient/{userId}")
     public ApiResponse<IngredientToListResponse> findUserByIngredient(
