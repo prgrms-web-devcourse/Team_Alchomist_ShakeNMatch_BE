@@ -22,7 +22,7 @@ public class IngredientConverter {
 
     // entity -> dto
     public IngredientResponse converterIngredientResponse(Ingredient ingredient) {
-        return new IngredientResponse(ingredient.getName());
+        return new IngredientResponse(ingredient.getId(), ingredient.getName(), ingredient.getType(), ingredient.isAlcohol(), ingredient.getMeasure());
     }
 
     public IngredientListResponse converterIngredientListResponse(Ingredient ingredient) {
