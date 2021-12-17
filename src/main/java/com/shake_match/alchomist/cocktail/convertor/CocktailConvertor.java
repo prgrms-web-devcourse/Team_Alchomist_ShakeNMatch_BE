@@ -57,7 +57,9 @@ public class CocktailConvertor {
         return new VolumeDto(volume.getIngredient().getId(),
                 volume.getIngredient().getName(),
                 volume.getAmount(),
-                volume.getIngredient().getType());
+                volume.getIngredient().getType(),
+                volume.getIngredient().getMeasure()
+                );
     }
 
     public SearchResponse toSearch(Cocktail cocktail){

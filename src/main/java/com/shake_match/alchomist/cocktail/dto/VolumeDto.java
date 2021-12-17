@@ -9,11 +9,13 @@ public class VolumeDto {
     private String name;
     private Double amount;
     private String type;
+    private String measure;
 
-    public VolumeDto(Long ingredientId, String name, Double amount, String type) {
+    public VolumeDto(Long ingredientId, String name, Double amount, String type, String measure) {
         this.ingredientId = ingredientId;
         this.name = name;
         this.amount = amount;
         this.type = type;
+        this.measure = measure;
     }
 }
