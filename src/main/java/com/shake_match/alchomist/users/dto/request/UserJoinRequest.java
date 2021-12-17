@@ -6,7 +6,7 @@ import lombok.Getter;
 public class UserJoinRequest {
 
     private String nickname;
-    private boolean isMan;
+    private Boolean isMan;
     private int age;
     private String mbti;
 }

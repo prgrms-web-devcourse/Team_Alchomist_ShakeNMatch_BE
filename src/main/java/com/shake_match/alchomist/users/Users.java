@@ -45,7 +45,7 @@ public class Users extends BaseEntity {
     private String nickname;
 
     @Column(nullable = false)
-    boolean isMan;
+    Boolean isMan;
 
     @Range(min = 20)
     @Column(nullable = false)
@@ -67,7 +67,7 @@ public class Users extends BaseEntity {
     @OneToMany
     List<Cocktail> cocktails = new ArrayList<>();
 
-    public void setOtherInfo(String nickname, boolean gender, int age, String mbti) {
+    public void setOtherInfo(String nickname, Boolean gender, int age, String mbti) {
         this.nickname = nickname;
         this.isMan = gender;
         this.age = age;
@@ -99,7 +99,7 @@ public class Users extends BaseEntity {
 
     public void update(UserUpdateRequest userUpdateRequest) {
         this.nickname = userUpdateRequest.getNickname();
-        this.isMan = userUpdateRequest.isMan();
+        this.isMan = userUpdateRequest.getIsMan();
         this.age = userUpdateRequest.getAge();
         this.mbti = userUpdateRequest.getMbti();
     }
