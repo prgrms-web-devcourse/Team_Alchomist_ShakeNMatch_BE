@@ -22,7 +22,7 @@ public class UsersIngredient {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "provider_id")
+    @JoinColumn(name = "user_id")
     private Users user;
 
     @ManyToOne
