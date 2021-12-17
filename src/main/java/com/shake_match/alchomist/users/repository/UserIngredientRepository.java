@@ -15,6 +15,6 @@ public interface UserIngredientRepository extends JpaRepository<UsersIngredient,
     void deleteUsersIdAndIngredientIds(@Param("userId") Long userId, @Param("igs") List<Long> igs);
 
     @Modifying
-    @Query("delete from UsersIngredient ui where ui.user.providerId = :id")
-    void deleteUsersIdAndIngredient(@Param("id") String id);
+    @Query("delete from UsersIngredient ui where ui.user.id = :userId")
+    void deleteUsersIdAndIngredient(@Param("userId") Long id);
 }
