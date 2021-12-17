@@ -146,8 +146,6 @@ public class UserService {
 
     @Transactional
     public void addBookmark(Long userId, Long cocktailId) {
-
-
         Users user = userRepository.findById(userId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         Cocktail cocktail = cocktailRepository.findById(cocktailId)
@@ -170,7 +168,6 @@ public class UserService {
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         List<Cocktail> cocktailByBookmark = user.getCocktails();
 
-
         if (cocktailByBookmark.isEmpty()) {
             throw new NotFoundException(ErrorCode.NOT_EXIST_BOOKMARK);
         }
@@ -189,25 +186,25 @@ public class UserService {
 
         String providerId = oauth2User.getName();
         return findByProviderAndProviderId(authorizedClientRegistrationId, providerId)
-                .map(user -> {
-                    log.warn("Already exists: {} for (provider: {}, providerId: {})", user, authorizedClientRegistrationId, providerId);
-                    return user;
-                })
-                .orElseGet(() -> {
-                    Map<String, Object> attributes = oauth2User.getAttributes();
-                    @SuppressWarnings("unchecked")
-                    Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
-                    checkArgument(properties != null, "OAuth2User properties is empty");
+            .map(user -> {
+                log.warn("Already exists: {} for (provider: {}, providerId: {})", user, authorizedClientRegistrationId, providerId);
+                return user;
+            })
+            .orElseGet(() -> {
+                Map<String, Object> attributes = oauth2User.getAttributes();
+                @SuppressWarnings("unchecked")
+                Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
+                checkArgument(properties != null, "OAuth2User properties is empty");
 
-                    String nickname = (String) properties.get("nickname");
-                    String profileImage = (String) properties.get("profile_image");
-                    Group group = groupRepository.findByName("USER_GROUP")
-                            .orElseThrow(() -> new IllegalStateException("Could not found group for USER_GROUP"));
-                    Users user = new Users(nickname, authorizedClientRegistrationId, providerId, profileImage, group);
-                    user.setOtherInfo("", true, 20, "");
-                    System.out.println(providerId);
-                    return userRepository.save(user);
-                });
+                String nickname = (String) properties.get("nickname");
+                String profileImage = (String) properties.get("profile_image");
+                Group group = groupRepository.findByName("USER_GROUP")
+                    .orElseThrow(() -> new IllegalStateException("Could not found group for USER_GROUP"));
+                Users user = new Users(nickname, authorizedClientRegistrationId, providerId, profileImage, group);
+                user.setOtherInfo("", true, 20, "");
+                System.out.println(providerId);
+                return userRepository.save(user);
+            });
     }
 
     @Transactional(readOnly = true)
@@ -229,9 +226,9 @@ public class UserService {
     public UserDetailResponse addJoinInfo(String username, UserJoinRequest userJoinRequest) throws Exception{
         Users users = userRepository.findByUsername(username).get();
         users.setOtherInfo(userJoinRequest.getNickname(),
-                userJoinRequest.getIsMan(),
-                userJoinRequest.getAge(),
-                userJoinRequest.getMbti());
+            userJoinRequest.getIsMan(),
+            userJoinRequest.getAge(),
+            userJoinRequest.getMbti());
         return userConverter.toUserResponse(users);
     }
 
