@@ -9,11 +9,8 @@ import com.shake_match.alchomist.users.dto.response.UserBookmarkResponse;
 import com.shake_match.alchomist.users.dto.response.UserDetailResponse;
 import com.shake_match.alchomist.users.dto.response.UserNicknameResponse;
 import com.shake_match.alchomist.users.dto.response.UserUpdateResponse;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -60,8 +57,9 @@ public class UserConverter {
 
     public List<IngredientResponse> toIngredientsResponses(List<UsersIngredient> usersIngredients) {
         List<IngredientResponse> users = new ArrayList<>();
-        for (UsersIngredient usersIngredient: usersIngredients){
-            users.add(ingredientConverter.converterIngredientResponse(usersIngredient.getIngredient()));
+        for (UsersIngredient usersIngredient : usersIngredients) {
+            users.add(
+                ingredientConverter.converterIngredientResponse(usersIngredient.getIngredient()));
         }
         return users;
     }
