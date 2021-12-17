@@ -114,7 +114,8 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
                 .logout()
                     .disable()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                     .and()
 
                 .oauth2Login()
