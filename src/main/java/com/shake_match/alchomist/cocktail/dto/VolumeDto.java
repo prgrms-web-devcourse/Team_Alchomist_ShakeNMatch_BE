@@ -5,14 +5,14 @@ import lombok.Getter;
 @Getter
 public class VolumeDto {
 
-    private Long ingredientId;
+    private Long id;
     private String name;
     private Double amount;
     private String type;
     private String measure;
 
-    public VolumeDto(Long ingredientId, String name, Double amount, String type, String measure) {
-        this.ingredientId = ingredientId;
+    public VolumeDto(Long id, String name, Double amount, String type, String measure) {
+        this.id = id;
         this.name = name;
         this.amount = amount;
         this.type = type;

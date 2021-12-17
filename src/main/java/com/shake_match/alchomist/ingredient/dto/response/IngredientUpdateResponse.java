@@ -8,15 +8,15 @@ import lombok.Setter;
 @Setter
 public class IngredientUpdateResponse {
 
-    private String ingredientName;
+    private String name;
     private String type;
-    private boolean isAlcohol;
+    private boolean alcohol;
     private String measure;
 
     public IngredientUpdateResponse(Ingredient ingredient) {
-        this.ingredientName = ingredient.getName();
+        this.name = ingredient.getName();
         this.type = ingredient.getType();
-        this.isAlcohol = ingredient.isAlcohol();
+        this.alcohol = ingredient.isAlcohol();
         this.measure = ingredient.getMeasure();
     }
 }
