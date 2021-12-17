@@ -145,23 +145,23 @@ public class UserService {
     }
 
     @Transactional
-    public UserLikeResponse addBookmark(Long userId, Long cocktailId) {
+    public void addBookmark(Long userId, Long cocktailId) {
+
+
         Users user = userRepository.findById(userId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         Cocktail cocktail = cocktailRepository.findById(cocktailId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_COCKTAIL));
         user.addCocktails(cocktail);
-        return new UserLikeResponse(user);
     }
 
     @Transactional
-    public UserLikeResponse deleteBookmark(UserBookmarkRequest userBookmarkRequest) {
+    public void deleteBookmark(UserBookmarkRequest userBookmarkRequest) {
         Users user = userRepository.findById(userBookmarkRequest.getUserId())
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         Cocktail cocktail = cocktailRepository.findById(userBookmarkRequest.getCocktailId())
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_COCKTAIL));
         user.addCocktails(cocktail);
-        return new UserLikeResponse(user);
     }
 
     @Transactional(readOnly = true)
@@ -169,6 +169,7 @@ public class UserService {
         Users user = userRepository.findById(userId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
         List<Cocktail> cocktailByBookmark = user.getCocktails();
+
 
         if (cocktailByBookmark.isEmpty()) {
             throw new NotFoundException(ErrorCode.NOT_EXIST_BOOKMARK);

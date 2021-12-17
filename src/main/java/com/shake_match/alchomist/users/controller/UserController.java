@@ -7,6 +7,7 @@ import com.shake_match.alchomist.jwt.JwtAuthentication;
 import com.shake_match.alchomist.users.dto.request.UserBookmarkRequest;
 import com.shake_match.alchomist.users.dto.request.UserJoinRequest;
 import com.shake_match.alchomist.users.dto.request.UserUpdateRequest;
+import com.shake_match.alchomist.users.dto.response.UserBookmarkResponse;
 import com.shake_match.alchomist.users.dto.response.UserDetailResponse;
 import com.shake_match.alchomist.users.dto.response.UserLikeResponse;
 import com.shake_match.alchomist.users.dto.response.UserNicknameResponse;
@@ -54,19 +55,26 @@ public class UserController {
         return ApiResponse.ok(userNicknameResponse);
     }
 
+    @GetMapping("/bookmark/{userId}") // 북마크 검색
+    public ApiResponse<List<UserBookmarkResponse>> findBookmarkById(
+        @PathVariable("userId") Long id) {
+        List<UserBookmarkResponse> userBookmarkResponses = userService.getBookmarkById(id);
+        return ApiResponse.ok(userBookmarkResponses);
+    }
+
     @PostMapping("/bookmark") // 북마크 추가
-    public ApiResponse<UserLikeResponse> addUserBookmark(
+    public ApiResponse<String> addUserBookmark(
         @RequestBody UserBookmarkRequest userBookmarkRequest) {
-        UserLikeResponse userLikeResponse = userService.addBookmark(userBookmarkRequest.getUserId(),
+        userService.addBookmark(userBookmarkRequest.getUserId(),
             userBookmarkRequest.getCocktailId());
-        return ApiResponse.ok(userLikeResponse);
+        return ApiResponse.ok("북마크를 추가했습니다.");
     }
 
     @DeleteMapping("/bookmark") // 북마크 삭제
     public ApiResponse<String> deleteUserBookmark(
         @RequestBody UserBookmarkRequest userBookmarkRequest) {
         userService.deleteBookmark(userBookmarkRequest);
-        return ApiResponse.ok("bookmark Deleted successfully");
+        return ApiResponse.ok("북마크를 삭제했습니다.");
     }
 
     // 내 술장고 재료조회
