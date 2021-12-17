@@ -3,14 +3,17 @@ package com.shake_match.alchomist.users.controller;
 import com.shake_match.alchomist.cocktail.dto.CocktailSimpleListResponse;
 import com.shake_match.alchomist.global.ApiResponse;
 import com.shake_match.alchomist.ingredient.dto.response.IngredientToListResponse;
-import com.shake_match.alchomist.users.converter.UserConverter;
+import com.shake_match.alchomist.jwt.JwtAuthentication;
 import com.shake_match.alchomist.users.dto.request.UserBookmarkRequest;
+import com.shake_match.alchomist.users.dto.request.UserJoinRequest;
 import com.shake_match.alchomist.users.dto.request.UserUpdateRequest;
 import com.shake_match.alchomist.users.dto.response.UserDetailResponse;
 import com.shake_match.alchomist.users.dto.response.UserLikeResponse;
 import com.shake_match.alchomist.users.dto.response.UserNicknameResponse;
 import com.shake_match.alchomist.users.service.UserService;
 import java.util.List;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -97,5 +100,19 @@ public class UserController {
         userService.deletedIngredientOfUser(id, ingredientIds);
         return ApiResponse.ok("술장고에 재료정보를 삭제하였습니다.");
 
+    }
+
+    @PostMapping
+    public ApiResponse<UserDetailResponse> addJoinInfo(
+            @AuthenticationPrincipal JwtAuthentication authentication,
+            @RequestBody UserJoinRequest joinRequest
+    ) throws Exception{
+        return ApiResponse.ok(userService.addJoinInfo(authentication.username, joinRequest));
+    }
+
+    @GetMapping
+    public ApiResponse<UserDetailResponse> searchByToken(@AuthenticationPrincipal JwtAuthentication authentication
+    ) throws Exception{
+        return ApiResponse.ok(userService.searchByToken(authentication.username));
     }
 }

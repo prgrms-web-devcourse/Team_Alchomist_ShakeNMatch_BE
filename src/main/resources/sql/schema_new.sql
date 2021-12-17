@@ -1,5 +1,5 @@
 DROP TABLE group_permission;
-DROP TABLE groups;
+DROP TABLE groups_role;
 DROP TABLE permissions;
 
 CREATE TABLE permissions
@@ -9,7 +9,7 @@ CREATE TABLE permissions
     PRIMARY KEY (id)
 );
 
-CREATE TABLE groups
+CREATE TABLE groups_role
 (
     id   numeric     NOT NULL,
     name varchar(20) NOT NULL,
