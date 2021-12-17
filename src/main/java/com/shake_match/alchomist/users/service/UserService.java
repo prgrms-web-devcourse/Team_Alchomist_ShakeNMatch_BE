@@ -111,10 +111,10 @@ public class UserService {
 
     @Transactional
     public void saveIngredientOfUser(Long userId, List<Long> ingredientIds) {
-        Users user = userRepository.findByProviderId(userId.toString())
+        Users user = userRepository.findById(userId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
 
-        userIngredientRepository.deleteUsersIdAndIngredient(user.getProviderId());
+        userIngredientRepository.deleteUsersIdAndIngredient(user.getId());
 
         List<UsersIngredient> usersIngredients = ingredientIds.stream()
             .map(ingredientId -> ingredientRepository.getById(ingredientId))
