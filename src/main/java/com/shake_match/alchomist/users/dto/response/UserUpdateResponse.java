@@ -6,11 +6,11 @@ import lombok.Getter;
 public class UserUpdateResponse {
 
     private String nickname;
-    private boolean isMan;
+    private Boolean isMan;
     private int age;
     private String mbti;
 
-    public UserUpdateResponse(String nickname, boolean isMan, int age, String mbti) {
+    public UserUpdateResponse(String nickname, Boolean isMan, int age, String mbti) {
         this.nickname = nickname;
         this.isMan = isMan;
         this.age = age;

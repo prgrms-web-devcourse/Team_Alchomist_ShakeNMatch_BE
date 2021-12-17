@@ -9,12 +9,12 @@ public class UserDetailResponse {
 
     private Long id;
     private String nickname;
-    private boolean isMan;
+    private Boolean isMan;
     private int age;
     private String mbti;
     private List<IngredientResponse> ingredients;
 
-    public UserDetailResponse(String id, String nickname, boolean isMan, int age, String mbti, List<IngredientResponse> ingredients) {
+    public UserDetailResponse(String id, String nickname, Boolean isMan, int age, String mbti, List<IngredientResponse> ingredients) {
         this.id = Long.parseLong(id);
         this.nickname = nickname;
         this.isMan = isMan;

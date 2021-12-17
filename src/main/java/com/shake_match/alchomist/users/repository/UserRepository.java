@@ -16,5 +16,5 @@ public interface UserRepository extends JpaRepository<Users, Long> {
     Optional<Users> findByProviderAndProviderId(String provider, String providerId);
 
     @Query("select u from users u join fetch u.group g left join fetch g.permissions gp join fetch gp.permission where u.providerId = :id")
-    Optional<Users> findByProviderId(Long id);
+    Optional<Users> findByProviderId(String id);
 }
