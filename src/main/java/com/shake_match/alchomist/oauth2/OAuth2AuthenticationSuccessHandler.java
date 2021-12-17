@@ -38,7 +38,8 @@ public class OAuth2AuthenticationSuccessHandler extends SavedRequestAwareAuthent
 
             Users user = processUserOAuth2UserJoin(principal, registrationId);
             String loginSuccessJson = generateLoginSuccessJson(user);
-            String redirectUrl = "https://shakenmatch.vercel.app/oauth/kakao" + loginSuccessJson;
+//             String redirectUrl = "https://shakenmatch.vercel.app/oauth/kakao" + loginSuccessJson;
+            String redirectUrl = "http://localhost:3000/oauth/kakao" + loginSuccessJson;
             getRedirectStrategy().sendRedirect(request, response, redirectUrl);
         } else {
             super.onAuthenticationSuccess(request, response, authentication);
