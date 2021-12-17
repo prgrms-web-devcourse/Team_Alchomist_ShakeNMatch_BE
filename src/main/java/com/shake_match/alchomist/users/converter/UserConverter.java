@@ -13,6 +13,7 @@ import com.shake_match.alchomist.users.dto.response.UserUpdateResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 @Component
