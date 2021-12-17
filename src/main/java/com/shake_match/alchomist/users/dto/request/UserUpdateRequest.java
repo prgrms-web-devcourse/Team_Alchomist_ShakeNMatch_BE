@@ -7,13 +7,13 @@ public class UserUpdateRequest {
 
     private String nickname;
 
-    private boolean isMan;
+    private Boolean isMan;
 
     private int age;
 
     private String mbti;
 
-    public UserUpdateRequest(String nickname, boolean isMan, int age, String mbti) {
+    public UserUpdateRequest(String nickname, Boolean isMan, int age, String mbti) {
         this.nickname = nickname;
         this.isMan = isMan;
         this.age = age;

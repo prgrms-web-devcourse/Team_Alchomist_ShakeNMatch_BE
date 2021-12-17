@@ -7,7 +7,7 @@ public class UserRequest {
 
     private String nickname;
 
-    private boolean isMan;
+    private Boolean isMan;
 
     private int age;
 

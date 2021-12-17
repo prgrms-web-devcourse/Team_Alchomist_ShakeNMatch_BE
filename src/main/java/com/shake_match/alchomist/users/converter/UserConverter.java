@@ -36,7 +36,7 @@ public class UserConverter {
         return new UserDetailResponse(
             user.getProviderId(),
             user.getNickname(),
-            user.isMan(),
+            user.getIsMan(),
             user.getAge(),
             user.getMbti(),
             toIngredientsResponses(user.getUsersIngredient())
@@ -46,7 +46,7 @@ public class UserConverter {
     public UserUpdateResponse toUserUpdateResponse(Users users) {
         return new UserUpdateResponse(
             users.getNickname(),
-            users.isMan(),
+            users.getIsMan(),
             users.getAge(),
             users.getMbti()
         );
