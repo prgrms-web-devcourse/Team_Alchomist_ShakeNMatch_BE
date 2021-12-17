@@ -17,6 +17,7 @@ import com.shake_match.alchomist.users.Users;
 import com.shake_match.alchomist.users.UsersIngredient;
 import com.shake_match.alchomist.users.converter.UserConverter;
 import com.shake_match.alchomist.users.dto.request.UserBookmarkRequest;
+import com.shake_match.alchomist.users.dto.request.UserJoinRequest;
 import com.shake_match.alchomist.users.dto.request.UserUpdateRequest;
 import com.shake_match.alchomist.users.dto.response.*;
 import com.shake_match.alchomist.users.repository.UserRepository;
@@ -34,6 +35,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityNotFoundException;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static org.hibernate.internal.util.StringHelper.isNotEmpty;
@@ -216,5 +219,22 @@ public class UserService {
         checkArgument(isNotEmpty(providerId), "providerId must be provided.");
 
         return userRepository.findByProviderAndProviderId(provider, providerId);
+    }
+
+    public UserDetailResponse addJoinInfo(String username, UserJoinRequest userJoinRequest) throws Exception{
+        Optional<Users> users = userRepository.findByUsername(username);
+        if (users.isEmpty()){
+            throw new EntityNotFoundException();
+        }
+        users.get().setOtherInfo(userJoinRequest.getNickname(), userJoinRequest.isMan(), userJoinRequest.getAge(), userJoinRequest.getMbti());
+        return userConverter.toUserResponse(users.get());
+    }
+
+    public UserDetailResponse searchByToken(String username) throws Exception{
+        Optional<Users> users = userRepository.findByUsername(username);
+        if (users.isEmpty()){
+            throw new EntityNotFoundException();
+        }
+        return userConverter.toUserResponse(users.get());
     }
 }
