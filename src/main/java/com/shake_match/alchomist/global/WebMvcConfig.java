@@ -11,7 +11,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
             .allowedMethods("*")
-            .allowedOrigins("http://localhost:3000", "http://localhost:6006")
+            .allowedOrigins("http://localhost:3000", "http://localhost:6006", "https://shakenmatch.vercel.app")
             .allowedHeaders("*");
     }
 }
