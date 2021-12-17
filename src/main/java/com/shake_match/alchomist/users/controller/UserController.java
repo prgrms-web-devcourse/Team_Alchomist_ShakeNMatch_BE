@@ -7,6 +7,7 @@ import com.shake_match.alchomist.jwt.JwtAuthentication;
 import com.shake_match.alchomist.users.dto.request.UserBookmarkRequest;
 import com.shake_match.alchomist.users.dto.request.UserJoinRequest;
 import com.shake_match.alchomist.users.dto.request.UserUpdateRequest;
+import com.shake_match.alchomist.users.dto.response.UserBookmarkResponse;
 import com.shake_match.alchomist.users.dto.response.UserDetailResponse;
 import com.shake_match.alchomist.users.dto.response.UserLikeResponse;
 import com.shake_match.alchomist.users.dto.response.UserNicknameResponse;
@@ -67,6 +68,13 @@ public class UserController {
         @RequestBody UserBookmarkRequest userBookmarkRequest) {
         userService.deleteBookmark(userBookmarkRequest);
         return ApiResponse.ok("bookmark Deleted successfully");
+    }
+
+    @GetMapping("/bookmark/{userId}") // 북마크 검색
+    public ApiResponse<List<UserBookmarkResponse>> findBookmarkById(
+            @PathVariable("userId") Long id) {
+        List<UserBookmarkResponse> userBookmarkResponses = userService.getBookmarkById(id);
+        return ApiResponse.ok(userBookmarkResponses);
     }
 
     // 내 술장고 재료조회
