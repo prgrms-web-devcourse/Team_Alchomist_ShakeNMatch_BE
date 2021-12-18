@@ -25,6 +25,7 @@ public enum ErrorCode {
     NOT_EXIST_REVIEW("존재하지 않는 리뷰입니다"),
     UNSUPPORTED_MEDIA_TYPE("지원하지 않는 미디어 타입입니다."),
     NOT_EXIST_LIKE("존재하지 않는 좋아요 입니다."),
+    TOO_MANY_REVIEW("리뷰 전체 조회 시, 리뷰의 개수가 지정된 개수보다 많습니다."),
     TOO_MANY_INGREDIENT("재료 전체 조회 시, 재료의 개수가 지정된 개수보다 많습니다."),
     FORBIDDEN("권한이 없습니다.");
 

@@ -47,8 +47,8 @@ public class ReviewController {
 
     // 칵테일 id를 통한 조회
     @GetMapping("/cocktailId")
-    public ApiResponse<List<ReviewDetailResponse>> findAllByCocktailId(@RequestParam Long cocktailId, Pageable pageable) throws NotFoundException {
-        return ApiResponse.ok(reviewService.findAllByCocktailId(pageable, cocktailId));
+    public ApiResponse<List<ReviewDetailResponse>> findAllByCocktailId(@RequestParam Long cocktailId) throws NotFoundException {
+        return ApiResponse.ok(reviewService.findAllByCocktailId(cocktailId));
     }
 
     @DeleteMapping("/{id}") // 리뷰 삭제
@@ -64,9 +64,7 @@ public class ReviewController {
     }
 
     @GetMapping
-    public ApiResponse<List<ReviewDetailResponse>> findAll(Pageable pageable) throws NotFoundException {
-        return ApiResponse.ok(reviewService.findAll(pageable)
-                .stream()
-                .collect(Collectors.toList()));
+    public ApiResponse<List<ReviewDetailResponse>> findAll() throws NotFoundException {
+        return ApiResponse.ok(reviewService.findAll());
     }
 }
