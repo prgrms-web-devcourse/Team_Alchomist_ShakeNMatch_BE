@@ -12,4 +12,6 @@ public class ReviewDetailRequest {
     private String url;
     private String description;
     private int rating;
+    private String nickname;
+    private String cocktailName;
 }
