@@ -56,7 +56,11 @@ public class Cocktail extends BaseEntity {
     }
 
     public void addThemes(Theme theme) {
-        themes.add(theme);
+        this.themes.add(theme);
+    }
+
+    public void addReviews(Review review){
+        this.reviews.add(review);
     }
 
     public void addLikes(boolean bool){
