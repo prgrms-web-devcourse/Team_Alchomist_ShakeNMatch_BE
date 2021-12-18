@@ -35,7 +35,7 @@ public class UserDetailResponse {
     }
 
 
-    public UserDetailResponse(Long id, String nickname, Boolean isMan, int age, String mbti, List<IngredientResponse> ingredients, List<UserBookmarkResponse> userBookmarkResponses) {
+    public UserDetailResponse(Long id, String nickname, Boolean isMan, int age, String mbti, List<IngredientResponse> ingredients, List<UserBookmarkResponse> bookmark) {
         this.id = id;
         this.nickname = nickname;
         this.isMan = isMan;
@@ -47,6 +47,6 @@ public class UserDetailResponse {
         else {
             this.ingredients = ingredients;
         }
-        this.userBookmarkResponses = userBookmarkResponses;
+        this.userBookmarkResponses = bookmark;
     }
 }
