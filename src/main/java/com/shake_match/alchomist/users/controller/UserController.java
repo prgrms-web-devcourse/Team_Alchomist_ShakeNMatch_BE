@@ -9,7 +9,6 @@ import com.shake_match.alchomist.users.dto.request.UserJoinRequest;
 import com.shake_match.alchomist.users.dto.request.UserUpdateRequest;
 import com.shake_match.alchomist.users.dto.response.UserBookmarkResponse;
 import com.shake_match.alchomist.users.dto.response.UserDetailResponse;
-import com.shake_match.alchomist.users.dto.response.UserLikeResponse;
 import com.shake_match.alchomist.users.dto.response.UserNicknameResponse;
 import com.shake_match.alchomist.users.service.UserService;
 import java.util.List;
