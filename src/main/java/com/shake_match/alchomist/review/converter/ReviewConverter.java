@@ -32,6 +32,7 @@ public class ReviewConverter {
 
     public static ReviewDto toReviewDto(Review review) {
         return new ReviewDto(
+                review.getId(),
                 review.getRating(),
                 review.getDescription(),
                 review.getUrl(),

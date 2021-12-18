@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReviewDto {
 
+    private Long id;
     private int rating;
     private String description;
     private String url;
@@ -16,7 +17,8 @@ public class ReviewDto {
     private Long cocktailId;
     private String cocktailName;
 
-    public ReviewDto(int rating, String description, String url, Long userId, String userName, Long cocktailId, String cocktailName) {
+    public ReviewDto(Long id, int rating, String description, String url, Long userId, String userName, Long cocktailId, String cocktailName) {
+        this.id = id;
         this.rating = rating;
         this.description = description;
         this.url = url;
