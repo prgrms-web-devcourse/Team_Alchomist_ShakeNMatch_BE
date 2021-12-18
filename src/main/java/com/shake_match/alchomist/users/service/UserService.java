@@ -74,7 +74,17 @@ public class UserService {
     public UserDetailResponse getUserDetail(Long id) {
         Users user = userRepository.findById(id)
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
-        return userConverter.toUserResponse(user);
+
+        List<Cocktail> cocktailByBookmark = user.getCocktails();
+        if (cocktailByBookmark.isEmpty()) {
+            throw new NotFoundException(ErrorCode.NOT_EXIST_BOOKMARK);
+        }
+        List<UserBookmarkResponse> responses = new ArrayList<>();
+        for (Cocktail cocktail : cocktailByBookmark) {
+            responses.add(userConverter.toSearchByBookmark(cocktail));
+        }
+
+        return userConverter.toUserResponse(user, responses);
     }
 
     @Transactional

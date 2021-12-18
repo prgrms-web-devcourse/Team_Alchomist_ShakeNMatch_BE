@@ -15,6 +15,7 @@ public class UserDetailResponse {
     private Boolean isMan;
     private int age;
     private String mbti;
+    private List<UserBookmarkResponse> userBookmarkResponses;
 
     @JsonProperty("ingredients")
     private List<IngredientResponse> ingredients;
@@ -25,11 +26,27 @@ public class UserDetailResponse {
         this.isMan = isMan;
         this.age = age;
         this.mbti = mbti;
-        if (ingredients.isEmpty()){
+        if (ingredients == null){
             this.ingredients = new ArrayList<>();
         }
         else {
             this.ingredients = ingredients;
         }
+    }
+
+
+    public UserDetailResponse(Long id, String nickname, Boolean isMan, int age, String mbti, List<IngredientResponse> ingredients, List<UserBookmarkResponse> userBookmarkResponses) {
+        this.id = id;
+        this.nickname = nickname;
+        this.isMan = isMan;
+        this.age = age;
+        this.mbti = mbti;
+        if (ingredients == null){
+            this.ingredients = new ArrayList<>();
+        }
+        else {
+            this.ingredients = ingredients;
+        }
+        this.userBookmarkResponses = userBookmarkResponses;
     }
 }

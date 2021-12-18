@@ -42,6 +42,18 @@ public class UserConverter {
         );
     }
 
+    public UserDetailResponse toUserResponse(Users user, List<UserBookmarkResponse> userBookmarkResponses) {
+        return new UserDetailResponse(
+            user.getId(),
+            user.getNickname(),
+            user.getIsMan(),
+            user.getAge(),
+            user.getMbti(),
+            toIngredientsResponses(user.getUsersIngredient()),
+            userBookmarkResponses
+        );
+    }
+
     public UserUpdateResponse toUserUpdateResponse(Users users) {
         return new UserUpdateResponse(
             users.getNickname(),
@@ -63,5 +75,6 @@ public class UserConverter {
         }
         return users;
     }
+
 
 }
