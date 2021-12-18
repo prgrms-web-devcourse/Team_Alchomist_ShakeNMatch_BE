@@ -50,8 +50,8 @@ public class ReviewService {
 
     @Transactional // 리뷰 작성
     public ReviewDetailResponse insert(ReviewDetailRequest request) throws NotFoundException {
-        //getUser(request.getUserId());
-        // getCocktail(request.getCocktailId());
+        getUser(request.getUserId());
+        getCocktail(request.getCocktailId());
         Review review = reviewConverter.converterReviewDetail(request);
         reviewRepository.save(review);
         return new ReviewDetailResponse(review);
