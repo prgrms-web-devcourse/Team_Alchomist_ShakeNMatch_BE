@@ -12,6 +12,8 @@ public class ReviewDetailResponse {
     private String url;
     private String description;
     private int rating;
+    private String nickname;
+    private String cocktailName;
 
     public ReviewDetailResponse(Review review) {
         this.reviewId = review.getId();
@@ -20,5 +22,7 @@ public class ReviewDetailResponse {
         this.url = review.getUrl();
         this.description = review.getDescription();
         this.rating = review.getRating();
+        this.nickname = review.getNickname();
+        this.cocktailName = review.getCocktailName();
     }
 }

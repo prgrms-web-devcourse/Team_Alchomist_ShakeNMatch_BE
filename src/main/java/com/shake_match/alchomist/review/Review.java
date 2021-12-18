@@ -43,12 +43,6 @@ public class Review extends BaseEntity {
     @Column(name = "cocktail_name")
     String cocktailName;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    Users users;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    Cocktail cocktails;
-
     public void update(ReviewUpdateRequest request) {
         this.rating = request.getRating();
         this.description = request.getDescription();
