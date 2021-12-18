@@ -2,9 +2,11 @@ package com.shake_match.alchomist.review.service;
 
 import com.shake_match.alchomist.amazon.service.S3Service;
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
+import com.shake_match.alchomist.cocktail.dto.SearchResponse;
 import com.shake_match.alchomist.cocktail.repository.CocktailRepository;
 import com.shake_match.alchomist.global.ErrorCode;
 import com.shake_match.alchomist.global.NotFoundException;
+import com.shake_match.alchomist.ingredient.dto.response.IngredientDetailResponse;
 import com.shake_match.alchomist.review.Review;
 import com.shake_match.alchomist.review.converter.ReviewConverter;
 import com.shake_match.alchomist.review.dto.request.ReviewDetailRequest;
@@ -15,12 +17,16 @@ import com.shake_match.alchomist.review.repository.ReviewRepository;
 import com.shake_match.alchomist.users.Users;
 import com.shake_match.alchomist.users.repository.UserRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +37,7 @@ public class ReviewService {
     private final UserRepository userRepository;
     private final CocktailRepository cocktailRepository;
     private final S3Service s3Service;
+    private final int SIZE = 150;
 
     public ReviewService(ReviewRepository reviewRepository, ReviewConverter reviewConverter, UserRepository userRepository, CocktailRepository cocktailRepository, S3Service s3Service) {
         this.reviewRepository = reviewRepository;
@@ -43,9 +50,9 @@ public class ReviewService {
 
     @Transactional // 리뷰 작성
     public ReviewDetailResponse insert(ReviewDetailRequest request) throws NotFoundException {
-        getUser(request.getUserId());
-        getCocktail(request.getCocktailId());
-        Review review = reviewConverter.converterReviewDetail(request, getUser(request.getUserId()).getNickname(), getCocktail(request.getCocktailId()).getName());
+        //getUser(request.getUserId());
+        // getCocktail(request.getCocktailId());
+        Review review = reviewConverter.converterReviewDetail(request);
         reviewRepository.save(review);
         return new ReviewDetailResponse(review);
     }
@@ -67,9 +74,15 @@ public class ReviewService {
     }
 
     @Transactional // 리뷰 전체 조회
-    public Page<ReviewDetailResponse> findAll(Pageable pageable) {
-        return reviewRepository.findAll(pageable)
-                .map(ReviewDetailResponse::new);
+    public List<ReviewDetailResponse> findAll() {
+        PageRequest pageRequest = PageRequest.of(0, SIZE);
+        if (reviewRepository.findAll().size() > SIZE) { // 150(SIZE)개 보다 재료 수가 더 많으면 예외처리
+            throw new NotFoundException(ErrorCode.TOO_MANY_REVIEW);
+        }
+        return reviewRepository.findAll(pageRequest)
+                .stream()
+                .map(ReviewDetailResponse::new)
+                .collect(Collectors.toList());
     }
 
     @Transactional // 리뷰, 사용자 id를 이용한 조회
@@ -81,11 +94,16 @@ public class ReviewService {
     }
 
     @Transactional // 리뷰, 칵테일 id를 이용한 조회
-    public List<ReviewDetailResponse> findAllByCocktailId(Pageable pageable, Long cocktailId) throws NotFoundException {
-        return reviewRepository.findAll(pageable)
-                .map(ReviewDetailResponse::new)
-                .stream().filter(x -> x.getCocktailId().equals(cocktailId))
-                .collect(Collectors.toList());
+    public List<ReviewDetailResponse> findAllByCocktailId(Long cocktailId) throws NotFoundException {
+        List<Review> reviews = reviewRepository.findByCocktailId(cocktailId);
+        if (reviews.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
+        List<ReviewDetailResponse> responses = new ArrayList<>();
+        for (Review review : reviews) {
+            responses.add(reviewConverter.toReviewDetailResponse(review));
+        }
+        return responses;
     }
 
     @Transactional // 실제로 저장되어있는 사용자인지 확인하고 조회하는 메소드
