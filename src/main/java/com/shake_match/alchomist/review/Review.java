@@ -34,8 +34,14 @@ public class Review extends BaseEntity {
     @Column(name = "user_id")
     Long userId;
 
+    @Column(name = "user_name")
+    String nickname;
+
     @Column(name = "cocktail_id")
     Long cocktailId;
+
+    @Column(name = "cocktail_name")
+    String cocktailName;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    Users users;

@@ -11,13 +11,15 @@ public class ReviewConverter {
     private final String bucket = "team15-image-bucket";
     private final String region = "ap-northeast-2";
 
-    public Review converterReviewDetail(ReviewDetailRequest request) { // Dto -> Entity
+    public Review converterReviewDetail(ReviewDetailRequest request, String nickname, String cocktailName) { // Dto -> Entity
         return Review.builder()
                 .rating(request.getRating())
                 .description(request.getDescription())
                 .url("https://" + bucket + ".s3." + region + ".amazonaws.com/" + request.getUrl())
                 .userId(request.getUserId())
+                .nickname(nickname)
                 .cocktailId(request.getCocktailId())
+                .cocktailName(cocktailName)
                 .build();
     }
 
@@ -27,7 +29,9 @@ public class ReviewConverter {
                 review.getDescription(),
                 review.getUrl(),
                 review.getUserId(),
-                review.getCocktailId()
+                review.getNickname(),
+                review.getCocktailId(),
+                review.getCocktailName()
         );
     }
 }

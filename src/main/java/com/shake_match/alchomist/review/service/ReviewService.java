@@ -45,7 +45,7 @@ public class ReviewService {
     public ReviewDetailResponse insert(ReviewDetailRequest request) throws NotFoundException {
         getUser(request.getUserId());
         getCocktail(request.getCocktailId());
-        Review review = reviewConverter.converterReviewDetail(request);
+        Review review = reviewConverter.converterReviewDetail(request, getUser(request.getUserId()).getNickname(), getCocktail(request.getCocktailId()).getName());
         reviewRepository.save(review);
         return new ReviewDetailResponse(review);
     }
