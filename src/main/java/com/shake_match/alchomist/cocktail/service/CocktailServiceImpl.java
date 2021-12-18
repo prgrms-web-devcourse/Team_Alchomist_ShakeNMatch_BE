@@ -14,6 +14,8 @@ import com.shake_match.alchomist.global.ErrorCode;
 import com.shake_match.alchomist.global.NotFoundException;
 import com.shake_match.alchomist.ingredient.Ingredient;
 import com.shake_match.alchomist.ingredient.repository.IngredientRepository;
+import com.shake_match.alchomist.review.repository.ReviewRepository;
+import com.shake_match.alchomist.review.service.ReviewService;
 import com.shake_match.alchomist.theme.domain.Theme;
 import com.shake_match.alchomist.theme.repository.ThemeRepository;
 import com.sun.jdi.request.DuplicateRequestException;
@@ -33,6 +35,7 @@ public class CocktailServiceImpl implements CocktailService {
     private final CocktailConvertor convertor;
     private final IngredientRepository ingredientRepository;
     private final ThemeRepository themeRepository;
+    private final ReviewRepository reviewRepository;
     private final S3Service s3Service;
     private final CocktailIngredientRepository cocktailIngredientRepository;
 
@@ -44,7 +47,7 @@ public class CocktailServiceImpl implements CocktailService {
         if (cocktail.isEmpty()) {
             throw new EntityNotFoundException();
         }
-        return convertor.toCocktailDetail(cocktail.get());
+        return convertor.toCocktailDetail(cocktail.get(), reviewRepository.findByCocktailId(cocktail.get().getId()));
     }
 
     @Override

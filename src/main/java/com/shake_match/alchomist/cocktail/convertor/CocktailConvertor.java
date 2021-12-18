@@ -25,7 +25,7 @@ public class CocktailConvertor {
     private final String region = "ap-northeast-2";
     private final String s3Address = "https://" + bucket + ".s3." + region + ".amazonaws.com/";
 
-    public CocktailDetailResponse toCocktailDetail(Cocktail cocktail){
+    public CocktailDetailResponse toCocktailDetail(Cocktail cocktail, List<Review> reviews){
         List<VolumeDto> volumeDtos = new ArrayList<>();
         for(Volume volume: cocktail.getVolumes()){
             volumeDtos.add(toVolumeDto(volume));
@@ -36,9 +36,17 @@ public class CocktailConvertor {
             themeDtos.add(ThemeConvertor.toDto(theme));
         }
 
+        float rating = 0;
+        float count = 0;
+        float totalRating = 0;
         List<ReviewDto> reviewDtos = new ArrayList<>();
-        for(Review review: cocktail.getReviews()){
+        for(Review review: reviews){
+            count++;
+            rating += (float) review.getRating();
             reviewDtos.add(ReviewConverter.toReviewDto(review));
+        }
+        if (count != 0){
+            totalRating = rating / count;
         }
 
         return new CocktailDetailResponse(cocktail.getId(),
@@ -49,7 +57,7 @@ public class CocktailConvertor {
                 cocktail.getRecipe(),
                 cocktail.getType(),
                 cocktail.getLikes(),
-                cocktail.getTotalRating()
+                totalRating
         );
     }
 
