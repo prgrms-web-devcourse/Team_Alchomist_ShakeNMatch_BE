@@ -42,7 +42,7 @@ public class UserConverter {
         );
     }
 
-    public UserDetailResponse toUserResponse(Users user, List<UserBookmarkResponse> userBookmarkResponses) {
+    public UserDetailResponse toUserResponse(Users user, List<UserBookmarkResponse> bookmark) {
         return new UserDetailResponse(
             user.getId(),
             user.getNickname(),
@@ -50,7 +50,7 @@ public class UserConverter {
             user.getAge(),
             user.getMbti(),
             toIngredientsResponses(user.getUsersIngredient()),
-            userBookmarkResponses
+            bookmark
         );
     }
 
