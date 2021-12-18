@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
 
     @RequestMapping("/oauth")
+    public String oauth(){
+        return "login/index";
+    }
+
+    @RequestMapping("/login")
     public String login(){
         return "login/index";
     }
