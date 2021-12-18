@@ -9,7 +9,7 @@ public enum ErrorCode {
     INVALID_MEMBER_HOBBY("취미 형식이 맞지 않습니다."),
     NOT_EXIST_MEMBER("존재하지 않는 회원입니다."),
     NOT_EXIST_NICKNAME("존재하지 않는 닉네임입니다."),
-    NOT_EXIST_BOOKMARK("존재하지 않는 북마크입니다."),
+//    NOT_EXIST_BOOKMARK("존재하지 않는 북마크입니다."),
     INTERNAL_SERVER_ERROR("정의되지 않은 서버 에러"),
     DUPLICATION_MEMBER_EMAIL("중복된 이메일입니다."),
     DUPLICATION_MEMBER_NICKNAME("이미 존재하는 닉네임입니다."),

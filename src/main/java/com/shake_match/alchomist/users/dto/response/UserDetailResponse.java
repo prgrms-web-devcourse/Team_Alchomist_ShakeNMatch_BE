@@ -47,6 +47,6 @@ public class UserDetailResponse {
         else {
             this.ingredients = ingredients;
         }
-        this.userBookmarkResponses = bookmark;
+        this.bookmark = bookmark;
     }
 }
