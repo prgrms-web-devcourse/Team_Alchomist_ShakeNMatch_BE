@@ -74,6 +74,9 @@ public class UserService {
             .orElseThrow(() -> new NotFoundException(ErrorCode.NOT_EXIST_MEMBER));
 
         List<Cocktail> cocktailByBookmark = user.getCocktails();
+        if (cocktailByBookmark.isEmpty()) {
+            throw new NotFoundException(ErrorCode.NOT_EXIST_BOOKMARK);
+        }
         List<UserBookmarkResponse> responses = new ArrayList<>();
         for (Cocktail cocktail : cocktailByBookmark) {
             responses.add(userConverter.toSearchByBookmark(cocktail));

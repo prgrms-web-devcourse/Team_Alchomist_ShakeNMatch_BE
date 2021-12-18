@@ -42,6 +42,7 @@ public class UserConverter {
         );
     }
 
+
     public UserDetailResponse toUserResponse(Users user, List<UserBookmarkResponse> bookmark) {
         return new UserDetailResponse(
             user.getId(),
