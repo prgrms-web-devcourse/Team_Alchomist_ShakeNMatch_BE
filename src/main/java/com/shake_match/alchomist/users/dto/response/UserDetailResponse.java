@@ -15,6 +15,8 @@ public class UserDetailResponse {
     private Boolean isMan;
     private int age;
     private String mbti;
+
+    @JsonProperty("bookmarks")
     private List<UserBookmarkResponse> userBookmarkResponses;
 
     @JsonProperty("ingredients")
@@ -35,7 +37,7 @@ public class UserDetailResponse {
     }
 
 
-    public UserDetailResponse(Long id, String nickname, Boolean isMan, int age, String mbti, List<IngredientResponse> ingredients, List<UserBookmarkResponse> bookmark) {
+    public UserDetailResponse(Long id, String nickname, Boolean isMan, int age, String mbti, List<IngredientResponse> ingredients, List<UserBookmarkResponse> userBookmarkResponses) {
         this.id = id;
         this.nickname = nickname;
         this.isMan = isMan;
@@ -47,6 +49,6 @@ public class UserDetailResponse {
         else {
             this.ingredients = ingredients;
         }
-        this.bookmark = bookmark;
+        this.userBookmarkResponses = userBookmarkResponses;
     }
 }
