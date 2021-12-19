@@ -1,5 +1,6 @@
 package com.shake_match.alchomist.cocktail.dto;
 
+import com.shake_match.alchomist.ingredient.dto.response.IngredientResponse;
 import java.util.List;
 import lombok.Getter;
 

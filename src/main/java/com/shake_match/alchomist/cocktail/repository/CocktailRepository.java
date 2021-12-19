@@ -18,6 +18,7 @@ public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
 
     @Query("SELECT distinct ci FROM CocktailIngredient ci"
         + " JOIN FETCH ci.cocktail c"
+        + " JOIN FETCH ci.ingredient i"
         + " WHERE ci.ingredient.id IN :ingredientIds")
     List<CocktailIngredient> findAllByIngredients(@Param("ingredientIds") List<Long> ingredientIds);
 }

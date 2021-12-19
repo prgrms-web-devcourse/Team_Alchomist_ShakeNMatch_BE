@@ -20,4 +20,12 @@ public class IngredientResponse {
         this.alcohol = alcohol;
         this.measure = measure;
     }
+
+    public IngredientResponse(Ingredient ingredient) {
+        this.id = ingredient.getId();
+        this.name = ingredient.getName();
+        this.type = ingredient.getType();
+        this.alcohol = ingredient.isAlcohol();
+        this.measure = ingredient.getMeasure();
+    }
 }
