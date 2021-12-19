@@ -244,6 +244,12 @@ public class UserService {
         if (users.isEmpty()) {
             throw new EntityNotFoundException();
         }
-        return userConverter.toUserResponse(users.get());
+        List<Cocktail> cocktailByBookmark = users.get().getCocktails();
+        List<UserBookmarkResponse> responses = new ArrayList<>();
+        for (Cocktail cocktail : cocktailByBookmark) {
+            responses.add(userConverter.toSearchByBookmark(cocktail));
+        }
+
+        return userConverter.toUserResponse(users.get(), responses);
     }
 }
