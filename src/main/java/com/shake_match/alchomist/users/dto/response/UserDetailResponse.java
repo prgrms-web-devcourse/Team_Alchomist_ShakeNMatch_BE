@@ -15,6 +15,8 @@ public class UserDetailResponse {
     private Boolean isMan;
     private int age;
     private String mbti;
+
+    @JsonProperty("bookmarks")
     private List<UserBookmarkResponse> userBookmarkResponses;
 
     @JsonProperty("ingredients")
