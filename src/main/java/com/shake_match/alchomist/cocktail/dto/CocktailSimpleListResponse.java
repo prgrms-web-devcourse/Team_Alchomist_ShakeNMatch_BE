@@ -8,8 +8,12 @@ public class CocktailSimpleListResponse {
 
     private List<CocktailSimpleResponse> cocktails;
 
+    private List<IngredientResponse> ingredientResponses;
+
     public CocktailSimpleListResponse(
-        List<CocktailSimpleResponse> cocktails) {
+        List<CocktailSimpleResponse> cocktails,
+        List<IngredientResponse> ingredientResponses) {
         this.cocktails = cocktails;
+        this.ingredientResponses = ingredientResponses;
     }
 }

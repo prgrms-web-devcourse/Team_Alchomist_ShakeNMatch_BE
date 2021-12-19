@@ -1,5 +1,6 @@
 package com.shake_match.alchomist.ingredient.dto.response;
 
+import com.shake_match.alchomist.ingredient.Ingredient;
 import lombok.Getter;
 
 @Getter

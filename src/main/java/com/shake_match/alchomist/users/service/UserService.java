@@ -12,6 +12,7 @@ import com.shake_match.alchomist.global.ErrorCode;
 import com.shake_match.alchomist.global.NotFoundException;
 import com.shake_match.alchomist.group.domain.Group;
 import com.shake_match.alchomist.group.repository.GroupRepository;
+import com.shake_match.alchomist.ingredient.Ingredient;
 import com.shake_match.alchomist.ingredient.converter.IngredientConverter;
 import com.shake_match.alchomist.ingredient.dto.response.IngredientListResponse;
 import com.shake_match.alchomist.ingredient.dto.response.IngredientToListResponse;

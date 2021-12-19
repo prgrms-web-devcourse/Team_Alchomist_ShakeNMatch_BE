@@ -84,7 +84,7 @@ public class UserController {
         return ApiResponse.ok(userByIngredient);
     }
 
-    // 내 술장고 재료 조회해서 칵테일 배열로 반환
+    // 재료 조회해서 칵테일 배열(검색한 재료도 같이 반환)로 반환
     @PostMapping("/ingredient")
     public ApiResponse<CocktailSimpleListResponse> getAllCocktailByIngredients(
         @RequestBody List<Long> ingredientIds) {
