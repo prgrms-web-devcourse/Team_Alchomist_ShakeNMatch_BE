@@ -1,5 +1,6 @@
 package com.shake_match.alchomist.ingredient.dto.response;
 
+import com.shake_match.alchomist.ingredient.Ingredient;
 import lombok.Getter;
 
 @Getter
@@ -18,5 +19,13 @@ public class IngredientResponse {
         this.type = type;
         this.alcohol = alcohol;
         this.measure = measure;
+    }
+
+    public IngredientResponse(Ingredient ingredient) {
+        this.id = ingredient.getId();
+        this.name = ingredient.getName();
+        this.type = ingredient.getType();
+        this.alcohol = ingredient.isAlcohol();
+        this.measure = ingredient.getMeasure();
     }
 }

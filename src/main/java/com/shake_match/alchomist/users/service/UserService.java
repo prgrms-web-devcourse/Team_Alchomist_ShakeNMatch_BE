@@ -12,8 +12,10 @@ import com.shake_match.alchomist.global.ErrorCode;
 import com.shake_match.alchomist.global.NotFoundException;
 import com.shake_match.alchomist.group.domain.Group;
 import com.shake_match.alchomist.group.repository.GroupRepository;
+import com.shake_match.alchomist.ingredient.Ingredient;
 import com.shake_match.alchomist.ingredient.converter.IngredientConverter;
 import com.shake_match.alchomist.ingredient.dto.response.IngredientListResponse;
+import com.shake_match.alchomist.ingredient.dto.response.IngredientResponse;
 import com.shake_match.alchomist.ingredient.dto.response.IngredientToListResponse;
 import com.shake_match.alchomist.ingredient.repository.IngredientRepository;
 import com.shake_match.alchomist.users.Users;
@@ -102,17 +104,28 @@ public class UserService {
             ingredientId);
 
         Map<Long, Cocktail> map = new HashMap<>();
+        Map<Long, Ingredient> ingredientMap = new HashMap<>();
         for (CocktailIngredient cocktailIngredient : cocktailIngredients) {
             Long key = cocktailIngredient.getCocktail().getId();
             if (!map.containsKey(key)) {
                 map.put(key, cocktailIngredient.getCocktail());
+            }
+
+            Long ingredientKey = cocktailIngredient.getIngredient().getId();
+            if (!ingredientMap.containsKey(ingredientKey)) {
+                ingredientMap.put(ingredientKey, cocktailIngredient.getIngredient());
             }
         }
         List<CocktailSimpleResponse> cocktails = map.values()
             .stream()
             .map(CocktailSimpleResponse::new)
             .collect(Collectors.toList());
-        return new CocktailSimpleListResponse(cocktails);
+            List<IngredientResponse> ingredientResponses = ingredientMap.values()
+                .stream()
+                .map(IngredientResponse::new)
+                .collect(Collectors.toList());
+
+            return new CocktailSimpleListResponse(cocktails, ingredientResponses);
     }
 
     @Transactional
