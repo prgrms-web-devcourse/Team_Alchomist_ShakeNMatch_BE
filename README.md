@@ -1,6 +1,7 @@
 # 📜 ShakeNMatch - Alchomist
 
-#### 안녕하세요. Alchomist 백엔드 팀입니다. 의욕 넘치게 진행됐던 개발 진행과정에서의 경험을 공유합니다. `온라인 칵테일 바`에 개인 냉장고를 곁들인 우리만의 'Bar' `ShakeNMatch`에 들러 주세요.
+#### 안녕하세요. Alchomist 백엔드 팀입니다. 의욕 넘치게 진행됐던 개발 진행과정에서의 경험을 공유합니다. 
+#### `온라인 칵테일 바`에 개인 냉장고를 곁들인 우리만의 'Bar' `ShakeNMatch`에 들러 주세요.
 
 [Alchomist의 ShakeNMatch 전체 노션](https://www.notion.so/backend-devcourse/15-ShakeNMatch-928321ccc30f45aa828a57c1a6ac0671)
 
