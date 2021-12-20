@@ -1,4 +1,4 @@
-# 📜 ShakeNMatch - Alchomist
+# 🍸 ShakeNMatch - Alchomist
 
 #### 안녕하세요. Alchomist 백엔드 팀입니다. 의욕 넘치게 진행됐던 개발 진행과정에서의 경험을 공유합니다. 
 #### `온라인 칵테일 바`에 개인 냉장고를 곁들인 우리만의 'Bar' `ShakeNMatch`에 들러 주세요.
@@ -9,7 +9,7 @@
 
 ​	<br>
 
-## 팀원 소개
+## 👨‍👦‍👦 팀원 소개
 
 |                            나상원                            |                            박상순                            |                            오재욱                            |
 | :----------------------------------------------------------: | :----------------------------------------------------------: | :----------------------------------------------------------: |
@@ -18,14 +18,14 @@
 
 <br>
 
-## 프로젝트 선정 배경
+## 📜 프로젝트 선정 배경
 
 - 코로나19 팬데믹 이후 개인의 활동 반경은 급격하게 줄고, '사회적 거리두기'를 통해 외출을 자제하는 분위기가 사회 전반에 확대되면서 `혼술(혼자서 술을 마시는)` 문화가 대중화됩니다.
 - 이후에 `홈텐딩(집 + 바텐딩)`에 대한 수요가 높아지면서 `온라인 칵테일 바 ShakeNMatch`를 개발하게 되었습니다.
 
 <br>
 
-## 프로젝트 소개
+## 🍹 프로젝트 소개
 
 - 주제
 
@@ -52,7 +52,7 @@
 
 <BR>
 
-## 기술 스택
+## 💻 기술 스택
 
 - 개발 환경
   - IDE: IntelliJ
@@ -73,18 +73,18 @@
 
 <BR>
 
-## API 설계
+## 🌎 API 설계
 
 - [ShakeNMatch 의 API 명세서](https://www.notion.so/backend-devcourse/API-16d7cecd36174088b5ca4f19c739b6ba)
 
 <BR>
 
-## 프로젝트 패키지
+## 🎁 프로젝트 패키지
 
 ![img](https://lh4.googleusercontent.com/bal0xcRFp7Dn7yglDYfMOIxhe67esOJuTMy-uy-HaLHJrvhXB8j9KEl0bwXuqKQathlHmSw0XooM2XwkB2kmQrJ0SeTOg4Mr40xLiF1JSrm5wuBudBtVMZgAd4YwavNSETZPM5aPBV58)
 
 <BR>
 
-## DB 설계
+## 🗂 DB 설계
 
 ![img](https://lh3.googleusercontent.com/fddyk2SbuqDQQxMCW6jOoFHSNfgmYFI27tWKjXFhJrVOjsRwuEU6cRVc514oRdgKRVP2Zp02B-fZPIQ-kEaj63R-ucHDZLUdJmgvxwiaTnbBmuIbUGCyfRLQgF0HPVkrJYXdkETtiwGl)
