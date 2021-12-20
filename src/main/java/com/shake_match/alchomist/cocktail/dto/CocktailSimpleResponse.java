@@ -1,8 +1,11 @@
 package com.shake_match.alchomist.cocktail.dto;
 
 import com.shake_match.alchomist.cocktail.domain.Cocktail;
+import com.shake_match.alchomist.cocktail.domain.Volume;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -19,6 +22,8 @@ public class CocktailSimpleResponse {
     int likes;
 
     float totalRating;
+
+    List<Volume> ingredients;
 
     public CocktailSimpleResponse(Long id, String name, String recipe, String type, int likes,
                                   float totalRating) {
@@ -37,5 +42,6 @@ public class CocktailSimpleResponse {
         this.type = cocktail.getType();
         this.likes = cocktail.getLikes();
         this.totalRating = cocktail.getTotalRating();
+        this.ingredients = cocktail.getVolumes();
     }
 }

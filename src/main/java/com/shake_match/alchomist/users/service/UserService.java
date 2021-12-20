@@ -120,10 +120,10 @@ public class UserService {
             .stream()
             .map(CocktailSimpleResponse::new)
             .collect(Collectors.toList());
-            List<IngredientResponse> ingredientResponses = ingredientMap.values()
-                .stream()
-                .map(IngredientResponse::new)
-                .collect(Collectors.toList());
+        List<IngredientResponse> ingredientResponses = ingredientMap.values()
+            .stream()
+            .map(IngredientResponse::new)
+            .collect(Collectors.toList());
 
             return new CocktailSimpleListResponse(cocktails, ingredientResponses);
     }
