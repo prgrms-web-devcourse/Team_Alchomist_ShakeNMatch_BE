@@ -15,7 +15,6 @@ import com.shake_match.alchomist.global.NotFoundException;
 import com.shake_match.alchomist.ingredient.Ingredient;
 import com.shake_match.alchomist.ingredient.repository.IngredientRepository;
 import com.shake_match.alchomist.review.repository.ReviewRepository;
-import com.shake_match.alchomist.review.service.ReviewService;
 import com.shake_match.alchomist.theme.domain.Theme;
 import com.shake_match.alchomist.theme.repository.ThemeRepository;
 import com.sun.jdi.request.DuplicateRequestException;
@@ -69,12 +68,14 @@ public class CocktailServiceImpl implements CocktailService {
     @Override
     @Transactional(readOnly = true)
     public List<SearchResponse> searchByName(String name) {
-        Optional<Cocktail> cocktail = repository.findByName(name);
-        if (cocktail.isEmpty()) {
+        List<Cocktail> cocktails = repository.findAllByName(name);
+        if (cocktails.isEmpty()) {
             throw new EntityNotFoundException();
         }
         List<SearchResponse> responses = new ArrayList<>();
-        responses.add(convertor.toSearch(cocktail.get()));
+        for (Cocktail cocktail : cocktails) {
+            responses.add(convertor.toSearch(cocktail));
+        }
         return responses;
     }
 

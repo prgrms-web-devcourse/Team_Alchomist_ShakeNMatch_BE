@@ -11,6 +11,9 @@ import java.util.Optional;
 
 public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
 
+    @Query("SELECT distinct c FROM cocktails c WHERE c.name LIKE %:name%")
+    List<Cocktail> findAllByName(@Param("name") String name);
+
     Optional<Cocktail> findByName(String name);
 
     @Query("SELECT distinct c FROM cocktails c LEFT JOIN FETCH c.themes t WHERE t.mainCategory=:mainCategory AND t.subCategory=:subCategory")
