@@ -31,7 +31,7 @@
 
   - 온라인 칵테일 바에 개인 냉장고를 곁들인 웹 서비스 프로그램 `ShakeNMatch`
 
-- 배포 주소
+- 배포 주소(현재 
 
   - [https://shakenmatch.vercel.app](https://shakenmatch.vercel.app/)
 
